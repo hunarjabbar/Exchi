@@ -7,7 +7,7 @@ import {createHash,randomUUID} from 'node:crypto';
 import {readFileSync} from 'node:fs';
 import {audience,bearer,master,masters,fields,revision,uuid,requireCommand,validateDraft,executionGates,Fault,type Context,type Audience} from '../../../packages/core/index.ts';
 import {loginAudience,phoneNumber,tenantCode,otpCode,newOtp,newToken,tokenDigest,otpDigest,verifyTotp,devOtpAllowed} from '../../../packages/core/auth.ts';
-import {deliverOtp,type Channel} from './auth-delivery.ts';
+import {deliverOtpWithFallback,type Channel} from './auth-delivery.ts';
 const routes=JSON.parse(readFileSync(process.env.ROUTE_REGISTRY_PATH??'../../packages/contracts/routes.json','utf8')) as {role:Audience;path:string;resource:string;readColumns:string[]}[];
 const ident=(s:string)=>'"'+s.replace(/"/g,'""')+'"';
 const table=(s:string)=>s.split('.').map(ident).join('.');
@@ -25,14 +25,15 @@ class Api {
  constructor(private db:Db){}
  @Get('health') health(){return {status:'process_alive',certification:'PENDING',executionGates};}
  @Get('ready') async ready(){return this.db.auth(async db=>{await db.query("SELECT 1 FROM app_private.resolve_login(repeat('0',64),'retailer')");return {status:'database_reachable',certification:'PENDING',executionGates};});}
- @Post('auth/otp/request') @HttpCode(200) async requestOtp(@Headers('x-app-audience') a:string,@Body() body:{phone:unknown;tenant:unknown;channel?:unknown;consent?:unknown}){try{
+ @Post('auth/otp/request') @HttpCode(200) async requestOtp(@Headers('x-app-audience') a:string,@Body() body:{phone:unknown;tenant:unknown;channel?:unknown;consent?:unknown;smsFallbackConsent?:unknown}){try{
  const app=loginAudience(a),phone=phoneNumber(body?.phone),tenant=tenantCode(body?.tenant);if(body?.consent!==true)throw new Fault(400,'CONSENT_REQUIRED');const channel:Channel=body?.channel==='SMS'?'SMS':'WHATSAPP';if(body?.channel!==undefined&&!['SMS','WHATSAPP'].includes(String(body.channel)))throw new Fault(400,'INVALID_CHANNEL');
  const dev=devOtpAllowed(process.env,phone,tenant);if(!dev&&!(process.env.AUTH_MODE==='live'&&process.env.AUTH_LIVE_APPROVED==='YES'))throw new Fault(503,'AUTH_MODE_DISABLED');
  const id=randomUUID(),code=newOtp(),hash=otpDigest(process.env.AUTH_OTP_HMAC_KEY??'',id,phone,tenant,app,code);
  const ok=await this.db.auth(async db=>(await db.query<{ok:boolean}>('SELECT app_private.begin_otp($1,$2,$3,$4,$5,$6) AS ok',[id,phone,tenant,app,hash,dev?'DEV':channel])).rows[0].ok);if(!ok)throw new Fault(429,'OTP_RATE_LIMIT');
  if(dev)return {challengeId:id,expiresIn:300,channel:'DEV',devCode:code};
- try{await deliverOtp(phone,code,channel);}catch(e){await this.db.auth(async db=>{await db.query('SELECT app_private.invalidate_otp($1)',[id]);});throw e;}
- return {challengeId:id,expiresIn:300,channel};
+ let deliveredChannel:Channel;
+ try{deliveredChannel=await deliverOtpWithFallback(phone,code,channel,channel==='WHATSAPP'&&body?.smsFallbackConsent===true&&process.env.AUTH_SMS_FALLBACK_ENABLED==='YES');}catch(e){await this.db.auth(async db=>{await db.query('SELECT app_private.invalidate_otp($1)',[id]);});throw e;}
+ return {challengeId:id,expiresIn:300,channel:deliveredChannel,fallbackUsed:deliveredChannel!==channel};
  }catch(e){return safeError(e);}}
  @Post('auth/otp/verify') @HttpCode(200) async verifyOtp(@Headers('x-app-audience') a:string,@Body() body:{phone:unknown;tenant:unknown;challengeId:unknown;code:unknown;mfaCode?:unknown}){try{
  const app=loginAudience(a),phone=phoneNumber(body?.phone),tenant=tenantCode(body?.tenant),id=uuid(body?.challengeId),code=otpCode(body?.code);
