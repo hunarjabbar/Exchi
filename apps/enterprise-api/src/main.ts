@@ -33,6 +33,15 @@ class Api {
  if(dev)return {challengeId:id,expiresIn:300,channel:'DEV',devCode:code};
  let deliveredChannel:Channel;
  try{deliveredChannel=await deliverOtpWithFallback(phone,code,channel,channel==='WHATSAPP'&&body?.smsFallbackConsent===true&&process.env.AUTH_SMS_FALLBACK_ENABLED==='YES');}catch(e){await this.db.auth(async db=>{await db.query('SELECT app_private.invalidate_otp($1)',[id]);});throw e;}
+ if(deliveredChannel!==channel){
+  try{
+   const recorded=await this.db.auth(async db=>(await db.query<{ok:boolean}>('SELECT app_private.set_otp_delivery_channel($1,$2) AS ok',[id,deliveredChannel])).rows[0].ok);
+   if(!recorded)throw new Fault(503,'OTP_DELIVERY_STATE_CONFLICT');
+  }catch(e){
+   await this.db.auth(async db=>{await db.query('SELECT app_private.invalidate_otp($1)',[id]);});
+   throw e;
+  }
+ }
  return {challengeId:id,expiresIn:300,channel:deliveredChannel,fallbackUsed:deliveredChannel!==channel};
  }catch(e){return safeError(e);}}
  @Post('auth/otp/verify') @HttpCode(200) async verifyOtp(@Headers('x-app-audience') a:string,@Body() body:{phone:unknown;tenant:unknown;challengeId:unknown;code:unknown;mfaCode?:unknown}){try{
