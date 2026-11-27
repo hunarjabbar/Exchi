@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '22.16.0'
+          node-version: '22.x'
       - name: Resolve and verify dependency graph only
         run: |
           npm install --package-lock-only --ignore-scripts --no-audit --no-fund
@@ -23,7 +23,9 @@ jobs:
           git ls-files '*package.json' | sort | xargs sha256sum > manifest-sha256.txt
           sha256sum package-lock.json > lockfile-sha256.txt
       - name: Audit dependency graph
-        run: npm audit --audit-level=high --json > dependency-audit.json
+        run: |
+          npm audit --audit-level=high --json > dependency-audit.json
+          node -e 'const a=require("./dependency-audit.json"); console.log(JSON.stringify(a.metadata.vulnerabilities)); if(a.metadata.vulnerabilities.high || a.metadata.vulnerabilities.critical) process.exit(1)'
       - name: Upload dependency evidence, even on audit failure
         if: always()
         uses: actions/upload-artifact@v4
