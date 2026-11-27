@@ -24,8 +24,12 @@ jobs:
           sha256sum package-lock.json > lockfile-sha256.txt
       - name: Audit dependency graph
         run: |
+          set +e
           npm audit --audit-level=high --json > dependency-audit.json
-          node -e 'const a=require("./dependency-audit.json"); console.log(JSON.stringify(a.metadata.vulnerabilities)); if(a.metadata.vulnerabilities.high || a.metadata.vulnerabilities.critical) process.exit(1)'
+          audit_status=$?
+          set -e
+          node -e 'const a=require("./dependency-audit.json"); console.log(JSON.stringify(a.metadata?.vulnerabilities)); if (!a.metadata?.vulnerabilities) process.exit(1)'
+          exit "$audit_status"
       - name: Upload dependency evidence, even on audit failure
         if: always()
         uses: actions/upload-artifact@v4
