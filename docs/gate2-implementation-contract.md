@@ -12,20 +12,20 @@ Status: implementation branch opened; this document records the verified baselin
 
 ## Verified baseline from Gate 1 source
 
-- The API already has Iraqi `+9647xxxxxxxxx` phone validation, OTP challenge request/verify, WhatsApp template delivery and Twilio SMS delivery adapters.
+- The API already has Iraqi `+9647xxxxxxxxx` phone validation, OTP challenge request/verify, a WhatsApp template adapter and a Twilio SMS adapter. The request currently selects a channel; automatic WhatsApp failure-to-SMS fallback is not yet implemented.
 - OTP issuance is serialized in PostgreSQL and has global, per-phone cooldown and hourly limits. OTP digests use HMAC; session tokens are stored as SHA-256 digests.
 - Staff audiences require RFC 6238 TOTP. TOTP replay is prevented with `identity.principal.last_totp_step`.
 - Login creates and rotates audience-specific sessions; the session resolver checks membership, role assignment, audience permission, tenant and scope.
 - The schema already includes `identity.device`, `identity.session`, `organizations.retailer_profile`, `compliance.kyc_case`, `compliance.document`, `compliance.kyc_decision`, and `audit.event`.
 - Retailer entitlement is fail-closed: exact-tier pricing is withheld unless both the latest KYC case and retailer profile are approved.
 - The existing HTTP API has no complete retailer KYC submission/review endpoints, no complete shop-profile/location onboarding workflow, and no complete device/session management API. Existing OTP login returns a bearer token; refresh-token rotation and device-bound session lifecycle are not yet a complete Gate 2 workflow.
-- The existing event model has before/after JSON columns, but a complete append-only audit writer, tamper-evident chain verification, and end-to-end coverage for every sensitive action have not been certified.
+- Gate 1 migration 002 already installs database-side before/after audit capture triggers on many sensitive tables, an append-only `audit.event` table (UPDATE/DELETE denied), and immutable `compliance.kyc_decision` records. The current event hash is a per-event digest; a verifiable chained hash, explicit integrity verifier, and proof of complete sensitive-action coverage are not yet certified.
 
 ## Implementation sequence
 
 ### 2.1 Authentication and session lifecycle
 
-1. Keep the current WhatsApp-first OTP and SMS fallback adapters; do not return OTP values outside the explicit local-only development fixture.
+1. Keep the current WhatsApp and SMS delivery adapters. Add an explicit provider fallback policy (WhatsApp primary, SMS fallback only on configured provider failure and policy consent); do not return OTP values outside the explicit local-only development fixture.
 2. Add a refresh-token family model with one-time rotation, reuse detection, revocation propagation, absolute and idle expiry, and hashed-at-rest secrets. Access tokens remain short-lived and audience-bound.
 3. Bind sessions to registered device records where supported. Add list/revoke-current/revoke-other-device endpoints; revoke all sessions on credential or account compromise.
 4. Require fresh TOTP/AAL2 for staff-sensitive actions, with server-side replay prevention and step-up age checks. Retailer OTP must not satisfy staff MFA.
@@ -44,8 +44,8 @@ Status: implementation branch opened; this document records the verified baselin
 
 1. Enforce role and permission checks in API/database boundaries, not only navigation or UI. Keep the audience allowlist and tenant/scope RLS as independent controls.
 2. Verify Super Admin, CEO/GM, Finance Controller, Warehouse Manager, Logistics Dispatcher, Regional Sales Manager, Mandoob, Retailer and Supplier role matrices. A role assignment must be tenant-bound, scope-bound, time-bounded where applicable, and audited.
-3. Implement an append-only audit writer for authentication, profile changes, document actions, KYC transitions, role/permission changes, session/device actions and sensitive command-centre operations.
-4. Capture actor, tenant, scope, correlation ID, action, resource ID, before/after JSON and server timestamp. Add a cryptographic hash chain and a verifier; deny application-role UPDATE/DELETE on audit rows.
+3. Extend and verify the existing database audit-capture mechanism so authentication, profile changes, document actions, KYC transitions, role/permission changes, session/device actions and sensitive command-centre operations are covered. Add a verifiable chained hash and verifier; do not duplicate existing triggers.
+4. Preserve actor, tenant, scope, correlation ID, action, resource ID, before/after JSON and server timestamp. Add a cryptographic hash chain and verifier; retain the existing application-role UPDATE/DELETE denial on audit rows.
 5. Do not log OTP values, access/refresh tokens, TOTP secrets, identity-document contents, signed upload URLs or payment secrets.
 
 ## Gate 2 acceptance criteria
@@ -69,4 +69,4 @@ Status: implementation branch opened; this document records the verified baselin
 
 ## Current Gate 2 blockers
 
-The source baseline is not yet a complete Gate 2 implementation. The implementation must add the missing refresh-token family and device lifecycle, full retailer KYC/profile/document workflows, role-matrix acceptance, and tamper-evident append-only audit behavior. This contract alone is not evidence that those capabilities are implemented.
+The source baseline is not yet a complete Gate 2 implementation. The implementation must add the missing refresh-token family and device lifecycle, full retailer KYC/profile/document workflows, role-matrix acceptance, automatic provider fallback, and chained audit integrity verification/coverage evidence. Existing OTP/TOTP controls, immutable KYC decisions and append-only audit event controls must be preserved and extended, not replaced. This contract alone is not evidence that those capabilities are implemented.
