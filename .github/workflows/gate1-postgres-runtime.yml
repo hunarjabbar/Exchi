@@ -1,0 +1,29 @@
+name: Gate 1 disposable PostgreSQL runtime transfer
+on:
+  push:
+    branches: [release/gate-1-postgres-runtime]
+permissions:
+  contents: read
+jobs:
+  export-public-image:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Export only the pristine public PostGIS image
+        run: |
+          set -euo pipefail
+          image='postgis/postgis@sha256:44126d872ac91993766c341e369c539e8196614321765d36a6f1bab0419a5fa5'
+          docker pull --platform linux/amd64 "$image"
+          cid=$(docker create --platform linux/amd64 "$image")
+          trap 'docker rm -v "$cid" >/dev/null' EXIT
+          mkdir -p transfer
+          docker export "$cid" | gzip -1 > transfer/postgis-rootfs.tar.gz
+          printf '%s\n' "$image" > transfer/image-reference.txt
+          (cd transfer && sha256sum postgis-rootfs.tar.gz > sha256.txt)
+          ls -lh transfer
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gate1-postgis-runtime
+          path: transfer
+          retention-days: 2
+          if-no-files-found: error
