@@ -10,6 +10,30 @@ test('tokens are 256-bit random opaque strings, digest only',()=>{const a=newTok
 test('RFC 6238 SHA1 test vector reduced to six digits',()=>{assert.equal(totpAt(secret,1),'287082');assert.equal(verifyTotp(secret,'287082',59000),1);assert.equal(verifyTotp(secret,'287082',300000),null);assert.equal(verifyTotp(undefined,'287082',59000),null);});
 test('development code exposure restricted to synthetic tenant, number and non-production',()=>{const e={AUTH_MODE:'dev',ALLOW_LOCAL_DEV_OTP:'YES',NODE_ENV:'development'};assert.equal(devOtpAllowed(e,phone,'wholesale-local'),true);assert.equal(devOtpAllowed({...e,NODE_ENV:'production'},phone,'wholesale-local'),false);assert.equal(devOtpAllowed(e,phone,'other'),false);assert.equal(devOtpAllowed(e,'+9647700000001','wholesale-local'),false);assert.equal(devOtpAllowed({...e,ALLOW_LOCAL_DEV_OTP:'NO'},phone,'wholesale-local'),false);});
 test('public audience and invalid tenant rejected',()=>{assert.throws(()=>loginAudience('public'));assert.equal(loginAudience('command'),'command');assert.throws(()=>tenantCode('bad tenant'));});
-import {deliverOtp} from '../apps/enterprise-api/src/auth-delivery.ts';
+import {deliverOtp,deliverOtpWithFallback} from '../apps/enterprise-api/src/auth-delivery.ts';
 test('WhatsApp adapter emits approved authentication template body and button, without real network',async()=>{const saved={...process.env};const real=globalThis.fetch;try{Object.assign(process.env,{META_GRAPH_VERSION:'v99.0',META_PHONE_NUMBER_ID:'123',META_ACCESS_TOKEN:'synthetic',META_AUTH_TEMPLATE:'synthetic_otp',META_AUTH_LANGUAGE:'en'});globalThis.fetch=async(input,init)=>{assert.equal(String(input),'https://graph.facebook.com/v99.0/123/messages');const x=JSON.parse(String(init?.body));assert.equal(x.to,phone.slice(1));assert.equal(x.template.components[0].parameters[0].text,'012345');assert.equal(x.template.components[1].parameters[0].text,'012345');return Response.json({messages:[{id:'synthetic'}]});};await deliverOtp(phone,'012345','WHATSAPP');}finally{globalThis.fetch=real;for(const k of Object.keys(process.env))if(!(k in saved))delete process.env[k];Object.assign(process.env,saved);}});
 test('SMS adapter emits Twilio form and fails closed on provider rejection, without real network',async()=>{const saved={...process.env};const real=globalThis.fetch;try{Object.assign(process.env,{TWILIO_ACCOUNT_SID:'AC'+'a'.repeat(32),TWILIO_AUTH_TOKEN:'synthetic',TWILIO_FROM:'+15000000000'});globalThis.fetch=async(input,init)=>{assert.match(String(input),/^https:\/\/api\.twilio\.com\//);const x=init?.body as URLSearchParams;assert.equal(x.get('To'),phone);assert.match(x.get('Body')??'',/012345/);return Response.json({sid:'synthetic'});};await deliverOtp(phone,'012345','SMS');globalThis.fetch=async()=>new Response('',{status:429});await assert.rejects(deliverOtp(phone,'012345','SMS'));}finally{globalThis.fetch=real;for(const k of Object.keys(process.env))if(!(k in saved))delete process.env[k];Object.assign(process.env,saved);}});
+
+test('WhatsApp provider failure falls back to SMS only when the caller explicitly permits it',async()=>{
+ const saved={...process.env},real=globalThis.fetch;let calls=0;
+ try{
+  Object.assign(process.env,{META_GRAPH_VERSION:'v99.0',META_PHONE_NUMBER_ID:'123',META_ACCESS_TOKEN:'synthetic',META_AUTH_TEMPLATE:'synthetic_otp',META_AUTH_LANGUAGE:'en',TWILIO_ACCOUNT_SID:'AC'+'a'.repeat(32),TWILIO_AUTH_TOKEN:'synthetic',TWILIO_FROM:'+15000000000'});
+  globalThis.fetch=async(input,init)=>{
+   calls++;
+   if(String(input).includes('graph.facebook.com'))return new Response('',{status:503});
+   assert.match(String(input),/^https:\/\/api\.twilio\.com\//);
+   assert.equal((init?.body as URLSearchParams).get('To'),phone);
+   return Response.json({sid:'synthetic-fallback'});
+  };
+  assert.equal(await deliverOtpWithFallback(phone,'012345','WHATSAPP',true),'SMS');
+  assert.equal(calls,2);
+  calls=0;
+  globalThis.fetch=async()=>{calls++;return new Response('',{status:503});};
+  await assert.rejects(deliverOtpWithFallback(phone,'012345','WHATSAPP',false));
+  assert.equal(calls,1);
+ }finally{
+  globalThis.fetch=real;
+  for(const k of Object.keys(process.env))if(!(k in saved))delete process.env[k];
+  Object.assign(process.env,saved);
+ }
+});
