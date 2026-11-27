@@ -1,0 +1,28 @@
+name: Phase 3 database acceptance
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  database:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgis/postgis:16-3.4
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: local_test_only
+          POSTGRES_DB: wholesale_test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres -d wholesale_test"
+          --health-interval 3s --health-timeout 3s --health-retries 20
+    env:
+      DATABASE_URL: postgresql://postgres:local_test_only@localhost:5432/wholesale_test?schema=public
+      ALLOW_DISPOSABLE_DB_TEST: YES
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - run: sudo apt-get update && sudo apt-get install -y postgresql-client
+      - run: npm run test:static
+      - run: npm run test:db

@@ -1,0 +1,2100 @@
+{
+  "source": "e5f373c actual PostgreSQL catalog review; SQL objects preserved",
+  "indexes": [
+    {
+      "name": "ix_account_ledger_id",
+      "ready": true,
+      "valid": true,
+      "schema": "accounting",
+      "definition": "CREATE INDEX ix_account_ledger_id ON accounting.account USING btree (tenant_id, ledger_id)"
+    },
+    {
+      "name": "ix_account_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "accounting",
+      "definition": "CREATE INDEX ix_account_scope ON accounting.account USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_journal_checker_id",
+      "ready": true,
+      "valid": true,
+      "schema": "accounting",
+      "definition": "CREATE INDEX ix_journal_checker_id ON accounting.journal USING btree (tenant_id, checker_id)"
+    },
+    {
+      "name": "ix_journal_ledger_id",
+      "ready": true,
+      "valid": true,
+      "schema": "accounting",
+      "definition": "CREATE INDEX ix_journal_ledger_id ON accounting.journal USING btree (tenant_id, ledger_id)"
+    },
+    {
+      "name": "ix_journal_maker_id",
+      "ready": true,
+      "valid": true,
+      "schema": "accounting",
+      "definition": "CREATE INDEX ix_journal_maker_id ON accounting.journal USING btree (tenant_id, maker_id)"
+    },
+    {
+      "name": "ix_journal_period_id",
+      "ready": true,
+      "valid": true,
+      "schema": "accounting",
+      "definition": "CREATE INDEX ix_journal_period_id ON accounting.journal USING btree (tenant_id, period_id)"
+    },
+    {
+      "name": "ix_journal_reversed_journal_id",
+      "ready": true,
+      "valid": true,
+      "schema": "accounting",
+      "definition": "CREATE INDEX ix_journal_reversed_journal_id ON accounting.journal USING btree (tenant_id, reversed_journal_id)"
+    },
+    {
+      "name": "ix_journal_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "accounting",
+      "definition": "CREATE INDEX ix_journal_scope ON accounting.journal USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_journal_line_account_id",
+      "ready": true,
+      "valid": true,
+      "schema": "accounting",
+      "definition": "CREATE INDEX ix_journal_line_account_id ON accounting.journal_line USING btree (tenant_id, account_id)"
+    },
+    {
+      "name": "ix_journal_line_journal_id",
+      "ready": true,
+      "valid": true,
+      "schema": "accounting",
+      "definition": "CREATE INDEX ix_journal_line_journal_id ON accounting.journal_line USING btree (tenant_id, journal_id)"
+    },
+    {
+      "name": "ix_journal_line_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "accounting",
+      "definition": "CREATE INDEX ix_journal_line_scope ON accounting.journal_line USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_ledger_legal_entity_id",
+      "ready": true,
+      "valid": true,
+      "schema": "accounting",
+      "definition": "CREATE INDEX ix_ledger_legal_entity_id ON accounting.ledger USING btree (tenant_id, legal_entity_id)"
+    },
+    {
+      "name": "ix_ledger_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "accounting",
+      "definition": "CREATE INDEX ix_ledger_scope ON accounting.ledger USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_period_ledger_id",
+      "ready": true,
+      "valid": true,
+      "schema": "accounting",
+      "definition": "CREATE INDEX ix_period_ledger_id ON accounting.period USING btree (tenant_id, ledger_id)"
+    },
+    {
+      "name": "ix_period_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "accounting",
+      "definition": "CREATE INDEX ix_period_scope ON accounting.period USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_metric_snapshot_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "analytics",
+      "definition": "CREATE INDEX ix_metric_snapshot_scope ON analytics.metric_snapshot USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_event_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "audit",
+      "definition": "CREATE INDEX ix_event_scope ON audit.event USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_assignment_assigned_scope_id",
+      "ready": true,
+      "valid": true,
+      "schema": "authorization",
+      "definition": "CREATE INDEX ix_assignment_assigned_scope_id ON \"authorization\".assignment USING btree (tenant_id, assigned_scope_id)"
+    },
+    {
+      "name": "ix_assignment_membership_id",
+      "ready": true,
+      "valid": true,
+      "schema": "authorization",
+      "definition": "CREATE INDEX ix_assignment_membership_id ON \"authorization\".assignment USING btree (tenant_id, membership_id)"
+    },
+    {
+      "name": "ix_assignment_role_id",
+      "ready": true,
+      "valid": true,
+      "schema": "authorization",
+      "definition": "CREATE INDEX ix_assignment_role_id ON \"authorization\".assignment USING btree (tenant_id, role_id)"
+    },
+    {
+      "name": "ix_assignment_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "authorization",
+      "definition": "CREATE INDEX ix_assignment_scope ON \"authorization\".assignment USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_role_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "authorization",
+      "definition": "CREATE INDEX ix_role_scope ON \"authorization\".role USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_role_permission_role_id",
+      "ready": true,
+      "valid": true,
+      "schema": "authorization",
+      "definition": "CREATE INDEX ix_role_permission_role_id ON \"authorization\".role_permission USING btree (tenant_id, role_id)"
+    },
+    {
+      "name": "ix_role_permission_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "authorization",
+      "definition": "CREATE INDEX ix_role_permission_scope ON \"authorization\".role_permission USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_brand_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "catalog",
+      "definition": "CREATE INDEX ix_brand_scope ON catalog.brand USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_category_parent_id",
+      "ready": true,
+      "valid": true,
+      "schema": "catalog",
+      "definition": "CREATE INDEX ix_category_parent_id ON catalog.category USING btree (tenant_id, parent_id)"
+    },
+    {
+      "name": "ix_category_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "catalog",
+      "definition": "CREATE INDEX ix_category_scope ON catalog.category USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_product_brand_id",
+      "ready": true,
+      "valid": true,
+      "schema": "catalog",
+      "definition": "CREATE INDEX ix_product_brand_id ON catalog.product USING btree (tenant_id, brand_id)"
+    },
+    {
+      "name": "ix_product_category_id",
+      "ready": true,
+      "valid": true,
+      "schema": "catalog",
+      "definition": "CREATE INDEX ix_product_category_id ON catalog.product USING btree (tenant_id, category_id)"
+    },
+    {
+      "name": "ix_product_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "catalog",
+      "definition": "CREATE INDEX ix_product_scope ON catalog.product USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_product_search",
+      "ready": true,
+      "valid": true,
+      "schema": "catalog",
+      "definition": "CREATE INDEX ix_product_search ON catalog.product USING gin (search_text gin_trgm_ops)"
+    },
+    {
+      "name": "ix_alias_search",
+      "ready": true,
+      "valid": true,
+      "schema": "catalog",
+      "definition": "CREATE INDEX ix_alias_search ON catalog.product_alias USING gin (normalized gin_trgm_ops)"
+    },
+    {
+      "name": "ix_product_alias_product_id",
+      "ready": true,
+      "valid": true,
+      "schema": "catalog",
+      "definition": "CREATE INDEX ix_product_alias_product_id ON catalog.product_alias USING btree (tenant_id, product_id)"
+    },
+    {
+      "name": "ix_product_alias_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "catalog",
+      "definition": "CREATE INDEX ix_product_alias_scope ON catalog.product_alias USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_product_license_party_id",
+      "ready": true,
+      "valid": true,
+      "schema": "catalog",
+      "definition": "CREATE INDEX ix_product_license_party_id ON catalog.product_license USING btree (tenant_id, party_id)"
+    },
+    {
+      "name": "ix_product_license_product_id",
+      "ready": true,
+      "valid": true,
+      "schema": "catalog",
+      "definition": "CREATE INDEX ix_product_license_product_id ON catalog.product_license USING btree (tenant_id, product_id)"
+    },
+    {
+      "name": "ix_product_license_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "catalog",
+      "definition": "CREATE INDEX ix_product_license_scope ON catalog.product_license USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_uom_parent_id",
+      "ready": true,
+      "valid": true,
+      "schema": "catalog",
+      "definition": "CREATE INDEX ix_uom_parent_id ON catalog.uom USING btree (tenant_id, parent_id)"
+    },
+    {
+      "name": "ix_uom_product_id",
+      "ready": true,
+      "valid": true,
+      "schema": "catalog",
+      "definition": "CREATE INDEX ix_uom_product_id ON catalog.uom USING btree (tenant_id, product_id)"
+    },
+    {
+      "name": "ix_uom_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "catalog",
+      "definition": "CREATE INDEX ix_uom_scope ON catalog.uom USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "uom_tenant_id_product_id_id_key",
+      "ready": true,
+      "valid": true,
+      "schema": "catalog",
+      "definition": "CREATE UNIQUE INDEX uom_tenant_id_product_id_id_key ON catalog.uom USING btree (tenant_id, product_id, id)"
+    },
+    {
+      "name": "ix_cart_buyer_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_cart_buyer_id ON commerce.cart USING btree (tenant_id, buyer_id)"
+    },
+    {
+      "name": "ix_cart_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_cart_scope ON commerce.cart USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_cart_line_cart_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_cart_line_cart_id ON commerce.cart_line USING btree (tenant_id, cart_id)"
+    },
+    {
+      "name": "ix_cart_line_offer_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_cart_line_offer_id ON commerce.cart_line USING btree (tenant_id, offer_id)"
+    },
+    {
+      "name": "ix_cart_line_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_cart_line_scope ON commerce.cart_line USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_credit_note_invoice_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_credit_note_invoice_id ON commerce.credit_note USING btree (tenant_id, invoice_id)"
+    },
+    {
+      "name": "ix_credit_note_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_credit_note_scope ON commerce.credit_note USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_invoice_buyer_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_invoice_buyer_id ON commerce.invoice USING btree (tenant_id, buyer_id)"
+    },
+    {
+      "name": "ix_invoice_fx_rate_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_invoice_fx_rate_id ON commerce.invoice USING btree (tenant_id, fx_rate_id)"
+    },
+    {
+      "name": "ix_invoice_order_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_invoice_order_id ON commerce.invoice USING btree (tenant_id, order_id)"
+    },
+    {
+      "name": "ix_invoice_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_invoice_scope ON commerce.invoice USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_invoice_seller_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_invoice_seller_id ON commerce.invoice USING btree (tenant_id, seller_id)"
+    },
+    {
+      "name": "ix_invoice_line_invoice_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_invoice_line_invoice_id ON commerce.invoice_line USING btree (tenant_id, invoice_id)"
+    },
+    {
+      "name": "ix_invoice_line_order_line_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_invoice_line_order_line_id ON commerce.invoice_line USING btree (tenant_id, order_line_id)"
+    },
+    {
+      "name": "ix_invoice_line_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_invoice_line_scope ON commerce.invoice_line USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_order_amendment_order_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_order_amendment_order_id ON commerce.order_amendment USING btree (tenant_id, order_id)"
+    },
+    {
+      "name": "ix_order_amendment_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_order_amendment_scope ON commerce.order_amendment USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_order_line_order_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_order_line_order_id ON commerce.order_line USING btree (tenant_id, order_id)"
+    },
+    {
+      "name": "ix_order_line_product_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_order_line_product_id ON commerce.order_line USING btree (tenant_id, product_id)"
+    },
+    {
+      "name": "ix_order_line_quote_line_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_order_line_quote_line_id ON commerce.order_line USING btree (tenant_id, quote_line_id)"
+    },
+    {
+      "name": "ix_order_line_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_order_line_scope ON commerce.order_line USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_order_line_uom_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_order_line_uom_id ON commerce.order_line USING btree (tenant_id, uom_id)"
+    },
+    {
+      "name": "ix_purchase_group_buyer_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_purchase_group_buyer_id ON commerce.purchase_group USING btree (tenant_id, buyer_id)"
+    },
+    {
+      "name": "ix_purchase_group_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_purchase_group_scope ON commerce.purchase_group USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_quote_buyer_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_quote_buyer_id ON commerce.quote USING btree (tenant_id, buyer_id)"
+    },
+    {
+      "name": "ix_quote_fx_rate_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_quote_fx_rate_id ON commerce.quote USING btree (tenant_id, fx_rate_id)"
+    },
+    {
+      "name": "ix_quote_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_quote_scope ON commerce.quote USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_quote_seller_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_quote_seller_id ON commerce.quote USING btree (tenant_id, seller_id)"
+    },
+    {
+      "name": "quote_tenant_id_buyer_id_seller_id_id_key",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE UNIQUE INDEX quote_tenant_id_buyer_id_seller_id_id_key ON commerce.quote USING btree (tenant_id, buyer_id, seller_id, id)"
+    },
+    {
+      "name": "ix_quote_line_offer_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_quote_line_offer_id ON commerce.quote_line USING btree (tenant_id, offer_id)"
+    },
+    {
+      "name": "ix_quote_line_quote_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_quote_line_quote_id ON commerce.quote_line USING btree (tenant_id, quote_id)"
+    },
+    {
+      "name": "ix_quote_line_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_quote_line_scope ON commerce.quote_line USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_quote_line_uom_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_quote_line_uom_id ON commerce.quote_line USING btree (tenant_id, uom_id)"
+    },
+    {
+      "name": "ix_rfq_buyer_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_rfq_buyer_id ON commerce.rfq USING btree (tenant_id, buyer_id)"
+    },
+    {
+      "name": "ix_rfq_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_rfq_scope ON commerce.rfq USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_rfq_seller_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_rfq_seller_id ON commerce.rfq USING btree (tenant_id, seller_id)"
+    },
+    {
+      "name": "ix_rfq_offer_quote_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_rfq_offer_quote_id ON commerce.rfq_offer USING btree (tenant_id, quote_id)"
+    },
+    {
+      "name": "ix_rfq_offer_rfq_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_rfq_offer_rfq_id ON commerce.rfq_offer USING btree (tenant_id, rfq_id)"
+    },
+    {
+      "name": "ix_rfq_offer_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_rfq_offer_scope ON commerce.rfq_offer USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_sales_order_buyer_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_sales_order_buyer_id ON commerce.sales_order USING btree (tenant_id, buyer_id)"
+    },
+    {
+      "name": "ix_sales_order_group_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_sales_order_group_id ON commerce.sales_order USING btree (tenant_id, group_id)"
+    },
+    {
+      "name": "ix_sales_order_quote_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_sales_order_quote_id ON commerce.sales_order USING btree (tenant_id, quote_id)"
+    },
+    {
+      "name": "ix_sales_order_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_sales_order_scope ON commerce.sales_order USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_sales_order_seller_id",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE INDEX ix_sales_order_seller_id ON commerce.sales_order USING btree (tenant_id, seller_id)"
+    },
+    {
+      "name": "sales_order_tenant_id_buyer_id_seller_id_id_key",
+      "ready": true,
+      "valid": true,
+      "schema": "commerce",
+      "definition": "CREATE UNIQUE INDEX sales_order_tenant_id_buyer_id_seller_id_id_key ON commerce.sales_order USING btree (tenant_id, buyer_id, seller_id, id)"
+    },
+    {
+      "name": "ix_approval_checker_id",
+      "ready": true,
+      "valid": true,
+      "schema": "compliance",
+      "definition": "CREATE INDEX ix_approval_checker_id ON compliance.approval USING btree (tenant_id, checker_id)"
+    },
+    {
+      "name": "ix_approval_maker_id",
+      "ready": true,
+      "valid": true,
+      "schema": "compliance",
+      "definition": "CREATE INDEX ix_approval_maker_id ON compliance.approval USING btree (tenant_id, maker_id)"
+    },
+    {
+      "name": "ix_approval_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "compliance",
+      "definition": "CREATE INDEX ix_approval_scope ON compliance.approval USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_document_kyc_case_id",
+      "ready": true,
+      "valid": true,
+      "schema": "compliance",
+      "definition": "CREATE INDEX ix_document_kyc_case_id ON compliance.document USING btree (tenant_id, kyc_case_id)"
+    },
+    {
+      "name": "ix_document_party_id",
+      "ready": true,
+      "valid": true,
+      "schema": "compliance",
+      "definition": "CREATE INDEX ix_document_party_id ON compliance.document USING btree (tenant_id, party_id)"
+    },
+    {
+      "name": "ix_document_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "compliance",
+      "definition": "CREATE INDEX ix_document_scope ON compliance.document USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_kyc_case_decided_by",
+      "ready": true,
+      "valid": true,
+      "schema": "compliance",
+      "definition": "CREATE INDEX ix_kyc_case_decided_by ON compliance.kyc_case USING btree (tenant_id, decided_by)"
+    },
+    {
+      "name": "ix_kyc_case_party_id",
+      "ready": true,
+      "valid": true,
+      "schema": "compliance",
+      "definition": "CREATE INDEX ix_kyc_case_party_id ON compliance.kyc_case USING btree (tenant_id, party_id)"
+    },
+    {
+      "name": "ix_kyc_case_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "compliance",
+      "definition": "CREATE INDEX ix_kyc_case_scope ON compliance.kyc_case USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_kyc_decision_case_id",
+      "ready": true,
+      "valid": true,
+      "schema": "compliance",
+      "definition": "CREATE INDEX ix_kyc_decision_case_id ON compliance.kyc_decision USING btree (tenant_id, case_id)"
+    },
+    {
+      "name": "ix_kyc_decision_reviewer_id",
+      "ready": true,
+      "valid": true,
+      "schema": "compliance",
+      "definition": "CREATE INDEX ix_kyc_decision_reviewer_id ON compliance.kyc_decision USING btree (tenant_id, reviewer_id)"
+    },
+    {
+      "name": "ix_kyc_decision_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "compliance",
+      "definition": "CREATE INDEX ix_kyc_decision_scope ON compliance.kyc_decision USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_policy_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "compliance",
+      "definition": "CREATE INDEX ix_policy_scope ON compliance.policy USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_risk_case_party_id",
+      "ready": true,
+      "valid": true,
+      "schema": "compliance",
+      "definition": "CREATE INDEX ix_risk_case_party_id ON compliance.risk_case USING btree (tenant_id, party_id)"
+    },
+    {
+      "name": "ix_risk_case_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "compliance",
+      "definition": "CREATE INDEX ix_risk_case_scope ON compliance.risk_case USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_commitment_facility_id",
+      "ready": true,
+      "valid": true,
+      "schema": "credit",
+      "definition": "CREATE INDEX ix_commitment_facility_id ON credit.commitment USING btree (tenant_id, facility_id)"
+    },
+    {
+      "name": "ix_commitment_order_id",
+      "ready": true,
+      "valid": true,
+      "schema": "credit",
+      "definition": "CREATE INDEX ix_commitment_order_id ON credit.commitment USING btree (tenant_id, order_id)"
+    },
+    {
+      "name": "ix_commitment_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "credit",
+      "definition": "CREATE INDEX ix_commitment_scope ON credit.commitment USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_facility_buyer_id",
+      "ready": true,
+      "valid": true,
+      "schema": "credit",
+      "definition": "CREATE INDEX ix_facility_buyer_id ON credit.facility USING btree (tenant_id, buyer_id)"
+    },
+    {
+      "name": "ix_facility_creditor_id",
+      "ready": true,
+      "valid": true,
+      "schema": "credit",
+      "definition": "CREATE INDEX ix_facility_creditor_id ON credit.facility USING btree (tenant_id, creditor_id)"
+    },
+    {
+      "name": "ix_facility_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "credit",
+      "definition": "CREATE INDEX ix_facility_scope ON credit.facility USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_installment_plan_receivable_id",
+      "ready": true,
+      "valid": true,
+      "schema": "credit",
+      "definition": "CREATE INDEX ix_installment_plan_receivable_id ON credit.installment_plan USING btree (tenant_id, receivable_id)"
+    },
+    {
+      "name": "ix_installment_plan_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "credit",
+      "definition": "CREATE INDEX ix_installment_plan_scope ON credit.installment_plan USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_receivable_facility_id",
+      "ready": true,
+      "valid": true,
+      "schema": "credit",
+      "definition": "CREATE INDEX ix_receivable_facility_id ON credit.receivable USING btree (tenant_id, facility_id)"
+    },
+    {
+      "name": "ix_receivable_invoice_id",
+      "ready": true,
+      "valid": true,
+      "schema": "credit",
+      "definition": "CREATE INDEX ix_receivable_invoice_id ON credit.receivable USING btree (tenant_id, invoice_id)"
+    },
+    {
+      "name": "ix_receivable_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "credit",
+      "definition": "CREATE INDEX ix_receivable_scope ON credit.receivable USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_delivery_proof_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "fulfillment",
+      "definition": "CREATE INDEX ix_delivery_proof_scope ON fulfillment.delivery_proof USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_delivery_proof_shipment_id",
+      "ready": true,
+      "valid": true,
+      "schema": "fulfillment",
+      "definition": "CREATE INDEX ix_delivery_proof_shipment_id ON fulfillment.delivery_proof USING btree (tenant_id, shipment_id)"
+    },
+    {
+      "name": "ix_pick_task_assignee_id",
+      "ready": true,
+      "valid": true,
+      "schema": "fulfillment",
+      "definition": "CREATE INDEX ix_pick_task_assignee_id ON fulfillment.pick_task USING btree (tenant_id, assignee_id)"
+    },
+    {
+      "name": "ix_pick_task_reservation_id",
+      "ready": true,
+      "valid": true,
+      "schema": "fulfillment",
+      "definition": "CREATE INDEX ix_pick_task_reservation_id ON fulfillment.pick_task USING btree (tenant_id, reservation_id)"
+    },
+    {
+      "name": "ix_pick_task_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "fulfillment",
+      "definition": "CREATE INDEX ix_pick_task_scope ON fulfillment.pick_task USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_pick_task_shipment_id",
+      "ready": true,
+      "valid": true,
+      "schema": "fulfillment",
+      "definition": "CREATE INDEX ix_pick_task_shipment_id ON fulfillment.pick_task USING btree (tenant_id, shipment_id)"
+    },
+    {
+      "name": "ix_shipment_address_id",
+      "ready": true,
+      "valid": true,
+      "schema": "fulfillment",
+      "definition": "CREATE INDEX ix_shipment_address_id ON fulfillment.shipment USING btree (tenant_id, address_id)"
+    },
+    {
+      "name": "ix_shipment_courier_id",
+      "ready": true,
+      "valid": true,
+      "schema": "fulfillment",
+      "definition": "CREATE INDEX ix_shipment_courier_id ON fulfillment.shipment USING btree (tenant_id, courier_id)"
+    },
+    {
+      "name": "ix_shipment_driver_id",
+      "ready": true,
+      "valid": true,
+      "schema": "fulfillment",
+      "definition": "CREATE INDEX ix_shipment_driver_id ON fulfillment.shipment USING btree (tenant_id, driver_id)"
+    },
+    {
+      "name": "ix_shipment_order_id",
+      "ready": true,
+      "valid": true,
+      "schema": "fulfillment",
+      "definition": "CREATE INDEX ix_shipment_order_id ON fulfillment.shipment USING btree (tenant_id, order_id)"
+    },
+    {
+      "name": "ix_shipment_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "fulfillment",
+      "definition": "CREATE INDEX ix_shipment_scope ON fulfillment.shipment USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_shipment_warehouse_id",
+      "ready": true,
+      "valid": true,
+      "schema": "fulfillment",
+      "definition": "CREATE INDEX ix_shipment_warehouse_id ON fulfillment.shipment USING btree (tenant_id, warehouse_id)"
+    },
+    {
+      "name": "ix_shipment_line_lot_id",
+      "ready": true,
+      "valid": true,
+      "schema": "fulfillment",
+      "definition": "CREATE INDEX ix_shipment_line_lot_id ON fulfillment.shipment_line USING btree (tenant_id, lot_id)"
+    },
+    {
+      "name": "ix_shipment_line_order_line_id",
+      "ready": true,
+      "valid": true,
+      "schema": "fulfillment",
+      "definition": "CREATE INDEX ix_shipment_line_order_line_id ON fulfillment.shipment_line USING btree (tenant_id, order_line_id)"
+    },
+    {
+      "name": "ix_shipment_line_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "fulfillment",
+      "definition": "CREATE INDEX ix_shipment_line_scope ON fulfillment.shipment_line USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_shipment_line_shipment_id",
+      "ready": true,
+      "valid": true,
+      "schema": "fulfillment",
+      "definition": "CREATE INDEX ix_shipment_line_shipment_id ON fulfillment.shipment_line USING btree (tenant_id, shipment_id)"
+    },
+    {
+      "name": "ix_device_membership_id",
+      "ready": true,
+      "valid": true,
+      "schema": "identity",
+      "definition": "CREATE INDEX ix_device_membership_id ON identity.device USING btree (tenant_id, membership_id)"
+    },
+    {
+      "name": "ix_device_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "identity",
+      "definition": "CREATE INDEX ix_device_scope ON identity.device USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_session_device_id",
+      "ready": true,
+      "valid": true,
+      "schema": "identity",
+      "definition": "CREATE INDEX ix_session_device_id ON identity.session USING btree (tenant_id, device_id)"
+    },
+    {
+      "name": "ix_session_membership_id",
+      "ready": true,
+      "valid": true,
+      "schema": "identity",
+      "definition": "CREATE INDEX ix_session_membership_id ON identity.session USING btree (tenant_id, membership_id)"
+    },
+    {
+      "name": "ix_session_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "identity",
+      "definition": "CREATE INDEX ix_session_scope ON identity.session USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_bulk_job_requested_by",
+      "ready": true,
+      "valid": true,
+      "schema": "integrations",
+      "definition": "CREATE INDEX ix_bulk_job_requested_by ON integrations.bulk_job USING btree (tenant_id, requested_by)"
+    },
+    {
+      "name": "ix_bulk_job_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "integrations",
+      "definition": "CREATE INDEX ix_bulk_job_scope ON integrations.bulk_job USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_consumer_receipt_event_id",
+      "ready": true,
+      "valid": true,
+      "schema": "integrations",
+      "definition": "CREATE INDEX ix_consumer_receipt_event_id ON integrations.consumer_receipt USING btree (tenant_id, event_id)"
+    },
+    {
+      "name": "ix_consumer_receipt_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "integrations",
+      "definition": "CREATE INDEX ix_consumer_receipt_scope ON integrations.consumer_receipt USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_idempotency_membership_id",
+      "ready": true,
+      "valid": true,
+      "schema": "integrations",
+      "definition": "CREATE INDEX ix_idempotency_membership_id ON integrations.idempotency USING btree (tenant_id, membership_id)"
+    },
+    {
+      "name": "ix_idempotency_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "integrations",
+      "definition": "CREATE INDEX ix_idempotency_scope ON integrations.idempotency USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_outbox_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "integrations",
+      "definition": "CREATE INDEX ix_outbox_scope ON integrations.outbox USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_sync_operation_device_id",
+      "ready": true,
+      "valid": true,
+      "schema": "integrations",
+      "definition": "CREATE INDEX ix_sync_operation_device_id ON integrations.sync_operation USING btree (tenant_id, device_id)"
+    },
+    {
+      "name": "ix_sync_operation_membership_id",
+      "ready": true,
+      "valid": true,
+      "schema": "integrations",
+      "definition": "CREATE INDEX ix_sync_operation_membership_id ON integrations.sync_operation USING btree (tenant_id, membership_id)"
+    },
+    {
+      "name": "ix_sync_operation_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "integrations",
+      "definition": "CREATE INDEX ix_sync_operation_scope ON integrations.sync_operation USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "bin_tenant_id_warehouse_id_id_key",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE UNIQUE INDEX bin_tenant_id_warehouse_id_id_key ON inventory.bin USING btree (tenant_id, warehouse_id, id)"
+    },
+    {
+      "name": "ix_bin_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_bin_scope ON inventory.bin USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_bin_warehouse_id",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_bin_warehouse_id ON inventory.bin USING btree (tenant_id, warehouse_id)"
+    },
+    {
+      "name": "ix_lot_owner_id",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_lot_owner_id ON inventory.lot USING btree (tenant_id, owner_id)"
+    },
+    {
+      "name": "ix_lot_product_id",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_lot_product_id ON inventory.lot USING btree (tenant_id, product_id)"
+    },
+    {
+      "name": "ix_lot_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_lot_scope ON inventory.lot USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_reservation_balance_id",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_reservation_balance_id ON inventory.reservation USING btree (tenant_id, balance_id)"
+    },
+    {
+      "name": "ix_reservation_order_line_id",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_reservation_order_line_id ON inventory.reservation USING btree (tenant_id, order_line_id)"
+    },
+    {
+      "name": "ix_reservation_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_reservation_scope ON inventory.reservation USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_stock_balance_bin_id",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_stock_balance_bin_id ON inventory.stock_balance USING btree (tenant_id, bin_id)"
+    },
+    {
+      "name": "ix_stock_balance_lot_id",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_stock_balance_lot_id ON inventory.stock_balance USING btree (tenant_id, lot_id)"
+    },
+    {
+      "name": "ix_stock_balance_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_stock_balance_scope ON inventory.stock_balance USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_stock_balance_warehouse_id",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_stock_balance_warehouse_id ON inventory.stock_balance USING btree (tenant_id, warehouse_id)"
+    },
+    {
+      "name": "ix_stock_movement_balance_id",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_stock_movement_balance_id ON inventory.stock_movement USING btree (tenant_id, balance_id)"
+    },
+    {
+      "name": "ix_stock_movement_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_stock_movement_scope ON inventory.stock_movement USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_stock_transfer_from_warehouse_id",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_stock_transfer_from_warehouse_id ON inventory.stock_transfer USING btree (tenant_id, from_warehouse_id)"
+    },
+    {
+      "name": "ix_stock_transfer_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_stock_transfer_scope ON inventory.stock_transfer USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_stock_transfer_to_warehouse_id",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_stock_transfer_to_warehouse_id ON inventory.stock_transfer USING btree (tenant_id, to_warehouse_id)"
+    },
+    {
+      "name": "ix_stocktake_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_stocktake_scope ON inventory.stocktake USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_stocktake_warehouse_id",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_stocktake_warehouse_id ON inventory.stocktake USING btree (tenant_id, warehouse_id)"
+    },
+    {
+      "name": "ix_stocktake_line_balance_id",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_stocktake_line_balance_id ON inventory.stocktake_line USING btree (tenant_id, balance_id)"
+    },
+    {
+      "name": "ix_stocktake_line_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_stocktake_line_scope ON inventory.stocktake_line USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_stocktake_line_stocktake_id",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_stocktake_line_stocktake_id ON inventory.stocktake_line USING btree (tenant_id, stocktake_id)"
+    },
+    {
+      "name": "ix_transfer_line_lot_id",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_transfer_line_lot_id ON inventory.transfer_line USING btree (tenant_id, lot_id)"
+    },
+    {
+      "name": "ix_transfer_line_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_transfer_line_scope ON inventory.transfer_line USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_transfer_line_transfer_id",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_transfer_line_transfer_id ON inventory.transfer_line USING btree (tenant_id, transfer_id)"
+    },
+    {
+      "name": "ix_warehouse_address_id",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_warehouse_address_id ON inventory.warehouse USING btree (tenant_id, address_id)"
+    },
+    {
+      "name": "ix_warehouse_branch_id",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_warehouse_branch_id ON inventory.warehouse USING btree (tenant_id, branch_id)"
+    },
+    {
+      "name": "ix_warehouse_owner_id",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_warehouse_owner_id ON inventory.warehouse USING btree (tenant_id, owner_id)"
+    },
+    {
+      "name": "ix_warehouse_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "inventory",
+      "definition": "CREATE INDEX ix_warehouse_scope ON inventory.warehouse USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_address_district_id",
+      "ready": true,
+      "valid": true,
+      "schema": "logistics",
+      "definition": "CREATE INDEX ix_address_district_id ON logistics.address USING btree (district_id)"
+    },
+    {
+      "name": "ix_address_governorate_id",
+      "ready": true,
+      "valid": true,
+      "schema": "logistics",
+      "definition": "CREATE INDEX ix_address_governorate_id ON logistics.address USING btree (governorate_id)"
+    },
+    {
+      "name": "ix_address_point",
+      "ready": true,
+      "valid": true,
+      "schema": "logistics",
+      "definition": "CREATE INDEX ix_address_point ON logistics.address USING gist (point)"
+    },
+    {
+      "name": "ix_address_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "logistics",
+      "definition": "CREATE INDEX ix_address_scope ON logistics.address USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "district_governorate_id_id_key",
+      "ready": true,
+      "valid": true,
+      "schema": "logistics",
+      "definition": "CREATE UNIQUE INDEX district_governorate_id_id_key ON logistics.district USING btree (governorate_id, id)"
+    },
+    {
+      "name": "ix_district_governorate_id",
+      "ready": true,
+      "valid": true,
+      "schema": "logistics",
+      "definition": "CREATE INDEX ix_district_governorate_id ON logistics.district USING btree (governorate_id)"
+    },
+    {
+      "name": "ix_field_visit_assignment_id",
+      "ready": true,
+      "valid": true,
+      "schema": "logistics",
+      "definition": "CREATE INDEX ix_field_visit_assignment_id ON logistics.field_visit USING btree (tenant_id, assignment_id)"
+    },
+    {
+      "name": "ix_field_visit_party_id",
+      "ready": true,
+      "valid": true,
+      "schema": "logistics",
+      "definition": "CREATE INDEX ix_field_visit_party_id ON logistics.field_visit USING btree (tenant_id, party_id)"
+    },
+    {
+      "name": "ix_field_visit_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "logistics",
+      "definition": "CREATE INDEX ix_field_visit_scope ON logistics.field_visit USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_route_plan_driver_id",
+      "ready": true,
+      "valid": true,
+      "schema": "logistics",
+      "definition": "CREATE INDEX ix_route_plan_driver_id ON logistics.route_plan USING btree (tenant_id, driver_id)"
+    },
+    {
+      "name": "ix_route_plan_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "logistics",
+      "definition": "CREATE INDEX ix_route_plan_scope ON logistics.route_plan USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_route_plan_territory_id",
+      "ready": true,
+      "valid": true,
+      "schema": "logistics",
+      "definition": "CREATE INDEX ix_route_plan_territory_id ON logistics.route_plan USING btree (tenant_id, territory_id)"
+    },
+    {
+      "name": "ix_route_plan_vehicle_id",
+      "ready": true,
+      "valid": true,
+      "schema": "logistics",
+      "definition": "CREATE INDEX ix_route_plan_vehicle_id ON logistics.route_plan USING btree (tenant_id, vehicle_id)"
+    },
+    {
+      "name": "ix_route_stop_address_id",
+      "ready": true,
+      "valid": true,
+      "schema": "logistics",
+      "definition": "CREATE INDEX ix_route_stop_address_id ON logistics.route_stop USING btree (tenant_id, address_id)"
+    },
+    {
+      "name": "ix_route_stop_route_id",
+      "ready": true,
+      "valid": true,
+      "schema": "logistics",
+      "definition": "CREATE INDEX ix_route_stop_route_id ON logistics.route_stop USING btree (tenant_id, route_id)"
+    },
+    {
+      "name": "ix_route_stop_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "logistics",
+      "definition": "CREATE INDEX ix_route_stop_scope ON logistics.route_stop USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_route_stop_shipment_id",
+      "ready": true,
+      "valid": true,
+      "schema": "logistics",
+      "definition": "CREATE INDEX ix_route_stop_shipment_id ON logistics.route_stop USING btree (tenant_id, shipment_id)"
+    },
+    {
+      "name": "ix_shipping_tariff_origin_zone_id",
+      "ready": true,
+      "valid": true,
+      "schema": "logistics",
+      "definition": "CREATE INDEX ix_shipping_tariff_origin_zone_id ON logistics.shipping_tariff USING btree (tenant_id, origin_zone_id)"
+    },
+    {
+      "name": "ix_shipping_tariff_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "logistics",
+      "definition": "CREATE INDEX ix_shipping_tariff_scope ON logistics.shipping_tariff USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_shipping_tariff_zone_id",
+      "ready": true,
+      "valid": true,
+      "schema": "logistics",
+      "definition": "CREATE INDEX ix_shipping_tariff_zone_id ON logistics.shipping_tariff USING btree (tenant_id, zone_id)"
+    },
+    {
+      "name": "ix_temperature_reading_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "logistics",
+      "definition": "CREATE INDEX ix_temperature_reading_scope ON logistics.temperature_reading USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_temperature_reading_shipment_id",
+      "ready": true,
+      "valid": true,
+      "schema": "logistics",
+      "definition": "CREATE INDEX ix_temperature_reading_shipment_id ON logistics.temperature_reading USING btree (tenant_id, shipment_id)"
+    },
+    {
+      "name": "ix_vehicle_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "logistics",
+      "definition": "CREATE INDEX ix_vehicle_scope ON logistics.vehicle USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_zone_boundary",
+      "ready": true,
+      "valid": true,
+      "schema": "logistics",
+      "definition": "CREATE INDEX ix_zone_boundary ON logistics.zone USING gist (boundary)"
+    },
+    {
+      "name": "ix_zone_governorate_id",
+      "ready": true,
+      "valid": true,
+      "schema": "logistics",
+      "definition": "CREATE INDEX ix_zone_governorate_id ON logistics.zone USING btree (governorate_id)"
+    },
+    {
+      "name": "ix_zone_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "logistics",
+      "definition": "CREATE INDEX ix_zone_scope ON logistics.zone USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_consent_membership_id",
+      "ready": true,
+      "valid": true,
+      "schema": "notifications",
+      "definition": "CREATE INDEX ix_consent_membership_id ON notifications.consent USING btree (tenant_id, membership_id)"
+    },
+    {
+      "name": "ix_consent_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "notifications",
+      "definition": "CREATE INDEX ix_consent_scope ON notifications.consent USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_delivery_attempt_message_id",
+      "ready": true,
+      "valid": true,
+      "schema": "notifications",
+      "definition": "CREATE INDEX ix_delivery_attempt_message_id ON notifications.delivery_attempt USING btree (tenant_id, message_id)"
+    },
+    {
+      "name": "ix_delivery_attempt_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "notifications",
+      "definition": "CREATE INDEX ix_delivery_attempt_scope ON notifications.delivery_attempt USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_message_membership_id",
+      "ready": true,
+      "valid": true,
+      "schema": "notifications",
+      "definition": "CREATE INDEX ix_message_membership_id ON notifications.message USING btree (tenant_id, membership_id)"
+    },
+    {
+      "name": "ix_message_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "notifications",
+      "definition": "CREATE INDEX ix_message_scope ON notifications.message USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_message_template_id",
+      "ready": true,
+      "valid": true,
+      "schema": "notifications",
+      "definition": "CREATE INDEX ix_message_template_id ON notifications.message USING btree (tenant_id, template_id)"
+    },
+    {
+      "name": "ix_template_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "notifications",
+      "definition": "CREATE INDEX ix_template_scope ON notifications.template USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_branch_address_id",
+      "ready": true,
+      "valid": true,
+      "schema": "organizations",
+      "definition": "CREATE INDEX ix_branch_address_id ON organizations.branch USING btree (tenant_id, address_id)"
+    },
+    {
+      "name": "ix_branch_party_id",
+      "ready": true,
+      "valid": true,
+      "schema": "organizations",
+      "definition": "CREATE INDEX ix_branch_party_id ON organizations.branch USING btree (tenant_id, party_id)"
+    },
+    {
+      "name": "ix_branch_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "organizations",
+      "definition": "CREATE INDEX ix_branch_scope ON organizations.branch USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_field_assignment_membership_id",
+      "ready": true,
+      "valid": true,
+      "schema": "organizations",
+      "definition": "CREATE INDEX ix_field_assignment_membership_id ON organizations.field_assignment USING btree (tenant_id, membership_id)"
+    },
+    {
+      "name": "ix_field_assignment_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "organizations",
+      "definition": "CREATE INDEX ix_field_assignment_scope ON organizations.field_assignment USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_field_assignment_territory_id",
+      "ready": true,
+      "valid": true,
+      "schema": "organizations",
+      "definition": "CREATE INDEX ix_field_assignment_territory_id ON organizations.field_assignment USING btree (tenant_id, territory_id)"
+    },
+    {
+      "name": "ix_membership_principal_id",
+      "ready": true,
+      "valid": true,
+      "schema": "organizations",
+      "definition": "CREATE INDEX ix_membership_principal_id ON organizations.membership USING btree (principal_id)"
+    },
+    {
+      "name": "ix_membership_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "organizations",
+      "definition": "CREATE INDEX ix_membership_scope ON organizations.membership USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_party_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "organizations",
+      "definition": "CREATE INDEX ix_party_scope ON organizations.party USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_party_member_membership_id",
+      "ready": true,
+      "valid": true,
+      "schema": "organizations",
+      "definition": "CREATE INDEX ix_party_member_membership_id ON organizations.party_member USING btree (tenant_id, membership_id)"
+    },
+    {
+      "name": "ix_party_member_party_id",
+      "ready": true,
+      "valid": true,
+      "schema": "organizations",
+      "definition": "CREATE INDEX ix_party_member_party_id ON organizations.party_member USING btree (tenant_id, party_id)"
+    },
+    {
+      "name": "ix_party_member_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "organizations",
+      "definition": "CREATE INDEX ix_party_member_scope ON organizations.party_member USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_retailer_profile_address_id",
+      "ready": true,
+      "valid": true,
+      "schema": "organizations",
+      "definition": "CREATE INDEX ix_retailer_profile_address_id ON organizations.retailer_profile USING btree (tenant_id, address_id)"
+    },
+    {
+      "name": "ix_retailer_profile_party_id",
+      "ready": true,
+      "valid": true,
+      "schema": "organizations",
+      "definition": "CREATE INDEX ix_retailer_profile_party_id ON organizations.retailer_profile USING btree (tenant_id, party_id)"
+    },
+    {
+      "name": "ix_retailer_profile_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "organizations",
+      "definition": "CREATE INDEX ix_retailer_profile_scope ON organizations.retailer_profile USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_scope_parent_id",
+      "ready": true,
+      "valid": true,
+      "schema": "organizations",
+      "definition": "CREATE INDEX ix_scope_parent_id ON organizations.scope USING btree (tenant_id, parent_id)"
+    },
+    {
+      "name": "ix_supplier_profile_party_id",
+      "ready": true,
+      "valid": true,
+      "schema": "organizations",
+      "definition": "CREATE INDEX ix_supplier_profile_party_id ON organizations.supplier_profile USING btree (tenant_id, party_id)"
+    },
+    {
+      "name": "ix_supplier_profile_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "organizations",
+      "definition": "CREATE INDEX ix_supplier_profile_scope ON organizations.supplier_profile USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_territory_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "organizations",
+      "definition": "CREATE INDEX ix_territory_scope ON organizations.territory USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_territory_zone_id",
+      "ready": true,
+      "valid": true,
+      "schema": "organizations",
+      "definition": "CREATE INDEX ix_territory_zone_id ON organizations.territory USING btree (tenant_id, zone_id)"
+    },
+    {
+      "name": "ix_merchant_account_provider_id",
+      "ready": true,
+      "valid": true,
+      "schema": "payments",
+      "definition": "CREATE INDEX ix_merchant_account_provider_id ON payments.merchant_account USING btree (provider_id)"
+    },
+    {
+      "name": "ix_merchant_account_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "payments",
+      "definition": "CREATE INDEX ix_merchant_account_scope ON payments.merchant_account USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_merchant_account_seller_id",
+      "ready": true,
+      "valid": true,
+      "schema": "payments",
+      "definition": "CREATE INDEX ix_merchant_account_seller_id ON payments.merchant_account USING btree (tenant_id, seller_id)"
+    },
+    {
+      "name": "ix_payment_allocation_invoice_id",
+      "ready": true,
+      "valid": true,
+      "schema": "payments",
+      "definition": "CREATE INDEX ix_payment_allocation_invoice_id ON payments.payment_allocation USING btree (tenant_id, invoice_id)"
+    },
+    {
+      "name": "ix_payment_allocation_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "payments",
+      "definition": "CREATE INDEX ix_payment_allocation_scope ON payments.payment_allocation USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_payment_allocation_transaction_id",
+      "ready": true,
+      "valid": true,
+      "schema": "payments",
+      "definition": "CREATE INDEX ix_payment_allocation_transaction_id ON payments.payment_allocation USING btree (tenant_id, transaction_id)"
+    },
+    {
+      "name": "ix_payment_intent_merchant_id",
+      "ready": true,
+      "valid": true,
+      "schema": "payments",
+      "definition": "CREATE INDEX ix_payment_intent_merchant_id ON payments.payment_intent USING btree (tenant_id, merchant_id)"
+    },
+    {
+      "name": "ix_payment_intent_order_id",
+      "ready": true,
+      "valid": true,
+      "schema": "payments",
+      "definition": "CREATE INDEX ix_payment_intent_order_id ON payments.payment_intent USING btree (tenant_id, order_id)"
+    },
+    {
+      "name": "ix_payment_intent_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "payments",
+      "definition": "CREATE INDEX ix_payment_intent_scope ON payments.payment_intent USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_payment_transaction_intent_id",
+      "ready": true,
+      "valid": true,
+      "schema": "payments",
+      "definition": "CREATE INDEX ix_payment_transaction_intent_id ON payments.payment_transaction USING btree (tenant_id, intent_id)"
+    },
+    {
+      "name": "ix_payment_transaction_merchant_id",
+      "ready": true,
+      "valid": true,
+      "schema": "payments",
+      "definition": "CREATE INDEX ix_payment_transaction_merchant_id ON payments.payment_transaction USING btree (tenant_id, merchant_id)"
+    },
+    {
+      "name": "ix_payment_transaction_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "payments",
+      "definition": "CREATE INDEX ix_payment_transaction_scope ON payments.payment_transaction USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_payout_merchant_id",
+      "ready": true,
+      "valid": true,
+      "schema": "payments",
+      "definition": "CREATE INDEX ix_payout_merchant_id ON payments.payout USING btree (tenant_id, merchant_id)"
+    },
+    {
+      "name": "ix_payout_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "payments",
+      "definition": "CREATE INDEX ix_payout_scope ON payments.payout USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_provider_settlement_merchant_id",
+      "ready": true,
+      "valid": true,
+      "schema": "payments",
+      "definition": "CREATE INDEX ix_provider_settlement_merchant_id ON payments.provider_settlement USING btree (tenant_id, merchant_id)"
+    },
+    {
+      "name": "ix_provider_settlement_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "payments",
+      "definition": "CREATE INDEX ix_provider_settlement_scope ON payments.provider_settlement USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_refund_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "payments",
+      "definition": "CREATE INDEX ix_refund_scope ON payments.refund USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_refund_transaction_id",
+      "ready": true,
+      "valid": true,
+      "schema": "payments",
+      "definition": "CREATE INDEX ix_refund_transaction_id ON payments.refund USING btree (tenant_id, transaction_id)"
+    },
+    {
+      "name": "ix_webhook_inbox_merchant_id",
+      "ready": true,
+      "valid": true,
+      "schema": "payments",
+      "definition": "CREATE INDEX ix_webhook_inbox_merchant_id ON payments.webhook_inbox USING btree (tenant_id, merchant_id)"
+    },
+    {
+      "name": "ix_webhook_inbox_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "payments",
+      "definition": "CREATE INDEX ix_webhook_inbox_scope ON payments.webhook_inbox USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_offer_product_id",
+      "ready": true,
+      "valid": true,
+      "schema": "pricing",
+      "definition": "CREATE INDEX ix_offer_product_id ON pricing.offer USING btree (tenant_id, product_id)"
+    },
+    {
+      "name": "ix_offer_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "pricing",
+      "definition": "CREATE INDEX ix_offer_scope ON pricing.offer USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_offer_seller_id",
+      "ready": true,
+      "valid": true,
+      "schema": "pricing",
+      "definition": "CREATE INDEX ix_offer_seller_id ON pricing.offer USING btree (tenant_id, seller_id)"
+    },
+    {
+      "name": "ix_offer_uom_id",
+      "ready": true,
+      "valid": true,
+      "schema": "pricing",
+      "definition": "CREATE INDEX ix_offer_uom_id ON pricing.offer USING btree (tenant_id, uom_id)"
+    },
+    {
+      "name": "ix_price_rule_offer_id",
+      "ready": true,
+      "valid": true,
+      "schema": "pricing",
+      "definition": "CREATE INDEX ix_price_rule_offer_id ON pricing.price_rule USING btree (tenant_id, offer_id)"
+    },
+    {
+      "name": "ix_price_rule_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "pricing",
+      "definition": "CREATE INDEX ix_price_rule_scope ON pricing.price_rule USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_promotion_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "pricing",
+      "definition": "CREATE INDEX ix_promotion_scope ON pricing.promotion USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_promotion_seller_id",
+      "ready": true,
+      "valid": true,
+      "schema": "pricing",
+      "definition": "CREATE INDEX ix_promotion_seller_id ON pricing.promotion USING btree (tenant_id, seller_id)"
+    },
+    {
+      "name": "ix_tax_rule_category_id",
+      "ready": true,
+      "valid": true,
+      "schema": "pricing",
+      "definition": "CREATE INDEX ix_tax_rule_category_id ON pricing.tax_rule USING btree (tenant_id, category_id)"
+    },
+    {
+      "name": "ix_tax_rule_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "pricing",
+      "definition": "CREATE INDEX ix_tax_rule_scope ON pricing.tax_rule USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_goods_receipt_purchase_order_id",
+      "ready": true,
+      "valid": true,
+      "schema": "procurement",
+      "definition": "CREATE INDEX ix_goods_receipt_purchase_order_id ON procurement.goods_receipt USING btree (tenant_id, purchase_order_id)"
+    },
+    {
+      "name": "ix_goods_receipt_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "procurement",
+      "definition": "CREATE INDEX ix_goods_receipt_scope ON procurement.goods_receipt USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_goods_receipt_warehouse_id",
+      "ready": true,
+      "valid": true,
+      "schema": "procurement",
+      "definition": "CREATE INDEX ix_goods_receipt_warehouse_id ON procurement.goods_receipt USING btree (tenant_id, warehouse_id)"
+    },
+    {
+      "name": "ix_landed_cost_receipt_id",
+      "ready": true,
+      "valid": true,
+      "schema": "procurement",
+      "definition": "CREATE INDEX ix_landed_cost_receipt_id ON procurement.landed_cost USING btree (tenant_id, receipt_id)"
+    },
+    {
+      "name": "ix_landed_cost_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "procurement",
+      "definition": "CREATE INDEX ix_landed_cost_scope ON procurement.landed_cost USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_purchase_line_product_id",
+      "ready": true,
+      "valid": true,
+      "schema": "procurement",
+      "definition": "CREATE INDEX ix_purchase_line_product_id ON procurement.purchase_line USING btree (tenant_id, product_id)"
+    },
+    {
+      "name": "ix_purchase_line_purchase_order_id",
+      "ready": true,
+      "valid": true,
+      "schema": "procurement",
+      "definition": "CREATE INDEX ix_purchase_line_purchase_order_id ON procurement.purchase_line USING btree (tenant_id, purchase_order_id)"
+    },
+    {
+      "name": "ix_purchase_line_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "procurement",
+      "definition": "CREATE INDEX ix_purchase_line_scope ON procurement.purchase_line USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_purchase_line_uom_id",
+      "ready": true,
+      "valid": true,
+      "schema": "procurement",
+      "definition": "CREATE INDEX ix_purchase_line_uom_id ON procurement.purchase_line USING btree (tenant_id, uom_id)"
+    },
+    {
+      "name": "ix_purchase_order_buyer_id",
+      "ready": true,
+      "valid": true,
+      "schema": "procurement",
+      "definition": "CREATE INDEX ix_purchase_order_buyer_id ON procurement.purchase_order USING btree (tenant_id, buyer_id)"
+    },
+    {
+      "name": "ix_purchase_order_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "procurement",
+      "definition": "CREATE INDEX ix_purchase_order_scope ON procurement.purchase_order USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_purchase_order_supplier_id",
+      "ready": true,
+      "valid": true,
+      "schema": "procurement",
+      "definition": "CREATE INDEX ix_purchase_order_supplier_id ON procurement.purchase_order USING btree (tenant_id, supplier_id)"
+    },
+    {
+      "name": "ix_receipt_line_lot_id",
+      "ready": true,
+      "valid": true,
+      "schema": "procurement",
+      "definition": "CREATE INDEX ix_receipt_line_lot_id ON procurement.receipt_line USING btree (tenant_id, lot_id)"
+    },
+    {
+      "name": "ix_receipt_line_purchase_line_id",
+      "ready": true,
+      "valid": true,
+      "schema": "procurement",
+      "definition": "CREATE INDEX ix_receipt_line_purchase_line_id ON procurement.receipt_line USING btree (tenant_id, purchase_line_id)"
+    },
+    {
+      "name": "ix_receipt_line_receipt_id",
+      "ready": true,
+      "valid": true,
+      "schema": "procurement",
+      "definition": "CREATE INDEX ix_receipt_line_receipt_id ON procurement.receipt_line USING btree (tenant_id, receipt_id)"
+    },
+    {
+      "name": "ix_receipt_line_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "procurement",
+      "definition": "CREATE INDEX ix_receipt_line_scope ON procurement.receipt_line USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_supplier_bill_purchase_order_id",
+      "ready": true,
+      "valid": true,
+      "schema": "procurement",
+      "definition": "CREATE INDEX ix_supplier_bill_purchase_order_id ON procurement.supplier_bill USING btree (tenant_id, purchase_order_id)"
+    },
+    {
+      "name": "ix_supplier_bill_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "procurement",
+      "definition": "CREATE INDEX ix_supplier_bill_scope ON procurement.supplier_bill USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_supplier_bill_supplier_id",
+      "ready": true,
+      "valid": true,
+      "schema": "procurement",
+      "definition": "CREATE INDEX ix_supplier_bill_supplier_id ON procurement.supplier_bill USING btree (tenant_id, supplier_id)"
+    },
+    {
+      "name": "ix_return_case_order_id",
+      "ready": true,
+      "valid": true,
+      "schema": "returns",
+      "definition": "CREATE INDEX ix_return_case_order_id ON returns.return_case USING btree (tenant_id, order_id)"
+    },
+    {
+      "name": "ix_return_case_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "returns",
+      "definition": "CREATE INDEX ix_return_case_scope ON returns.return_case USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_return_line_case_id",
+      "ready": true,
+      "valid": true,
+      "schema": "returns",
+      "definition": "CREATE INDEX ix_return_line_case_id ON returns.return_line USING btree (tenant_id, case_id)"
+    },
+    {
+      "name": "ix_return_line_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "returns",
+      "definition": "CREATE INDEX ix_return_line_scope ON returns.return_line USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_return_line_shipment_line_id",
+      "ready": true,
+      "valid": true,
+      "schema": "returns",
+      "definition": "CREATE INDEX ix_return_line_shipment_line_id ON returns.return_line USING btree (tenant_id, shipment_line_id)"
+    },
+    {
+      "name": "ix_cash_handover_cash_session_id",
+      "ready": true,
+      "valid": true,
+      "schema": "treasury",
+      "definition": "CREATE INDEX ix_cash_handover_cash_session_id ON treasury.cash_handover USING btree (tenant_id, cash_session_id)"
+    },
+    {
+      "name": "ix_cash_handover_received_by",
+      "ready": true,
+      "valid": true,
+      "schema": "treasury",
+      "definition": "CREATE INDEX ix_cash_handover_received_by ON treasury.cash_handover USING btree (tenant_id, received_by)"
+    },
+    {
+      "name": "ix_cash_handover_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "treasury",
+      "definition": "CREATE INDEX ix_cash_handover_scope ON treasury.cash_handover USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_cash_session_collector_id",
+      "ready": true,
+      "valid": true,
+      "schema": "treasury",
+      "definition": "CREATE INDEX ix_cash_session_collector_id ON treasury.cash_session USING btree (tenant_id, collector_id)"
+    },
+    {
+      "name": "ix_cash_session_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "treasury",
+      "definition": "CREATE INDEX ix_cash_session_scope ON treasury.cash_session USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_cod_receipt_cash_session_id",
+      "ready": true,
+      "valid": true,
+      "schema": "treasury",
+      "definition": "CREATE INDEX ix_cod_receipt_cash_session_id ON treasury.cod_receipt USING btree (tenant_id, cash_session_id)"
+    },
+    {
+      "name": "ix_cod_receipt_invoice_id",
+      "ready": true,
+      "valid": true,
+      "schema": "treasury",
+      "definition": "CREATE INDEX ix_cod_receipt_invoice_id ON treasury.cod_receipt USING btree (tenant_id, invoice_id)"
+    },
+    {
+      "name": "ix_cod_receipt_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "treasury",
+      "definition": "CREATE INDEX ix_cod_receipt_scope ON treasury.cod_receipt USING btree (tenant_id, scope_id)"
+    },
+    {
+      "name": "ix_cod_receipt_shipment_id",
+      "ready": true,
+      "valid": true,
+      "schema": "treasury",
+      "definition": "CREATE INDEX ix_cod_receipt_shipment_id ON treasury.cod_receipt USING btree (tenant_id, shipment_id)"
+    },
+    {
+      "name": "ix_fx_rate_scope",
+      "ready": true,
+      "valid": true,
+      "schema": "treasury",
+      "definition": "CREATE INDEX ix_fx_rate_scope ON treasury.fx_rate USING btree (tenant_id, scope_id)"
+    }
+  ],
+  "foreign_keys": [
+    {
+      "name": "uom_tenant_id_product_id_parent_id_fkey",
+      "table": "uom",
+      "schema": "catalog",
+      "validated": true,
+      "definition": "FOREIGN KEY (tenant_id, product_id, parent_id) REFERENCES catalog.uom(tenant_id, product_id, id)"
+    },
+    {
+      "name": "invoice_tenant_id_buyer_id_seller_id_order_id_fkey",
+      "table": "invoice",
+      "schema": "commerce",
+      "validated": true,
+      "definition": "FOREIGN KEY (tenant_id, buyer_id, seller_id, order_id) REFERENCES commerce.sales_order(tenant_id, buyer_id, seller_id, id)"
+    },
+    {
+      "name": "order_line_tenant_id_product_id_uom_id_fkey",
+      "table": "order_line",
+      "schema": "commerce",
+      "validated": true,
+      "definition": "FOREIGN KEY (tenant_id, product_id, uom_id) REFERENCES catalog.uom(tenant_id, product_id, id)"
+    },
+    {
+      "name": "sales_order_tenant_id_buyer_id_seller_id_quote_id_fkey",
+      "table": "sales_order",
+      "schema": "commerce",
+      "validated": true,
+      "definition": "FOREIGN KEY (tenant_id, buyer_id, seller_id, quote_id) REFERENCES commerce.quote(tenant_id, buyer_id, seller_id, id)"
+    },
+    {
+      "name": "stock_balance_tenant_id_warehouse_id_bin_id_fkey",
+      "table": "stock_balance",
+      "schema": "inventory",
+      "validated": true,
+      "definition": "FOREIGN KEY (tenant_id, warehouse_id, bin_id) REFERENCES inventory.bin(tenant_id, warehouse_id, id)"
+    },
+    {
+      "name": "address_governorate_id_district_id_fkey",
+      "table": "address",
+      "schema": "logistics",
+      "validated": true,
+      "definition": "FOREIGN KEY (governorate_id, district_id) REFERENCES logistics.district(governorate_id, id)"
+    },
+    {
+      "name": "offer_tenant_id_product_id_uom_id_fkey",
+      "table": "offer",
+      "schema": "pricing",
+      "validated": true,
+      "definition": "FOREIGN KEY (tenant_id, product_id, uom_id) REFERENCES catalog.uom(tenant_id, product_id, id)"
+    },
+    {
+      "name": "purchase_line_tenant_id_product_id_uom_id_fkey",
+      "table": "purchase_line",
+      "schema": "procurement",
+      "validated": true,
+      "definition": "FOREIGN KEY (tenant_id, product_id, uom_id) REFERENCES catalog.uom(tenant_id, product_id, id)"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+services:
+  postgres:
+    image: postgis/postgis:16-3.4
+    environment:
+      POSTGRES_DB: wholesale_test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${WHOLESALE_LOCAL_DB_PASSWORD:?Generate local env first}
+    ports:
+      - "127.0.0.1:55432:5432"
+    volumes:
+      - wholesale_step_ab_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d wholesale_test"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+volumes:
+  wholesale_step_ab_data:

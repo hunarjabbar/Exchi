@@ -1,0 +1,1 @@
+{"name": "Wholesale. public-web", "short_name": "Wholesale", "start_url": "/public", "scope": "/", "display": "standalone", "theme_color": "#10413F", "background_color": "#F3F6F5", "icons": [{"src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"}]}

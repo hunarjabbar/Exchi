@@ -1,0 +1,276 @@
+[
+  {
+    "name": "AppShell",
+    "purpose": "sidebar/header/bottom navigation",
+    "inputs": "current route, audience, locale, capabilities",
+    "states": [
+      "loading",
+      "unauthorized",
+      "signed out",
+      "offline"
+    ]
+  },
+  {
+    "name": "WorkspaceHeader",
+    "purpose": "title/scope/actions",
+    "inputs": "title, description, action capabilities",
+    "states": [
+      "disabled",
+      "pending",
+      "error"
+    ]
+  },
+  {
+    "name": "Button",
+    "purpose": "primary/secondary/quiet/icon",
+    "inputs": "label, action, disabled reason, pending",
+    "states": [
+      "default",
+      "focus",
+      "disabled",
+      "busy"
+    ]
+  },
+  {
+    "name": "Field",
+    "purpose": "text, numeric, select, date, textarea",
+    "inputs": "id, value, label, validation",
+    "states": [
+      "required",
+      "invalid",
+      "disabled",
+      "read-only"
+    ]
+  },
+  {
+    "name": "DataGrid",
+    "purpose": "sorting/filtering/selection/pagination",
+    "inputs": "columns, rows, cursor, revision, capabilities",
+    "states": [
+      "loading",
+      "empty",
+      "filtered",
+      "stale",
+      "error"
+    ]
+  },
+  {
+    "name": "StatusLabel",
+    "purpose": "text + semantic color",
+    "inputs": "state, display label",
+    "states": [
+      "positive",
+      "warning",
+      "negative",
+      "neutral"
+    ]
+  },
+  {
+    "name": "RecordDrawer",
+    "purpose": "details or draft editor",
+    "inputs": "record, expected revision, capabilities",
+    "states": [
+      "dirty",
+      "conflict",
+      "locked",
+      "saved"
+    ]
+  },
+  {
+    "name": "CommandPalette",
+    "purpose": "scope-aware search",
+    "inputs": "authorized route index, query",
+    "states": [
+      "empty",
+      "loading",
+      "denied"
+    ]
+  },
+  {
+    "name": "KpiTile",
+    "purpose": "metric and timestamp",
+    "inputs": "definition, value, currency, asOf",
+    "states": [
+      "loading",
+      "unavailable",
+      "stale"
+    ]
+  },
+  {
+    "name": "ChartPanel",
+    "purpose": "series and textual summary",
+    "inputs": "series, definition, units, locale",
+    "states": [
+      "empty",
+      "stale",
+      "error"
+    ]
+  },
+  {
+    "name": "KycStepper",
+    "purpose": "four-stage progress",
+    "inputs": "case, state, validation, allowed transitions",
+    "states": [
+      "pending",
+      "needs evidence",
+      "approved",
+      "rejected"
+    ]
+  },
+  {
+    "name": "EvidenceViewer",
+    "purpose": "secure document preview",
+    "inputs": "signed URL, type, expiry, permission",
+    "states": [
+      "expired",
+      "quarantined",
+      "denied"
+    ]
+  },
+  {
+    "name": "ProductCard",
+    "purpose": "SKU, packaging and authorized price",
+    "inputs": "product, offer, entitlement, MOQ",
+    "states": [
+      "price masked",
+      "out of stock",
+      "stale"
+    ]
+  },
+  {
+    "name": "BulkOrderGrid",
+    "purpose": "fast quantity entry",
+    "inputs": "SKU/UOM, MOQ, qty, bonus, errors",
+    "states": [
+      "invalid",
+      "stock changed",
+      "promotion expired"
+    ]
+  },
+  {
+    "name": "QuoteSummary",
+    "purpose": "commercial snapshot",
+    "inputs": "seller, totals, rate, tax, expiry",
+    "states": [
+      "requote",
+      "expired",
+      "accepted"
+    ]
+  },
+  {
+    "name": "PaymentMethodPicker",
+    "purpose": "COD/digital/hybrid/credit",
+    "inputs": "allowed methods, policy, amounts",
+    "states": [
+      "unavailable",
+      "unknown",
+      "pending",
+      "disabled"
+    ]
+  },
+  {
+    "name": "CreditExposurePanel",
+    "purpose": "facility calculation",
+    "inputs": "limit, receivables, commitments, holds",
+    "states": [
+      "frozen",
+      "overdue",
+      "limit exceeded"
+    ]
+  },
+  {
+    "name": "CodReconciliation",
+    "purpose": "cash and discrepancy",
+    "inputs": "expected, counted, reason, evidence",
+    "states": [
+      "variance",
+      "pending approval",
+      "closed"
+    ]
+  },
+  {
+    "name": "JournalEditor",
+    "purpose": "balanced line items",
+    "inputs": "accounts, debit/credit, source, approval",
+    "states": [
+      "unbalanced",
+      "locked period",
+      "posted"
+    ]
+  },
+  {
+    "name": "OfflineQueue",
+    "purpose": "pending command list",
+    "inputs": "operation ID, scope, state, timestamp",
+    "states": [
+      "queued",
+      "retrying",
+      "requote",
+      "rejected",
+      "accepted"
+    ]
+  },
+  {
+    "name": "AuditDiff",
+    "purpose": "redacted before/after",
+    "inputs": "event, actor, revision, digest",
+    "states": [
+      "redacted",
+      "unavailable",
+      "immutable"
+    ]
+  },
+  {
+    "name": "BulkImportWizard",
+    "purpose": "dry run and commit",
+    "inputs": "template, mapping, validation, approval",
+    "states": [
+      "uploading",
+      "rejected",
+      "partial",
+      "complete"
+    ]
+  },
+  {
+    "name": "GpsCapture",
+    "purpose": "consent, accuracy, pin",
+    "inputs": "lat/lon, accuracy, source, consent",
+    "states": [
+      "denied",
+      "poor accuracy",
+      "offline"
+    ]
+  },
+  {
+    "name": "NotificationPanel",
+    "purpose": "messages and acknowledgement",
+    "inputs": "message, delivery status, action, expiry",
+    "states": [
+      "unread",
+      "failed",
+      "expired"
+    ]
+  },
+  {
+    "name": "ApprovalPanel",
+    "purpose": "maker/checker action",
+    "inputs": "payload digest, actor, policy, MFA",
+    "states": [
+      "awaiting",
+      "rejected",
+      "approved",
+      "expired"
+    ]
+  },
+  {
+    "name": "ReleaseGatePanel",
+    "purpose": "technical/financial gates",
+    "inputs": "gate ID, evidence, status, reason",
+    "states": [
+      "locked",
+      "pending",
+      "verified",
+      "failed"
+    ]
+  }
+]

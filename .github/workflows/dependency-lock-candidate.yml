@@ -1,0 +1,53 @@
+name: Dependency lockfile candidate (review only)
+on:
+  workflow_dispatch:
+  push:
+    branches: ['phase5/step-ab-certification', 'release/gate-1']
+    paths: ['.github/workflows/dependency-lock-candidate.yml']
+permissions:
+  contents: read
+jobs:
+  resolve-lockfile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.23.5'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Resolve and verify candidate without package lifecycle scripts
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+          npm run check:lock
+          npm ci --ignore-scripts --no-audit --no-fund
+          git diff --exit-code -- package.json apps packages
+          mkdir -p lockfile-candidate
+          cp package-lock.json lockfile-candidate/
+          git rev-parse HEAD > lockfile-candidate/source-commit.txt
+          (cd lockfile-candidate && sha256sum package-lock.json > SHA256SUMS)
+          node -v > lockfile-candidate/node-version.txt
+          npm -v > lockfile-candidate/npm-version.txt
+      - name: Audit candidate and record exit status
+        shell: bash
+        run: |
+          set -uo pipefail
+          if npm audit --audit-level=high --json > lockfile-candidate/dependency-audit.json; then
+            result=0
+          else
+            result=$?
+          fi
+          printf '%s\n' "$result" > lockfile-candidate/audit-exit-code.txt
+          exit "$result"
+      - name: Publish candidate for human review (not certification)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wholesale-lockfile-candidate
+          path: lockfile-candidate/
+          if-no-files-found: error
+          retention-days: 7

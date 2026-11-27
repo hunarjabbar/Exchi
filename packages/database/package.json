@@ -1,0 +1,21 @@
+{
+  "name": "iraq-wholesale-phase3",
+  "version": "0.3.0",
+  "private": true,
+  "scripts": {
+    "validate": "prisma validate",
+    "generate": "prisma generate",
+    "migrate": "prisma migrate deploy",
+    "test:static": "python3 scripts/static_check.py",
+    "test:db": "bash scripts/test-db.sh"
+  },
+  "devDependencies": {
+    "prisma": "7.10.1"
+  },
+  "dependencies": {
+    "@prisma/client": "7.10.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

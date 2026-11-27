@@ -1,0 +1,10 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {validateRuntimeEnv} from '../apps/enterprise-api/src/runtime-env.ts';
+const base={RUNTIME_DATABASE_URL:'postgresql://wholesale_stepab_login:localtest@127.0.0.1:55432/wholesale_test'};
+test('local disabled auth accepts restricted database',()=>assert.equal(validateRuntimeEnv(base).AUTH_MODE,'disabled'));
+test('owner account denied',()=>assert.throws(()=>validateRuntimeEnv({RUNTIME_DATABASE_URL:'postgresql://postgres:secret@localhost/db'}),/restricted/));
+test('live auth denied before gate 2',()=>assert.throws(()=>validateRuntimeEnv({...base,AUTH_MODE:'live',AUTH_LIVE_APPROVED:'YES'}),/forbidden/));
+test('nonlocal missing secrets fail closed without values in error',()=>assert.throws(()=>validateRuntimeEnv({...base,RELEASE_ENV:'staging'}),/REDIS_URL/));
+test('financial execution cannot activate',()=>assert.throws(()=>validateRuntimeEnv({...base,FINANCIAL_EXECUTION:'ENABLED'}),/FINANCIAL_EXECUTION/));
+test('local dev demands isolated DB and credentials',()=>assert.throws(()=>validateRuntimeEnv({...base,AUTH_MODE:'dev',ALLOW_LOCAL_DEV_OTP:'YES'}),/isolated/));

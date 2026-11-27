@@ -1,0 +1,32 @@
+node_modules/
+.next/
+dist/
+.env
+.env.local
+*.tsbuildinfo
+.local-stepab.env
+.local-stepab-logs/
+acceptance-evidence/
+__pycache__/
+
+.venv-cert/
+.local-stepab.env.*.tmp
+
+# Never track local or deployed credentials, key material or database dumps.
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.dump
+*.backup
+coverage/
+playwright-report/
+test-results/
+
+# Prisma-generated client (regenerate from the reviewed schema).
+packages/database/generated/
+
+# Next.js generates this declaration during build/typegen.
+next-env.d.ts
