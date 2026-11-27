@@ -7,7 +7,7 @@ permissions:
   contents: read
 jobs:
   source-contracts:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
@@ -20,7 +20,7 @@ jobs:
       - run: npm run test:certification
       - run: python3 tests/test_schema_drift.py
   step-ab-runtime:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 45
     needs: source-contracts
     steps:
