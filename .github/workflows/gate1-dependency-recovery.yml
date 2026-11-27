@@ -1,0 +1,37 @@
+name: Gate 1 dependency recovery (manifest only)
+on:
+  push:
+    branches: [release/gate-1-dependencies]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  dependency-resolution:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16.0'
+      - name: Resolve and verify dependency graph only
+        run: |
+          npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+          npm ci --ignore-scripts --no-audit --no-fund
+          node --version
+          npm --version
+          git ls-files '*package.json' | sort | xargs sha256sum > manifest-sha256.txt
+          sha256sum package-lock.json > lockfile-sha256.txt
+      - name: Audit dependency graph
+        run: npm audit --audit-level=high --json > dependency-audit.json
+      - name: Upload dependency evidence, even on audit failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gate1-lockfile-candidate
+          if-no-files-found: error
+          path: |
+            package-lock.json
+            dependency-audit.json
+            manifest-sha256.txt
+            lockfile-sha256.txt
