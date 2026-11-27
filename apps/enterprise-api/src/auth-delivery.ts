@@ -13,3 +13,15 @@ export async function deliverOtp(phone:string,code:string,channel:Channel){
   if(!(data as {sid?:string})?.sid)throw new Fault(503,'OTP_PROVIDER_UNCONFIRMED');
  }
 }
+/**
+ * WhatsApp-first delivery with an explicitly consented, operator-enabled SMS fallback.
+ * Provider failures never silently switch channels: both policy and customer consent are required.
+ */
+export async function deliverOtpWithFallback(phone:string,code:string,primary:Channel,allowSmsFallback:boolean):Promise<Channel>{
+ try{await deliverOtp(phone,code,primary);return primary;}
+ catch(error){
+  if(primary!=='WHATSAPP'||!allowSmsFallback)throw error;
+  await deliverOtp(phone,code,'SMS');
+  return 'SMS';
+ }
+}
