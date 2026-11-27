@@ -1,0 +1,153 @@
+permission,mode,scope,notes
+organizations.scope.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+organizations.membership.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+authorization.role.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+authorization.role_permission.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+authorization.assignment.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+identity.device.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+identity.session.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+logistics.zone.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+logistics.zone.create,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+logistics.zone.update,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+logistics.address.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+logistics.address.create,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+logistics.address.update,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+logistics.shipping_tariff.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+logistics.shipping_tariff.create,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+logistics.shipping_tariff.update,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+organizations.party.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+organizations.party.create,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+organizations.party.update,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+organizations.branch.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+organizations.branch.create,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+organizations.branch.update,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+organizations.party_member.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+organizations.territory.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+organizations.territory.create,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+organizations.territory.update,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+organizations.field_assignment.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+organizations.field_assignment.create,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+organizations.field_assignment.update,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+organizations.retailer_profile.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+organizations.supplier_profile.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+compliance.kyc_case.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+compliance.document.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+compliance.kyc_decision.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+compliance.risk_case.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+compliance.policy.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+compliance.approval.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+catalog.brand.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+catalog.brand.create,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+catalog.brand.update,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+catalog.category.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+catalog.category.create,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+catalog.category.update,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+catalog.product.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+catalog.product.create,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+catalog.product.update,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+catalog.product_alias.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+catalog.product_alias.create,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+catalog.product_alias.update,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+catalog.uom.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+catalog.product_license.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+pricing.offer.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+pricing.offer.create,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+pricing.offer.update,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+pricing.price_rule.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+pricing.promotion.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+pricing.tax_rule.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+inventory.warehouse.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+inventory.warehouse.create,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+inventory.warehouse.update,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+inventory.bin.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+inventory.bin.create,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+inventory.bin.update,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+inventory.lot.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+inventory.stock_balance.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+inventory.stock_movement.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+inventory.reservation.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+inventory.stock_transfer.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+inventory.transfer_line.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+inventory.stocktake.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+inventory.stocktake_line.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+procurement.purchase_order.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+procurement.purchase_line.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+procurement.goods_receipt.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+procurement.receipt_line.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+procurement.supplier_bill.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+procurement.landed_cost.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+treasury.fx_rate.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+commerce.cart.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+commerce.cart.create,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+commerce.cart.update,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+commerce.cart_line.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+commerce.cart_line.create,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+commerce.cart_line.update,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+commerce.quote.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+commerce.quote_line.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+commerce.purchase_group.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+commerce.sales_order.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+commerce.order_line.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+commerce.order_amendment.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+commerce.rfq.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+commerce.rfq.create,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+commerce.rfq.update,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+commerce.rfq_offer.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+commerce.invoice.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+commerce.invoice_line.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+commerce.credit_note.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+fulfillment.shipment.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+fulfillment.shipment_line.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+fulfillment.pick_task.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+fulfillment.delivery_proof.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+logistics.vehicle.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+logistics.vehicle.create,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+logistics.vehicle.update,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+logistics.route_plan.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+logistics.route_plan.create,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+logistics.route_plan.update,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+logistics.route_stop.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+logistics.route_stop.create,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+logistics.route_stop.update,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+logistics.field_visit.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+logistics.temperature_reading.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+returns.return_case.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+returns.return_line.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+payments.merchant_account.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+payments.payment_intent.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+payments.webhook_inbox.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+payments.payment_transaction.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+payments.payment_allocation.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+payments.refund.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+payments.payout.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+payments.provider_settlement.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+credit.facility.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+credit.commitment.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+credit.receivable.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+credit.installment_plan.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+treasury.cash_session.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+treasury.cod_receipt.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+treasury.cash_handover.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+accounting.ledger.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+accounting.account.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+accounting.period.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+accounting.journal.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+accounting.journal_line.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+notifications.consent.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+notifications.template.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+notifications.template.create,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+notifications.template.update,generic CRUD,tenant / exact scope,Archive/restore through update with revision check in API
+notifications.message.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+notifications.delivery_attempt.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+integrations.idempotency.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+integrations.outbox.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+integrations.consumer_receipt.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+integrations.sync_operation.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+integrations.bulk_job.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+analytics.metric_snapshot.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+audit.event.read,read,tenant / exact scope,Sensitive tables may have no generic read grant; use service-specific path
+accounting.journal.post,controlled command,tenant / exact scope,Server-validated identity; some require active regulatory policy
+inventory.reservation.create,controlled command,tenant / exact scope,Server-validated identity; some require active regulatory policy
+inventory.reservation.release,controlled command,tenant / exact scope,Server-validated identity; some require active regulatory policy
+credit.commitment.create,controlled command,tenant / exact scope,Server-validated identity; some require active regulatory policy
+payments.payment_transaction.confirm,controlled command,tenant / exact scope,Server-validated identity; some require active regulatory policy

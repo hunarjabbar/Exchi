@@ -1,0 +1,63 @@
+name: Enterprise acceptance (non-deploying)
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.23.5'
+      - run: npm run test:core
+      - run: npm run test:auth
+      - run: npm run test:static
+      - run: npm run test:certification
+      - run: python3 tests/test_schema_drift.py
+  step-ab-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    needs: source-contracts
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.23.5'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Require committed dependency lockfile
+        run: |
+          git ls-files --error-unmatch package-lock.json
+          npm run check:lock
+      - name: Install test prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client curl util-linux
+          python -m pip install playwright==1.57.0
+          python -m playwright install --with-deps chromium
+      - name: Migrations, SQL/concurrency, builds, HTTP and browser acceptance
+        run: npm run test:step-ab:fresh
+      - name: Dependency security review
+        run: npm audit --audit-level=high
+      - name: Confirm lockfile and migration files unchanged
+        run: git diff --exit-code -- package-lock.json packages/database/prisma/migrations
+      - name: Publish non-secret acceptance metadata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: step-ab-acceptance-metadata
+          if-no-files-found: ignore
+          path: |
+            acceptance-evidence/isolated-run.json
+            acceptance-evidence/commit.txt
+            acceptance-evidence/lockfile-sha256.txt
+            acceptance-evidence/readiness.json
+            acceptance-evidence/runtime-result.txt
+            acceptance-evidence/prisma-diff.sql
+            acceptance-evidence/schema-drift-result.json

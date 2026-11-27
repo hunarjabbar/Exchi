@@ -1,0 +1,2009 @@
+[
+  {
+    "role": "command",
+    "path": "/command/executive",
+    "title": [
+      "Executive overview",
+      "نظرة تنفيذية",
+      "پوختەی بەڕێوەبردن"
+    ],
+    "group": "Governance",
+    "kind": "dashboard",
+    "resource": "analytics.metric_snapshot",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "analytics.metric_snapshot"
+    ],
+    "candidatePermissions": [
+      "analytics.metric_snapshot.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "currency",
+      "metric",
+      "value",
+      "period_start",
+      "period_end",
+      "refreshed_at"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/approvals",
+    "title": [
+      "Approvals",
+      "الموافقات",
+      "پەسەندکردنەکان"
+    ],
+    "group": "Governance",
+    "kind": "table",
+    "resource": "compliance.approval",
+    "fields": [
+      "Request",
+      "Owner",
+      "State"
+    ],
+    "mutable": false,
+    "resources": [
+      "compliance.approval"
+    ],
+    "candidatePermissions": [
+      "compliance.approval.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "status",
+      "resource_type",
+      "resource_id",
+      "action",
+      "expires_at"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/retailers",
+    "title": [
+      "Retailers",
+      "تجار التجزئة",
+      "فرۆشیاران"
+    ],
+    "group": "Commercial",
+    "kind": "table",
+    "resource": "organizations.retailer_profile",
+    "fields": [
+      "Shop",
+      "Governorate",
+      "Tier",
+      "State"
+    ],
+    "mutable": true,
+    "resources": [
+      "organizations.retailer_profile"
+    ],
+    "candidatePermissions": [
+      "organizations.retailer_profile.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "tier",
+      "kyc_status",
+      "vertical"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/compliance/kyc",
+    "title": [
+      "KYC review",
+      "التحقق من الهوية",
+      "پشتڕاستکردنەوەی ناسنامە"
+    ],
+    "group": "Commercial",
+    "kind": "kyc",
+    "resource": "compliance.kyc_case",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "compliance.kyc_case"
+    ],
+    "candidatePermissions": [
+      "compliance.kyc_case.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "status",
+      "submitted_at",
+      "risk_level",
+      "decided_at"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/suppliers",
+    "title": [
+      "Suppliers",
+      "الموردون",
+      "دابینکەران"
+    ],
+    "group": "Commercial",
+    "kind": "table",
+    "resource": "organizations.supplier_profile",
+    "fields": [
+      "Supplier",
+      "Warehouse",
+      "State"
+    ],
+    "mutable": true,
+    "resources": [
+      "organizations.supplier_profile"
+    ],
+    "candidatePermissions": [
+      "organizations.supplier_profile.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "status"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/field-sales",
+    "title": [
+      "Field sales",
+      "المبيعات الميدانية",
+      "فرۆشتنی مەیدانی"
+    ],
+    "group": "Commercial",
+    "kind": "table",
+    "resource": "organizations.territory",
+    "fields": [
+      "Territory",
+      "Representative",
+      "State"
+    ],
+    "mutable": true,
+    "resources": [
+      "organizations.territory"
+    ],
+    "candidatePermissions": [
+      "organizations.territory.read",
+      "organizations.territory.create",
+      "organizations.territory.update"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "code",
+      "name"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/catalog",
+    "title": [
+      "Catalog",
+      "دليل المنتجات",
+      "کاتەلۆگی کاڵا"
+    ],
+    "group": "Commercial",
+    "kind": "catalog",
+    "resource": "catalog.product",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "catalog.product"
+    ],
+    "candidatePermissions": [
+      "catalog.product.read",
+      "catalog.product.create",
+      "catalog.product.update"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "sku",
+      "name_en",
+      "name_ar",
+      "name_ku",
+      "status"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/pricing",
+    "title": [
+      "Pricing & promotions",
+      "الأسعار والعروض",
+      "نرخ و داشکاندن"
+    ],
+    "group": "Commercial",
+    "kind": "table",
+    "resource": "pricing.promotion",
+    "fields": [
+      "Rule",
+      "Eligibility",
+      "State"
+    ],
+    "mutable": true,
+    "resources": [
+      "pricing.promotion"
+    ],
+    "candidatePermissions": [
+      "pricing.promotion.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "code",
+      "kind",
+      "status",
+      "buy_qty",
+      "bonus_qty",
+      "effective_from",
+      "effective_to"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/procurement",
+    "title": [
+      "Procurement",
+      "المشتريات",
+      "کڕین"
+    ],
+    "group": "Supply chain",
+    "kind": "table",
+    "resource": "procurement.purchase_order",
+    "fields": [
+      "Purchase order",
+      "Supplier",
+      "State"
+    ],
+    "mutable": false,
+    "resources": [
+      "procurement.purchase_order"
+    ],
+    "candidatePermissions": [
+      "procurement.purchase_order.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "reference",
+      "status",
+      "currency"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/inventory",
+    "title": [
+      "Inventory",
+      "المخزون",
+      "کۆگا"
+    ],
+    "group": "Supply chain",
+    "kind": "table",
+    "resource": "inventory.stock_balance",
+    "fields": [
+      "SKU",
+      "Warehouse",
+      "Lot",
+      "Available",
+      "State"
+    ],
+    "mutable": false,
+    "resources": [
+      "inventory.stock_balance"
+    ],
+    "candidatePermissions": [
+      "inventory.stock_balance.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "warehouse_id",
+      "bin_id",
+      "lot_id",
+      "on_hand",
+      "reserved"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/orders",
+    "title": [
+      "Orders",
+      "الطلبات",
+      "داواکارییەکان"
+    ],
+    "group": "Supply chain",
+    "kind": "orders",
+    "resource": "commerce.sales_order",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "commerce.sales_order"
+    ],
+    "candidatePermissions": [
+      "commerce.sales_order.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "reference",
+      "status",
+      "currency",
+      "total_minor"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/rfq",
+    "title": [
+      "RFQ negotiations",
+      "طلبات عروض الأسعار",
+      "داوای نرخ"
+    ],
+    "group": "Supply chain",
+    "kind": "table",
+    "resource": "commerce.rfq",
+    "fields": [
+      "RFQ",
+      "Retailer",
+      "State"
+    ],
+    "mutable": false,
+    "resources": [
+      "commerce.rfq"
+    ],
+    "candidatePermissions": [
+      "commerce.rfq.read",
+      "commerce.rfq.create",
+      "commerce.rfq.update"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "reference",
+      "status"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/returns",
+    "title": [
+      "Returns & disputes",
+      "المرتجعات والنزاعات",
+      "گەڕاندنەوە و ناکۆکی"
+    ],
+    "group": "Supply chain",
+    "kind": "table",
+    "resource": "returns.return_case",
+    "fields": [
+      "Return",
+      "Order",
+      "State"
+    ],
+    "mutable": false,
+    "resources": [
+      "returns.return_case"
+    ],
+    "candidatePermissions": [
+      "returns.return_case.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "reference",
+      "status"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/logistics",
+    "title": [
+      "Dispatch & logistics",
+      "الشحن والخدمات اللوجستية",
+      "گواستنەوە"
+    ],
+    "group": "Supply chain",
+    "kind": "table",
+    "resource": "fulfillment.shipment",
+    "fields": [
+      "Shipment",
+      "Destination",
+      "State"
+    ],
+    "mutable": false,
+    "resources": [
+      "fulfillment.shipment"
+    ],
+    "candidatePermissions": [
+      "fulfillment.shipment.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "status",
+      "reference"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/geography",
+    "title": [
+      "Governorates & zones",
+      "المحافظات والمناطق",
+      "پارێزگا و ناوچەکان"
+    ],
+    "group": "Supply chain",
+    "kind": "table",
+    "resource": "logistics.zone",
+    "fields": [
+      "Zone",
+      "Governorate",
+      "State"
+    ],
+    "mutable": true,
+    "resources": [
+      "logistics.zone"
+    ],
+    "candidatePermissions": [
+      "logistics.zone.read",
+      "logistics.zone.create",
+      "logistics.zone.update"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "code",
+      "status",
+      "name",
+      "governorate_id"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/fleet",
+    "title": [
+      "Fleet & couriers",
+      "الأسطول والناقلون",
+      "ئۆتۆمبێل و گواستنەوە"
+    ],
+    "group": "Supply chain",
+    "kind": "table",
+    "resource": "logistics.vehicle",
+    "fields": [
+      "Vehicle",
+      "Depot",
+      "State"
+    ],
+    "mutable": true,
+    "resources": [
+      "logistics.vehicle"
+    ],
+    "candidatePermissions": [
+      "logistics.vehicle.read",
+      "logistics.vehicle.create",
+      "logistics.vehicle.update"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "code",
+      "status",
+      "cold_chain"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/finance/payments",
+    "title": [
+      "Payments",
+      "المدفوعات",
+      "پارەدانەکان"
+    ],
+    "group": "Finance",
+    "kind": "table",
+    "resource": "payments.payment_intent",
+    "fields": [
+      "Reference",
+      "Channel",
+      "Amount",
+      "State"
+    ],
+    "mutable": false,
+    "resources": [
+      "payments.payment_intent"
+    ],
+    "candidatePermissions": [
+      "payments.payment_intent.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "currency",
+      "status",
+      "method",
+      "amount_minor"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/finance/credit",
+    "title": [
+      "Trade credit",
+      "الائتمان التجاري",
+      "قەرزی بازرگانی"
+    ],
+    "group": "Finance",
+    "kind": "credit",
+    "resource": "credit.facility",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "credit.facility"
+    ],
+    "candidatePermissions": [
+      "credit.facility.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "status",
+      "limit_minor",
+      "terms_days",
+      "expires_at",
+      "overdue_block"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/finance/cod",
+    "title": [
+      "COD reconciliation",
+      "تسوية النقد عند التسليم",
+      "یەکخستنەوەی پارەی گەیاندن"
+    ],
+    "group": "Finance",
+    "kind": "cod",
+    "resource": "treasury.cash_session",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "treasury.cash_session"
+    ],
+    "candidatePermissions": [
+      "treasury.cash_session.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "reference",
+      "status",
+      "expected_minor",
+      "received_minor",
+      "variance_minor"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/finance/treasury",
+    "title": [
+      "Treasury & FX",
+      "الخزينة والصرف",
+      "خەزێنە و دراو"
+    ],
+    "group": "Finance",
+    "kind": "table",
+    "resource": "treasury.fx_rate",
+    "fields": [
+      "Pair",
+      "Purpose",
+      "State"
+    ],
+    "mutable": false,
+    "resources": [
+      "treasury.fx_rate"
+    ],
+    "candidatePermissions": [
+      "treasury.fx_rate.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "kind",
+      "status",
+      "base_currency",
+      "quote_currency",
+      "rate",
+      "effective_from",
+      "effective_to"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/erp/ledger",
+    "title": [
+      "General ledger",
+      "دفتر الأستاذ العام",
+      "دەفتەری گشتی"
+    ],
+    "group": "Finance",
+    "kind": "ledger",
+    "resource": "accounting.journal",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "accounting.journal"
+    ],
+    "candidatePermissions": [
+      "accounting.journal.read",
+      "accounting.journal.post"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "reference",
+      "status",
+      "entry_date",
+      "posted_at"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/erp/receivables",
+    "title": [
+      "Receivables",
+      "الذمم المدينة",
+      "پارەی وەرگیراو"
+    ],
+    "group": "Finance",
+    "kind": "table",
+    "resource": "credit.receivable",
+    "fields": [
+      "Invoice",
+      "Retailer",
+      "Amount",
+      "State"
+    ],
+    "mutable": false,
+    "resources": [
+      "credit.receivable"
+    ],
+    "candidatePermissions": [
+      "credit.receivable.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "status",
+      "original_minor",
+      "outstanding_minor",
+      "due_at"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/erp/payables",
+    "title": [
+      "Payables",
+      "الذمم الدائنة",
+      "پارەی پێدراو"
+    ],
+    "group": "Finance",
+    "kind": "table",
+    "resource": "procurement.supplier_bill",
+    "fields": [
+      "Invoice",
+      "Supplier",
+      "Amount",
+      "State"
+    ],
+    "mutable": false,
+    "resources": [
+      "procurement.supplier_bill"
+    ],
+    "candidatePermissions": [
+      "procurement.supplier_bill.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "reference",
+      "currency",
+      "status",
+      "total_minor"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/erp/reporting",
+    "title": [
+      "Tax & reports",
+      "الضرائب والتقارير",
+      "باج و ڕاپۆرت"
+    ],
+    "group": "Finance",
+    "kind": "table",
+    "resource": "compliance.policy",
+    "fields": [
+      "Policy",
+      "Jurisdiction",
+      "State"
+    ],
+    "mutable": false,
+    "resources": [
+      "compliance.policy"
+    ],
+    "candidatePermissions": [
+      "compliance.policy.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "code",
+      "status",
+      "jurisdiction",
+      "effective_from",
+      "effective_to"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/notifications",
+    "title": [
+      "Notifications",
+      "الإشعارات",
+      "ئاگادارکردنەوەکان"
+    ],
+    "group": "Administration",
+    "kind": "table",
+    "resource": "notifications.message",
+    "fields": [
+      "Reference",
+      "Channel",
+      "State"
+    ],
+    "mutable": false,
+    "resources": [
+      "notifications.message"
+    ],
+    "candidatePermissions": [
+      "notifications.message.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "status",
+      "channel"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/admin/access",
+    "title": [
+      "Staff & permissions",
+      "الموظفون والصلاحيات",
+      "کارمەند و دەسەڵات"
+    ],
+    "group": "Administration",
+    "kind": "table",
+    "resource": "authorization.role",
+    "fields": [
+      "Role",
+      "Scope",
+      "State"
+    ],
+    "mutable": false,
+    "resources": [
+      "authorization.role"
+    ],
+    "candidatePermissions": [
+      "authorization.role.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "code",
+      "name"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/admin/organizations",
+    "title": [
+      "Organizations",
+      "المؤسسات",
+      "ڕێکخراوەکان"
+    ],
+    "group": "Administration",
+    "kind": "table",
+    "resource": "organizations.branch",
+    "fields": [
+      "Branch",
+      "Tenant",
+      "State"
+    ],
+    "mutable": true,
+    "resources": [
+      "organizations.branch"
+    ],
+    "candidatePermissions": [
+      "organizations.branch.read",
+      "organizations.branch.create",
+      "organizations.branch.update"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "code",
+      "name"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/admin/integrations",
+    "title": [
+      "Integrations",
+      "التكاملات",
+      "یەکخستنەکان"
+    ],
+    "group": "Administration",
+    "kind": "table",
+    "resource": "payments.merchant_account",
+    "fields": [
+      "Provider",
+      "Capability",
+      "State"
+    ],
+    "mutable": false,
+    "resources": [
+      "payments.merchant_account"
+    ],
+    "candidatePermissions": [
+      "payments.merchant_account.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "command",
+    "path": "/command/admin/imports",
+    "title": [
+      "Bulk data operations",
+      "استيراد البيانات",
+      "هاوردەی داتا"
+    ],
+    "group": "Administration",
+    "kind": "table",
+    "resource": "integrations.bulk_job",
+    "fields": [
+      "Job",
+      "Resource",
+      "State"
+    ],
+    "mutable": false,
+    "resources": [
+      "integrations.bulk_job"
+    ],
+    "candidatePermissions": [
+      "integrations.bulk_job.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "command",
+    "path": "/command/admin/audit",
+    "title": [
+      "Audit & security",
+      "التدقيق والأمن",
+      "وردبینی و ئاسایش"
+    ],
+    "group": "Administration",
+    "kind": "table",
+    "resource": "audit.event",
+    "fields": [
+      "Event",
+      "Actor",
+      "State"
+    ],
+    "mutable": false,
+    "resources": [
+      "audit.event"
+    ],
+    "candidatePermissions": [
+      "audit.event.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": [
+      "id",
+      "version",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "resource",
+      "resource_id",
+      "action",
+      "event_hash"
+    ]
+  },
+  {
+    "role": "command",
+    "path": "/command/admin/health",
+    "title": [
+      "System health",
+      "حالة النظام",
+      "دۆخی سیستەم"
+    ],
+    "group": "Administration",
+    "kind": "health",
+    "resource": "integrations.outbox",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "integrations.outbox"
+    ],
+    "candidatePermissions": [
+      "integrations.outbox.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "retailer",
+    "path": "/app/home",
+    "title": [
+      "Home",
+      "الرئيسية",
+      "سەرەکی"
+    ],
+    "group": "Shop",
+    "kind": "retailhome",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "commerce.sales_order",
+      "credit.receivable"
+    ],
+    "candidatePermissions": [
+      "commerce.sales_order.read",
+      "credit.receivable.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "retailer",
+    "path": "/app/catalog",
+    "title": [
+      "Catalog",
+      "دليل المنتجات",
+      "کاتەلۆگ"
+    ],
+    "group": "Shop",
+    "kind": "shop",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "catalog.product",
+      "pricing.offer"
+    ],
+    "candidatePermissions": [
+      "catalog.product.read",
+      "catalog.product.create",
+      "catalog.product.update",
+      "pricing.offer.read",
+      "pricing.offer.create",
+      "pricing.offer.update"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "retailer",
+    "path": "/app/search",
+    "title": [
+      "Search",
+      "البحث",
+      "گەڕان"
+    ],
+    "group": "Shop",
+    "kind": "shop",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "catalog.product",
+      "catalog.product_alias"
+    ],
+    "candidatePermissions": [
+      "catalog.product.read",
+      "catalog.product.create",
+      "catalog.product.update",
+      "catalog.product_alias.read",
+      "catalog.product_alias.create",
+      "catalog.product_alias.update"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "retailer",
+    "path": "/app/scan",
+    "title": [
+      "Barcode scan",
+      "مسح الباركود",
+      "سکانی بارکۆد"
+    ],
+    "group": "Shop",
+    "kind": "scan",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "catalog.uom"
+    ],
+    "candidatePermissions": [
+      "catalog.uom.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "retailer",
+    "path": "/app/quick-order",
+    "title": [
+      "Quick order",
+      "طلب سريع",
+      "داوای خێرا"
+    ],
+    "group": "Shop",
+    "kind": "quick",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "commerce.cart",
+      "commerce.cart_line"
+    ],
+    "candidatePermissions": [
+      "commerce.cart.read",
+      "commerce.cart.create",
+      "commerce.cart.update",
+      "commerce.cart_line.read",
+      "commerce.cart_line.create",
+      "commerce.cart_line.update"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "retailer",
+    "path": "/app/cart",
+    "title": [
+      "Cart",
+      "السلة",
+      "سەبەتە"
+    ],
+    "group": "Shop",
+    "kind": "cart",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "commerce.cart",
+      "commerce.cart_line"
+    ],
+    "candidatePermissions": [
+      "commerce.cart.read",
+      "commerce.cart.create",
+      "commerce.cart.update",
+      "commerce.cart_line.read",
+      "commerce.cart_line.create",
+      "commerce.cart_line.update"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "retailer",
+    "path": "/app/checkout",
+    "title": [
+      "Checkout",
+      "الدفع",
+      "پارەدان"
+    ],
+    "group": "Shop",
+    "kind": "checkout",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "commerce.quote",
+      "payments.payment_intent"
+    ],
+    "candidatePermissions": [
+      "commerce.quote.read",
+      "payments.payment_intent.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "retailer",
+    "path": "/app/orders",
+    "title": [
+      "Orders",
+      "الطلبات",
+      "داواکارییەکان"
+    ],
+    "group": "Account",
+    "kind": "orders",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "commerce.sales_order"
+    ],
+    "candidatePermissions": [
+      "commerce.sales_order.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "retailer",
+    "path": "/app/orders/detail",
+    "title": [
+      "Order detail",
+      "تفاصيل الطلب",
+      "وردەکاری داوا"
+    ],
+    "group": "Account",
+    "kind": "orderdetail",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "commerce.sales_order",
+      "fulfillment.shipment"
+    ],
+    "candidatePermissions": [
+      "commerce.sales_order.read",
+      "fulfillment.shipment.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "retailer",
+    "path": "/app/rfq",
+    "title": [
+      "Request a quote",
+      "طلب عرض سعر",
+      "داوای نرخ"
+    ],
+    "group": "Account",
+    "kind": "table",
+    "resource": "commerce.rfq",
+    "fields": [
+      "RFQ",
+      "State"
+    ],
+    "mutable": false,
+    "resources": [
+      "commerce.rfq"
+    ],
+    "candidatePermissions": [
+      "commerce.rfq.read",
+      "commerce.rfq.create",
+      "commerce.rfq.update"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "retailer",
+    "path": "/app/credit",
+    "title": [
+      "Credit account",
+      "الحساب الآجل",
+      "هەژماری قەرز"
+    ],
+    "group": "Account",
+    "kind": "credit",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "credit.facility",
+      "credit.receivable"
+    ],
+    "candidatePermissions": [
+      "credit.facility.read",
+      "credit.receivable.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "retailer",
+    "path": "/app/invoices",
+    "title": [
+      "Invoices",
+      "الفواتير",
+      "پسوولەکان"
+    ],
+    "group": "Account",
+    "kind": "table",
+    "resource": "commerce.invoice",
+    "fields": [
+      "Invoice",
+      "Amount",
+      "State"
+    ],
+    "mutable": false,
+    "resources": [
+      "commerce.invoice"
+    ],
+    "candidatePermissions": [
+      "commerce.invoice.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "retailer",
+    "path": "/app/returns",
+    "title": [
+      "Returns",
+      "المرتجعات",
+      "گەڕاندنەوە"
+    ],
+    "group": "Account",
+    "kind": "table",
+    "resource": "returns.return_case",
+    "fields": [
+      "Return",
+      "State"
+    ],
+    "mutable": false,
+    "resources": [
+      "returns.return_case"
+    ],
+    "candidatePermissions": [
+      "returns.return_case.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "retailer",
+    "path": "/app/account/stores",
+    "title": [
+      "Stores",
+      "المتاجر",
+      "فرۆشگاکان"
+    ],
+    "group": "Account",
+    "kind": "table",
+    "resource": "organizations.retailer_profile",
+    "fields": [
+      "Store",
+      "State"
+    ],
+    "mutable": false,
+    "resources": [
+      "organizations.retailer_profile"
+    ],
+    "candidatePermissions": [
+      "organizations.retailer_profile.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "retailer",
+    "path": "/app/account/team",
+    "title": [
+      "Team",
+      "الفريق",
+      "تیم"
+    ],
+    "group": "Account",
+    "kind": "table",
+    "resource": "organizations.membership",
+    "fields": [
+      "Member",
+      "Role",
+      "State"
+    ],
+    "mutable": false,
+    "resources": [
+      "organizations.membership"
+    ],
+    "candidatePermissions": [
+      "organizations.membership.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "retailer",
+    "path": "/app/account/documents",
+    "title": [
+      "Documents",
+      "الوثائق",
+      "بەڵگەنامەکان"
+    ],
+    "group": "Account",
+    "kind": "kyc",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "compliance.kyc_case",
+      "compliance.document"
+    ],
+    "candidatePermissions": [
+      "compliance.kyc_case.read",
+      "compliance.document.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "retailer",
+    "path": "/app/notifications",
+    "title": [
+      "Notifications",
+      "الإشعارات",
+      "ئاگادارکردنەوەکان"
+    ],
+    "group": "Account",
+    "kind": "table",
+    "resource": "notifications.message",
+    "fields": [
+      "Message",
+      "State"
+    ],
+    "mutable": false,
+    "resources": [
+      "notifications.message"
+    ],
+    "candidatePermissions": [
+      "notifications.message.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "retailer",
+    "path": "/app/sync",
+    "title": [
+      "Offline queue",
+      "المزامنة",
+      "هاوکاتکردن"
+    ],
+    "group": "Account",
+    "kind": "sync",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "integrations.sync_operation"
+    ],
+    "candidatePermissions": [
+      "integrations.sync_operation.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "supplier",
+    "path": "/supplier/home",
+    "title": [
+      "Distributor overview",
+      "نظرة الموزع",
+      "پوختەی دابەشکەر"
+    ],
+    "group": "Operations",
+    "kind": "dashboard",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "commerce.sales_order",
+      "inventory.stock_balance"
+    ],
+    "candidatePermissions": [
+      "inventory.stock_balance.read",
+      "commerce.sales_order.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "supplier",
+    "path": "/supplier/catalog",
+    "title": [
+      "Catalog",
+      "المنتجات",
+      "کاڵاکان"
+    ],
+    "group": "Operations",
+    "kind": "catalog",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [],
+    "candidatePermissions": [],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "supplier",
+    "path": "/supplier/inventory",
+    "title": [
+      "Stock & batches",
+      "المخزون والدفعات",
+      "کۆگا و بەچ"
+    ],
+    "group": "Operations",
+    "kind": "table",
+    "resource": "inventory.stock_balance",
+    "fields": [
+      "SKU",
+      "Batch",
+      "Available",
+      "State"
+    ],
+    "mutable": false,
+    "resources": [
+      "inventory.stock_balance"
+    ],
+    "candidatePermissions": [
+      "inventory.stock_balance.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "supplier",
+    "path": "/supplier/orders",
+    "title": [
+      "Fulfillment",
+      "تنفيذ الطلبات",
+      "جێبەجێکردنی داوا"
+    ],
+    "group": "Operations",
+    "kind": "orders",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [],
+    "candidatePermissions": [],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "supplier",
+    "path": "/supplier/promotions",
+    "title": [
+      "Promotions",
+      "العروض",
+      "داشکاندن"
+    ],
+    "group": "Operations",
+    "kind": "table",
+    "resource": "pricing.promotion",
+    "fields": [
+      "Rule",
+      "State"
+    ],
+    "mutable": false,
+    "resources": [
+      "pricing.promotion"
+    ],
+    "candidatePermissions": [
+      "pricing.promotion.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "supplier",
+    "path": "/supplier/settlements",
+    "title": [
+      "Settlements",
+      "التسويات",
+      "یەکخستنەوە"
+    ],
+    "group": "Finance",
+    "kind": "table",
+    "resource": "payments.payment_transaction",
+    "fields": [
+      "Reference",
+      "Amount",
+      "State"
+    ],
+    "mutable": false,
+    "resources": [
+      "payments.payment_transaction"
+    ],
+    "candidatePermissions": [
+      "payments.payment_transaction.read",
+      "payments.payment_transaction.confirm"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "field",
+    "path": "/field/home",
+    "title": [
+      "Daily agenda",
+      "جدول اليوم",
+      "بەرنامەی ڕۆژ"
+    ],
+    "group": "Field",
+    "kind": "field",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "logistics.field_visit",
+      "logistics.route_plan"
+    ],
+    "candidatePermissions": [
+      "logistics.route_plan.read",
+      "logistics.route_plan.create",
+      "logistics.route_plan.update",
+      "logistics.field_visit.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "field",
+    "path": "/field/territory",
+    "title": [
+      "Territory",
+      "المنطقة",
+      "ناوچە"
+    ],
+    "group": "Field",
+    "kind": "table",
+    "resource": "organizations.territory",
+    "fields": [
+      "Territory",
+      "State"
+    ],
+    "mutable": false,
+    "resources": [
+      "organizations.territory"
+    ],
+    "candidatePermissions": [
+      "organizations.territory.read",
+      "organizations.territory.create",
+      "organizations.territory.update"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "field",
+    "path": "/field/check-in",
+    "title": [
+      "Store check-in",
+      "تسجيل زيارة",
+      "تۆمارکردنی سەردان"
+    ],
+    "group": "Field",
+    "kind": "checkin",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "logistics.field_visit"
+    ],
+    "candidatePermissions": [
+      "logistics.field_visit.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "field",
+    "path": "/field/onboarding",
+    "title": [
+      "Assisted KYC",
+      "التسجيل المساعد",
+      "تۆمارکردنی یارمەتیدراو"
+    ],
+    "group": "Field",
+    "kind": "onboarding",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "compliance.kyc_case"
+    ],
+    "candidatePermissions": [
+      "compliance.kyc_case.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "field",
+    "path": "/field/proxy-order",
+    "title": [
+      "Proxy order",
+      "طلب بالنيابة",
+      "داوا بە نوێنەرایەتی"
+    ],
+    "group": "Field",
+    "kind": "quick",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "commerce.cart",
+      "commerce.sales_order"
+    ],
+    "candidatePermissions": [
+      "commerce.cart.read",
+      "commerce.cart.create",
+      "commerce.cart.update",
+      "commerce.sales_order.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "field",
+    "path": "/field/collections",
+    "title": [
+      "Collections",
+      "التحصيل",
+      "کۆکردنەوەی پارە"
+    ],
+    "group": "Field",
+    "kind": "cod",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "treasury.cod_receipt"
+    ],
+    "candidatePermissions": [
+      "treasury.cod_receipt.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "field",
+    "path": "/field/sync",
+    "title": [
+      "Offline queue",
+      "المزامنة",
+      "هاوکاتکردن"
+    ],
+    "group": "Field",
+    "kind": "sync",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "integrations.sync_operation"
+    ],
+    "candidatePermissions": [
+      "integrations.sync_operation.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "driver",
+    "path": "/driver/home",
+    "title": [
+      "Delivery agenda",
+      "جدول التوصيل",
+      "بەرنامەی گەیاندن"
+    ],
+    "group": "Delivery",
+    "kind": "field",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "fulfillment.shipment",
+      "logistics.route_stop"
+    ],
+    "candidatePermissions": [
+      "fulfillment.shipment.read",
+      "logistics.route_stop.read",
+      "logistics.route_stop.create",
+      "logistics.route_stop.update"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "driver",
+    "path": "/driver/shipments",
+    "title": [
+      "Assigned shipments",
+      "الشحنات المعينة",
+      "بارە دیاریکراوەکان"
+    ],
+    "group": "Delivery",
+    "kind": "table",
+    "resource": "fulfillment.shipment",
+    "fields": [
+      "Shipment",
+      "Destination",
+      "State"
+    ],
+    "mutable": false,
+    "resources": [
+      "fulfillment.shipment"
+    ],
+    "candidatePermissions": [
+      "fulfillment.shipment.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "driver",
+    "path": "/driver/proof",
+    "title": [
+      "Delivery proof",
+      "إثبات التسليم",
+      "بەڵگەی گەیاندن"
+    ],
+    "group": "Delivery",
+    "kind": "proof",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "fulfillment.delivery_proof"
+    ],
+    "candidatePermissions": [
+      "fulfillment.delivery_proof.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "driver",
+    "path": "/driver/cash",
+    "title": [
+      "Cash custody",
+      "عهدة النقد",
+      "پارەی بەدەست"
+    ],
+    "group": "Delivery",
+    "kind": "cod",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "treasury.cod_receipt"
+    ],
+    "candidatePermissions": [
+      "treasury.cod_receipt.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "driver",
+    "path": "/driver/sync",
+    "title": [
+      "Offline queue",
+      "المزامنة",
+      "هاوکاتکردن"
+    ],
+    "group": "Delivery",
+    "kind": "sync",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "integrations.sync_operation"
+    ],
+    "candidatePermissions": [
+      "integrations.sync_operation.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "public",
+    "path": "/public/home",
+    "title": [
+      "Wholesale gateway",
+      "بوابة الجملة",
+      "دەروازەی کۆفرۆشی"
+    ],
+    "group": "Discover",
+    "kind": "public",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [],
+    "candidatePermissions": [],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "public",
+    "path": "/public/register",
+    "title": [
+      "Registration & KYC",
+      "التسجيل والتحقق",
+      "تۆمارکردن و پشتڕاستکردنەوە"
+    ],
+    "group": "Discover",
+    "kind": "onboarding",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "compliance.kyc_case"
+    ],
+    "candidatePermissions": [
+      "compliance.kyc_case.read"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  },
+  {
+    "role": "public",
+    "path": "/public/catalog",
+    "title": [
+      "Catalog preview",
+      "معاينة المنتجات",
+      "پێشبینینی کاڵا"
+    ],
+    "group": "Discover",
+    "kind": "shop",
+    "resource": "",
+    "fields": [],
+    "mutable": false,
+    "resources": [
+      "catalog.product"
+    ],
+    "candidatePermissions": [
+      "catalog.product.read",
+      "catalog.product.create",
+      "catalog.product.update"
+    ],
+    "enforcement": "Server authorization required; route registry is not an authorization grant",
+    "readColumns": []
+  }
+]

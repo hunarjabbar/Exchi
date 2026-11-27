@@ -1,0 +1,2891 @@
+generator client {
+  provider = "prisma-client"
+  output = "../generated/client"
+}
+datasource db {
+  provider = "postgresql"
+  schemas = ["accounting", "analytics", "audit", "authorization", "catalog", "commerce", "compliance", "credit", "fulfillment", "identity", "integrations", "inventory", "logistics", "notifications", "organizations", "payments", "pricing", "procurement", "returns", "treasury"]
+}
+
+model Tenant {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  code String
+  name String
+  status String @default("ACTIVE")
+  back_scope_tenant_id Scope[] @relation("Scope_tenant_id")
+  back_membership_tenant_id Membership[] @relation("Membership_tenant_id")
+  back_role_tenant_id Role[] @relation("Role_tenant_id")
+  back_role_permission_tenant_id RolePermission[] @relation("RolePermission_tenant_id")
+  back_assignment_tenant_id Assignment[] @relation("Assignment_tenant_id")
+  back_device_tenant_id Device[] @relation("Device_tenant_id")
+  back_session_tenant_id Session[] @relation("Session_tenant_id")
+  back_zone_tenant_id Zone[] @relation("Zone_tenant_id")
+  back_address_tenant_id Address[] @relation("Address_tenant_id")
+  back_shipping_tariff_tenant_id ShippingTariff[] @relation("ShippingTariff_tenant_id")
+  back_party_tenant_id Party[] @relation("Party_tenant_id")
+  back_branch_tenant_id Branch[] @relation("Branch_tenant_id")
+  back_party_member_tenant_id PartyMember[] @relation("PartyMember_tenant_id")
+  back_territory_tenant_id Territory[] @relation("Territory_tenant_id")
+  back_field_assignment_tenant_id FieldAssignment[] @relation("FieldAssignment_tenant_id")
+  back_retailer_profile_tenant_id RetailerProfile[] @relation("RetailerProfile_tenant_id")
+  back_supplier_profile_tenant_id SupplierProfile[] @relation("SupplierProfile_tenant_id")
+  back_kyc_case_tenant_id KycCase[] @relation("KycCase_tenant_id")
+  back_document_tenant_id Document[] @relation("Document_tenant_id")
+  back_kyc_decision_tenant_id KycDecision[] @relation("KycDecision_tenant_id")
+  back_risk_case_tenant_id RiskCase[] @relation("RiskCase_tenant_id")
+  back_policy_tenant_id Policy[] @relation("Policy_tenant_id")
+  back_approval_tenant_id Approval[] @relation("Approval_tenant_id")
+  back_brand_tenant_id Brand[] @relation("Brand_tenant_id")
+  back_category_tenant_id Category[] @relation("Category_tenant_id")
+  back_product_tenant_id Product[] @relation("Product_tenant_id")
+  back_product_alias_tenant_id ProductAlias[] @relation("ProductAlias_tenant_id")
+  back_uom_tenant_id Uom[] @relation("Uom_tenant_id")
+  back_product_license_tenant_id ProductLicense[] @relation("ProductLicense_tenant_id")
+  back_offer_tenant_id Offer[] @relation("Offer_tenant_id")
+  back_price_rule_tenant_id PriceRule[] @relation("PriceRule_tenant_id")
+  back_promotion_tenant_id Promotion[] @relation("Promotion_tenant_id")
+  back_tax_rule_tenant_id TaxRule[] @relation("TaxRule_tenant_id")
+  back_warehouse_tenant_id Warehouse[] @relation("Warehouse_tenant_id")
+  back_bin_tenant_id Bin[] @relation("Bin_tenant_id")
+  back_lot_tenant_id Lot[] @relation("Lot_tenant_id")
+  back_stock_balance_tenant_id StockBalance[] @relation("StockBalance_tenant_id")
+  back_stock_movement_tenant_id StockMovement[] @relation("StockMovement_tenant_id")
+  back_reservation_tenant_id Reservation[] @relation("Reservation_tenant_id")
+  back_stock_transfer_tenant_id StockTransfer[] @relation("StockTransfer_tenant_id")
+  back_transfer_line_tenant_id TransferLine[] @relation("TransferLine_tenant_id")
+  back_stocktake_tenant_id Stocktake[] @relation("Stocktake_tenant_id")
+  back_stocktake_line_tenant_id StocktakeLine[] @relation("StocktakeLine_tenant_id")
+  back_purchase_order_tenant_id PurchaseOrder[] @relation("PurchaseOrder_tenant_id")
+  back_purchase_line_tenant_id PurchaseLine[] @relation("PurchaseLine_tenant_id")
+  back_goods_receipt_tenant_id GoodsReceipt[] @relation("GoodsReceipt_tenant_id")
+  back_receipt_line_tenant_id ReceiptLine[] @relation("ReceiptLine_tenant_id")
+  back_supplier_bill_tenant_id SupplierBill[] @relation("SupplierBill_tenant_id")
+  back_landed_cost_tenant_id LandedCost[] @relation("LandedCost_tenant_id")
+  back_fx_rate_tenant_id FxRate[] @relation("FxRate_tenant_id")
+  back_cart_tenant_id Cart[] @relation("Cart_tenant_id")
+  back_cart_line_tenant_id CartLine[] @relation("CartLine_tenant_id")
+  back_quote_tenant_id Quote[] @relation("Quote_tenant_id")
+  back_quote_line_tenant_id QuoteLine[] @relation("QuoteLine_tenant_id")
+  back_purchase_group_tenant_id PurchaseGroup[] @relation("PurchaseGroup_tenant_id")
+  back_sales_order_tenant_id SalesOrder[] @relation("SalesOrder_tenant_id")
+  back_order_line_tenant_id OrderLine[] @relation("OrderLine_tenant_id")
+  back_order_amendment_tenant_id OrderAmendment[] @relation("OrderAmendment_tenant_id")
+  back_rfq_tenant_id Rfq[] @relation("Rfq_tenant_id")
+  back_rfq_offer_tenant_id RfqOffer[] @relation("RfqOffer_tenant_id")
+  back_invoice_tenant_id Invoice[] @relation("Invoice_tenant_id")
+  back_invoice_line_tenant_id InvoiceLine[] @relation("InvoiceLine_tenant_id")
+  back_credit_note_tenant_id CreditNote[] @relation("CreditNote_tenant_id")
+  back_shipment_tenant_id Shipment[] @relation("Shipment_tenant_id")
+  back_shipment_line_tenant_id ShipmentLine[] @relation("ShipmentLine_tenant_id")
+  back_pick_task_tenant_id PickTask[] @relation("PickTask_tenant_id")
+  back_delivery_proof_tenant_id DeliveryProof[] @relation("DeliveryProof_tenant_id")
+  back_vehicle_tenant_id Vehicle[] @relation("Vehicle_tenant_id")
+  back_route_plan_tenant_id RoutePlan[] @relation("RoutePlan_tenant_id")
+  back_route_stop_tenant_id RouteStop[] @relation("RouteStop_tenant_id")
+  back_field_visit_tenant_id FieldVisit[] @relation("FieldVisit_tenant_id")
+  back_temperature_reading_tenant_id TemperatureReading[] @relation("TemperatureReading_tenant_id")
+  back_return_case_tenant_id ReturnCase[] @relation("ReturnCase_tenant_id")
+  back_return_line_tenant_id ReturnLine[] @relation("ReturnLine_tenant_id")
+  back_merchant_account_tenant_id MerchantAccount[] @relation("MerchantAccount_tenant_id")
+  back_payment_intent_tenant_id PaymentIntent[] @relation("PaymentIntent_tenant_id")
+  back_webhook_inbox_tenant_id WebhookInbox[] @relation("WebhookInbox_tenant_id")
+  back_payment_transaction_tenant_id PaymentTransaction[] @relation("PaymentTransaction_tenant_id")
+  back_payment_allocation_tenant_id PaymentAllocation[] @relation("PaymentAllocation_tenant_id")
+  back_refund_tenant_id Refund[] @relation("Refund_tenant_id")
+  back_payout_tenant_id Payout[] @relation("Payout_tenant_id")
+  back_provider_settlement_tenant_id ProviderSettlement[] @relation("ProviderSettlement_tenant_id")
+  back_facility_tenant_id Facility[] @relation("Facility_tenant_id")
+  back_commitment_tenant_id Commitment[] @relation("Commitment_tenant_id")
+  back_receivable_tenant_id Receivable[] @relation("Receivable_tenant_id")
+  back_installment_plan_tenant_id InstallmentPlan[] @relation("InstallmentPlan_tenant_id")
+  back_cash_session_tenant_id CashSession[] @relation("CashSession_tenant_id")
+  back_cod_receipt_tenant_id CodReceipt[] @relation("CodReceipt_tenant_id")
+  back_cash_handover_tenant_id CashHandover[] @relation("CashHandover_tenant_id")
+  back_ledger_tenant_id Ledger[] @relation("Ledger_tenant_id")
+  back_account_tenant_id Account[] @relation("Account_tenant_id")
+  back_period_tenant_id Period[] @relation("Period_tenant_id")
+  back_journal_tenant_id Journal[] @relation("Journal_tenant_id")
+  back_journal_line_tenant_id JournalLine[] @relation("JournalLine_tenant_id")
+  back_consent_tenant_id Consent[] @relation("Consent_tenant_id")
+  back_template_tenant_id Template[] @relation("Template_tenant_id")
+  back_message_tenant_id Message[] @relation("Message_tenant_id")
+  back_delivery_attempt_tenant_id DeliveryAttempt[] @relation("DeliveryAttempt_tenant_id")
+  back_idempotency_tenant_id Idempotency[] @relation("Idempotency_tenant_id")
+  back_outbox_tenant_id Outbox[] @relation("Outbox_tenant_id")
+  back_consumer_receipt_tenant_id ConsumerReceipt[] @relation("ConsumerReceipt_tenant_id")
+  back_sync_operation_tenant_id SyncOperation[] @relation("SyncOperation_tenant_id")
+  back_bulk_job_tenant_id BulkJob[] @relation("BulkJob_tenant_id")
+  back_metric_snapshot_tenant_id MetricSnapshot[] @relation("MetricSnapshot_tenant_id")
+  back_event_tenant_id Event[] @relation("Event_tenant_id")
+  @@unique([code])
+  @@map("tenant")
+  @@schema("organizations")
+}
+
+model Principal {
+  last_totp_step BigInt?
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  phone String
+  display_name String
+  status String @default("ACTIVE")
+  back_membership_principal_id Membership[] @relation("Membership_principal_id")
+  @@unique([phone])
+  @@map("principal")
+  @@schema("identity")
+}
+
+model Scope {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  code String
+  kind String
+  parent_id String? @db.Uuid
+  name String
+  rel_tenant_id Tenant @relation("Scope_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_scope_tenant_id")
+  rel_parent_id Scope? @relation("Scope_parent_id", fields: [tenant_id,parent_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_scope_parent_id")
+  back_scope_parent_id Scope[] @relation("Scope_parent_id")
+  back_membership_scope_id Membership[] @relation("Membership_scope_id")
+  back_role_scope_id Role[] @relation("Role_scope_id")
+  back_role_permission_scope_id RolePermission[] @relation("RolePermission_scope_id")
+  back_assignment_scope_id Assignment[] @relation("Assignment_scope_id")
+  back_assignment_assigned_scope_id Assignment[] @relation("Assignment_assigned_scope_id")
+  back_device_scope_id Device[] @relation("Device_scope_id")
+  back_session_scope_id Session[] @relation("Session_scope_id")
+  back_zone_scope_id Zone[] @relation("Zone_scope_id")
+  back_address_scope_id Address[] @relation("Address_scope_id")
+  back_shipping_tariff_scope_id ShippingTariff[] @relation("ShippingTariff_scope_id")
+  back_party_scope_id Party[] @relation("Party_scope_id")
+  back_branch_scope_id Branch[] @relation("Branch_scope_id")
+  back_party_member_scope_id PartyMember[] @relation("PartyMember_scope_id")
+  back_territory_scope_id Territory[] @relation("Territory_scope_id")
+  back_field_assignment_scope_id FieldAssignment[] @relation("FieldAssignment_scope_id")
+  back_retailer_profile_scope_id RetailerProfile[] @relation("RetailerProfile_scope_id")
+  back_supplier_profile_scope_id SupplierProfile[] @relation("SupplierProfile_scope_id")
+  back_kyc_case_scope_id KycCase[] @relation("KycCase_scope_id")
+  back_document_scope_id Document[] @relation("Document_scope_id")
+  back_kyc_decision_scope_id KycDecision[] @relation("KycDecision_scope_id")
+  back_risk_case_scope_id RiskCase[] @relation("RiskCase_scope_id")
+  back_policy_scope_id Policy[] @relation("Policy_scope_id")
+  back_approval_scope_id Approval[] @relation("Approval_scope_id")
+  back_brand_scope_id Brand[] @relation("Brand_scope_id")
+  back_category_scope_id Category[] @relation("Category_scope_id")
+  back_product_scope_id Product[] @relation("Product_scope_id")
+  back_product_alias_scope_id ProductAlias[] @relation("ProductAlias_scope_id")
+  back_uom_scope_id Uom[] @relation("Uom_scope_id")
+  back_product_license_scope_id ProductLicense[] @relation("ProductLicense_scope_id")
+  back_offer_scope_id Offer[] @relation("Offer_scope_id")
+  back_price_rule_scope_id PriceRule[] @relation("PriceRule_scope_id")
+  back_promotion_scope_id Promotion[] @relation("Promotion_scope_id")
+  back_tax_rule_scope_id TaxRule[] @relation("TaxRule_scope_id")
+  back_warehouse_scope_id Warehouse[] @relation("Warehouse_scope_id")
+  back_bin_scope_id Bin[] @relation("Bin_scope_id")
+  back_lot_scope_id Lot[] @relation("Lot_scope_id")
+  back_stock_balance_scope_id StockBalance[] @relation("StockBalance_scope_id")
+  back_stock_movement_scope_id StockMovement[] @relation("StockMovement_scope_id")
+  back_reservation_scope_id Reservation[] @relation("Reservation_scope_id")
+  back_stock_transfer_scope_id StockTransfer[] @relation("StockTransfer_scope_id")
+  back_transfer_line_scope_id TransferLine[] @relation("TransferLine_scope_id")
+  back_stocktake_scope_id Stocktake[] @relation("Stocktake_scope_id")
+  back_stocktake_line_scope_id StocktakeLine[] @relation("StocktakeLine_scope_id")
+  back_purchase_order_scope_id PurchaseOrder[] @relation("PurchaseOrder_scope_id")
+  back_purchase_line_scope_id PurchaseLine[] @relation("PurchaseLine_scope_id")
+  back_goods_receipt_scope_id GoodsReceipt[] @relation("GoodsReceipt_scope_id")
+  back_receipt_line_scope_id ReceiptLine[] @relation("ReceiptLine_scope_id")
+  back_supplier_bill_scope_id SupplierBill[] @relation("SupplierBill_scope_id")
+  back_landed_cost_scope_id LandedCost[] @relation("LandedCost_scope_id")
+  back_fx_rate_scope_id FxRate[] @relation("FxRate_scope_id")
+  back_cart_scope_id Cart[] @relation("Cart_scope_id")
+  back_cart_line_scope_id CartLine[] @relation("CartLine_scope_id")
+  back_quote_scope_id Quote[] @relation("Quote_scope_id")
+  back_quote_line_scope_id QuoteLine[] @relation("QuoteLine_scope_id")
+  back_purchase_group_scope_id PurchaseGroup[] @relation("PurchaseGroup_scope_id")
+  back_sales_order_scope_id SalesOrder[] @relation("SalesOrder_scope_id")
+  back_order_line_scope_id OrderLine[] @relation("OrderLine_scope_id")
+  back_order_amendment_scope_id OrderAmendment[] @relation("OrderAmendment_scope_id")
+  back_rfq_scope_id Rfq[] @relation("Rfq_scope_id")
+  back_rfq_offer_scope_id RfqOffer[] @relation("RfqOffer_scope_id")
+  back_invoice_scope_id Invoice[] @relation("Invoice_scope_id")
+  back_invoice_line_scope_id InvoiceLine[] @relation("InvoiceLine_scope_id")
+  back_credit_note_scope_id CreditNote[] @relation("CreditNote_scope_id")
+  back_shipment_scope_id Shipment[] @relation("Shipment_scope_id")
+  back_shipment_line_scope_id ShipmentLine[] @relation("ShipmentLine_scope_id")
+  back_pick_task_scope_id PickTask[] @relation("PickTask_scope_id")
+  back_delivery_proof_scope_id DeliveryProof[] @relation("DeliveryProof_scope_id")
+  back_vehicle_scope_id Vehicle[] @relation("Vehicle_scope_id")
+  back_route_plan_scope_id RoutePlan[] @relation("RoutePlan_scope_id")
+  back_route_stop_scope_id RouteStop[] @relation("RouteStop_scope_id")
+  back_field_visit_scope_id FieldVisit[] @relation("FieldVisit_scope_id")
+  back_temperature_reading_scope_id TemperatureReading[] @relation("TemperatureReading_scope_id")
+  back_return_case_scope_id ReturnCase[] @relation("ReturnCase_scope_id")
+  back_return_line_scope_id ReturnLine[] @relation("ReturnLine_scope_id")
+  back_merchant_account_scope_id MerchantAccount[] @relation("MerchantAccount_scope_id")
+  back_payment_intent_scope_id PaymentIntent[] @relation("PaymentIntent_scope_id")
+  back_webhook_inbox_scope_id WebhookInbox[] @relation("WebhookInbox_scope_id")
+  back_payment_transaction_scope_id PaymentTransaction[] @relation("PaymentTransaction_scope_id")
+  back_payment_allocation_scope_id PaymentAllocation[] @relation("PaymentAllocation_scope_id")
+  back_refund_scope_id Refund[] @relation("Refund_scope_id")
+  back_payout_scope_id Payout[] @relation("Payout_scope_id")
+  back_provider_settlement_scope_id ProviderSettlement[] @relation("ProviderSettlement_scope_id")
+  back_facility_scope_id Facility[] @relation("Facility_scope_id")
+  back_commitment_scope_id Commitment[] @relation("Commitment_scope_id")
+  back_receivable_scope_id Receivable[] @relation("Receivable_scope_id")
+  back_installment_plan_scope_id InstallmentPlan[] @relation("InstallmentPlan_scope_id")
+  back_cash_session_scope_id CashSession[] @relation("CashSession_scope_id")
+  back_cod_receipt_scope_id CodReceipt[] @relation("CodReceipt_scope_id")
+  back_cash_handover_scope_id CashHandover[] @relation("CashHandover_scope_id")
+  back_ledger_scope_id Ledger[] @relation("Ledger_scope_id")
+  back_account_scope_id Account[] @relation("Account_scope_id")
+  back_period_scope_id Period[] @relation("Period_scope_id")
+  back_journal_scope_id Journal[] @relation("Journal_scope_id")
+  back_journal_line_scope_id JournalLine[] @relation("JournalLine_scope_id")
+  back_consent_scope_id Consent[] @relation("Consent_scope_id")
+  back_template_scope_id Template[] @relation("Template_scope_id")
+  back_message_scope_id Message[] @relation("Message_scope_id")
+  back_delivery_attempt_scope_id DeliveryAttempt[] @relation("DeliveryAttempt_scope_id")
+  back_idempotency_scope_id Idempotency[] @relation("Idempotency_scope_id")
+  back_outbox_scope_id Outbox[] @relation("Outbox_scope_id")
+  back_consumer_receipt_scope_id ConsumerReceipt[] @relation("ConsumerReceipt_scope_id")
+  back_sync_operation_scope_id SyncOperation[] @relation("SyncOperation_scope_id")
+  back_bulk_job_scope_id BulkJob[] @relation("BulkJob_scope_id")
+  back_metric_snapshot_scope_id MetricSnapshot[] @relation("MetricSnapshot_scope_id")
+  back_event_scope_id Event[] @relation("Event_scope_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,code])
+  @@map("scope")
+  @@schema("organizations")
+}
+
+model Membership {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  principal_id String @db.Uuid
+  status String @default("ACTIVE")
+  rel_tenant_id Tenant @relation("Membership_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_membership_tenant_id")
+  rel_scope_id Scope? @relation("Membership_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_membership_scope_id")
+  rel_principal_id Principal @relation("Membership_principal_id", fields: [principal_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_membership_principal_id")
+  back_assignment_membership_id Assignment[] @relation("Assignment_membership_id")
+  back_device_membership_id Device[] @relation("Device_membership_id")
+  back_session_membership_id Session[] @relation("Session_membership_id")
+  back_party_member_membership_id PartyMember[] @relation("PartyMember_membership_id")
+  back_field_assignment_membership_id FieldAssignment[] @relation("FieldAssignment_membership_id")
+  back_kyc_case_decided_by KycCase[] @relation("KycCase_decided_by")
+  back_kyc_decision_reviewer_id KycDecision[] @relation("KycDecision_reviewer_id")
+  back_approval_maker_id Approval[] @relation("Approval_maker_id")
+  back_approval_checker_id Approval[] @relation("Approval_checker_id")
+  back_shipment_driver_id Shipment[] @relation("Shipment_driver_id")
+  back_pick_task_assignee_id PickTask[] @relation("PickTask_assignee_id")
+  back_route_plan_driver_id RoutePlan[] @relation("RoutePlan_driver_id")
+  back_cash_session_collector_id CashSession[] @relation("CashSession_collector_id")
+  back_cash_handover_received_by CashHandover[] @relation("CashHandover_received_by")
+  back_journal_maker_id Journal[] @relation("Journal_maker_id")
+  back_journal_checker_id Journal[] @relation("Journal_checker_id")
+  back_consent_membership_id Consent[] @relation("Consent_membership_id")
+  back_message_membership_id Message[] @relation("Message_membership_id")
+  back_idempotency_membership_id Idempotency[] @relation("Idempotency_membership_id")
+  back_sync_operation_membership_id SyncOperation[] @relation("SyncOperation_membership_id")
+  back_bulk_job_requested_by BulkJob[] @relation("BulkJob_requested_by")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,principal_id])
+  @@map("membership")
+  @@schema("organizations")
+}
+
+model Role {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  code String
+  name String
+  rel_tenant_id Tenant @relation("Role_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_role_tenant_id")
+  rel_scope_id Scope? @relation("Role_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_role_scope_id")
+  back_role_permission_role_id RolePermission[] @relation("RolePermission_role_id")
+  back_assignment_role_id Assignment[] @relation("Assignment_role_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,code])
+  @@map("role")
+  @@schema("authorization")
+}
+
+model RolePermission {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  role_id String @db.Uuid
+  permission String
+  rel_tenant_id Tenant @relation("RolePermission_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_role_permission_tenant_id")
+  rel_scope_id Scope? @relation("RolePermission_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_role_permission_scope_id")
+  rel_role_id Role @relation("RolePermission_role_id", fields: [tenant_id,role_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_role_permission_role_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,role_id,permission])
+  @@map("role_permission")
+  @@schema("authorization")
+}
+
+model Assignment {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  membership_id String @db.Uuid
+  role_id String @db.Uuid
+  assigned_scope_id String? @db.Uuid
+  valid_until DateTime? @db.Timestamptz(6)
+  rel_tenant_id Tenant @relation("Assignment_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_assignment_tenant_id")
+  rel_scope_id Scope? @relation("Assignment_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_assignment_scope_id")
+  rel_membership_id Membership @relation("Assignment_membership_id", fields: [tenant_id,membership_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_assignment_membership_id")
+  rel_role_id Role @relation("Assignment_role_id", fields: [tenant_id,role_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_assignment_role_id")
+  rel_assigned_scope_id Scope? @relation("Assignment_assigned_scope_id", fields: [tenant_id,assigned_scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_assignment_assigned_scope_id")
+  @@unique([tenant_id, id])
+  @@map("assignment")
+  @@schema("authorization")
+}
+
+model Device {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  membership_id String @db.Uuid
+  credential_id String
+  public_key String
+  revoked_at DateTime? @db.Timestamptz(6)
+  rel_tenant_id Tenant @relation("Device_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_device_tenant_id")
+  rel_scope_id Scope? @relation("Device_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_device_scope_id")
+  rel_membership_id Membership @relation("Device_membership_id", fields: [tenant_id,membership_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_device_membership_id")
+  back_session_device_id Session[] @relation("Session_device_id")
+  back_sync_operation_device_id SyncOperation[] @relation("SyncOperation_device_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,credential_id])
+  @@map("device")
+  @@schema("identity")
+}
+
+model Session {
+  mfa_at DateTime? @db.Timestamptz(6)
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  membership_id String @db.Uuid
+  device_id String? @db.Uuid
+  token_digest String
+  audience String
+  expires_at DateTime @db.Timestamptz(6)
+  revoked_at DateTime? @db.Timestamptz(6)
+  rel_tenant_id Tenant @relation("Session_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_session_tenant_id")
+  rel_scope_id Scope? @relation("Session_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_session_scope_id")
+  rel_membership_id Membership @relation("Session_membership_id", fields: [tenant_id,membership_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_session_membership_id")
+  rel_device_id Device? @relation("Session_device_id", fields: [tenant_id,device_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_session_device_id")
+  @@unique([tenant_id, id])
+  @@unique([token_digest])
+  @@map("session")
+  @@schema("identity")
+}
+
+model OtpChallenge {
+  tenant_code String?
+  audience String?
+  @@index([phone, created_at(sort: Desc)], map: "otp_phone_created_idx")
+  @@index([created_at], map: "otp_created_idx")
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  phone String
+  challenge_digest String
+  channel String
+  expires_at DateTime @db.Timestamptz(6)
+  attempts Int @default(0)
+  consumed_at DateTime? @db.Timestamptz(6)
+  @@map("otp_challenge")
+  @@schema("identity")
+}
+
+model Governorate {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  code String
+  name_en String
+  name_ar String
+  name_ku String
+  source_url String
+  ku_reviewed Boolean @default(false)
+  back_district_governorate_id District[] @relation("District_governorate_id")
+  back_zone_governorate_id Zone[] @relation("Zone_governorate_id")
+  back_address_governorate_id Address[] @relation("Address_governorate_id")
+  @@unique([code])
+  @@map("governorate")
+  @@schema("logistics")
+}
+
+model District {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  governorate_id String @db.Uuid
+  code String
+  name_en String
+  name_ar String
+  name_ku String
+  source_url String
+  rel_governorate_id Governorate @relation("District_governorate_id", fields: [governorate_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_district_governorate_id")
+  back_address_district_id Address[] @relation("Address_district_id")
+  @@unique([governorate_id,code])
+  @@map("district")
+  @@schema("logistics")
+}
+
+model Zone {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  code String
+  governorate_id String @db.Uuid
+  name String
+  status String @default("QUOTATION_ONLY")
+  boundary Unsupported("geography(MultiPolygon,4326)")?
+  rel_tenant_id Tenant @relation("Zone_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_zone_tenant_id")
+  rel_scope_id Scope? @relation("Zone_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_zone_scope_id")
+  rel_governorate_id Governorate @relation("Zone_governorate_id", fields: [governorate_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_zone_governorate_id")
+  back_shipping_tariff_zone_id ShippingTariff[] @relation("ShippingTariff_zone_id")
+  back_shipping_tariff_origin_zone_id ShippingTariff[] @relation("ShippingTariff_origin_zone_id")
+  back_territory_zone_id Territory[] @relation("Territory_zone_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,code])
+  @@map("zone")
+  @@schema("logistics")
+}
+
+model Address {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  governorate_id String @db.Uuid
+  district_id String? @db.Uuid
+  neighborhood String
+  landmark String
+  shop_name String
+  point Unsupported("geography(Point,4326)")?
+  accuracy_m Decimal? @db.Decimal(24,8)
+  verified_at DateTime? @db.Timestamptz(6)
+  rel_tenant_id Tenant @relation("Address_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_address_tenant_id")
+  rel_scope_id Scope? @relation("Address_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_address_scope_id")
+  rel_governorate_id Governorate @relation("Address_governorate_id", fields: [governorate_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_address_governorate_id")
+  rel_district_id District? @relation("Address_district_id", fields: [district_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_address_district_id")
+  back_branch_address_id Branch[] @relation("Branch_address_id")
+  back_retailer_profile_address_id RetailerProfile[] @relation("RetailerProfile_address_id")
+  back_warehouse_address_id Warehouse[] @relation("Warehouse_address_id")
+  back_shipment_address_id Shipment[] @relation("Shipment_address_id")
+  back_route_stop_address_id RouteStop[] @relation("RouteStop_address_id")
+  @@unique([tenant_id, id])
+  @@map("address")
+  @@schema("logistics")
+}
+
+model ShippingTariff {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  zone_id String @db.Uuid
+  origin_zone_id String? @db.Uuid
+  min_order BigInt @default(0)
+  base_fee BigInt
+  per_kg Decimal @db.Decimal(24,8) @default(0)
+  transit_buffer_min Int @default(0)
+  cold_chain Boolean @default(false)
+  effective_from DateTime @db.Timestamptz(6)
+  effective_to DateTime? @db.Timestamptz(6)
+  rel_tenant_id Tenant @relation("ShippingTariff_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_shipping_tariff_tenant_id")
+  rel_scope_id Scope? @relation("ShippingTariff_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_shipping_tariff_scope_id")
+  rel_zone_id Zone @relation("ShippingTariff_zone_id", fields: [tenant_id,zone_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_shipping_tariff_zone_id")
+  rel_origin_zone_id Zone? @relation("ShippingTariff_origin_zone_id", fields: [tenant_id,origin_zone_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_shipping_tariff_origin_zone_id")
+  @@unique([tenant_id, id])
+  @@map("shipping_tariff")
+  @@schema("logistics")
+}
+
+model Party {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  kind String
+  code String
+  name_en String
+  name_ar String?
+  name_ku String?
+  tax_id String?
+  registration_no String?
+  status String @default("PENDING")
+  rel_tenant_id Tenant @relation("Party_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_party_tenant_id")
+  rel_scope_id Scope? @relation("Party_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_party_scope_id")
+  back_branch_party_id Branch[] @relation("Branch_party_id")
+  back_party_member_party_id PartyMember[] @relation("PartyMember_party_id")
+  back_retailer_profile_party_id RetailerProfile[] @relation("RetailerProfile_party_id")
+  back_supplier_profile_party_id SupplierProfile[] @relation("SupplierProfile_party_id")
+  back_kyc_case_party_id KycCase[] @relation("KycCase_party_id")
+  back_document_party_id Document[] @relation("Document_party_id")
+  back_risk_case_party_id RiskCase[] @relation("RiskCase_party_id")
+  back_product_license_party_id ProductLicense[] @relation("ProductLicense_party_id")
+  back_offer_seller_id Offer[] @relation("Offer_seller_id")
+  back_promotion_seller_id Promotion[] @relation("Promotion_seller_id")
+  back_warehouse_owner_id Warehouse[] @relation("Warehouse_owner_id")
+  back_lot_owner_id Lot[] @relation("Lot_owner_id")
+  back_purchase_order_supplier_id PurchaseOrder[] @relation("PurchaseOrder_supplier_id")
+  back_purchase_order_buyer_id PurchaseOrder[] @relation("PurchaseOrder_buyer_id")
+  back_supplier_bill_supplier_id SupplierBill[] @relation("SupplierBill_supplier_id")
+  back_cart_buyer_id Cart[] @relation("Cart_buyer_id")
+  back_quote_buyer_id Quote[] @relation("Quote_buyer_id")
+  back_quote_seller_id Quote[] @relation("Quote_seller_id")
+  back_purchase_group_buyer_id PurchaseGroup[] @relation("PurchaseGroup_buyer_id")
+  back_sales_order_buyer_id SalesOrder[] @relation("SalesOrder_buyer_id")
+  back_sales_order_seller_id SalesOrder[] @relation("SalesOrder_seller_id")
+  back_rfq_buyer_id Rfq[] @relation("Rfq_buyer_id")
+  back_rfq_seller_id Rfq[] @relation("Rfq_seller_id")
+  back_invoice_seller_id Invoice[] @relation("Invoice_seller_id")
+  back_invoice_buyer_id Invoice[] @relation("Invoice_buyer_id")
+  back_shipment_courier_id Shipment[] @relation("Shipment_courier_id")
+  back_field_visit_party_id FieldVisit[] @relation("FieldVisit_party_id")
+  back_merchant_account_seller_id MerchantAccount[] @relation("MerchantAccount_seller_id")
+  back_facility_buyer_id Facility[] @relation("Facility_buyer_id")
+  back_facility_creditor_id Facility[] @relation("Facility_creditor_id")
+  back_ledger_legal_entity_id Ledger[] @relation("Ledger_legal_entity_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,code])
+  @@map("party")
+  @@schema("organizations")
+}
+
+model Branch {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  party_id String @db.Uuid
+  code String
+  name String
+  address_id String? @db.Uuid
+  rel_tenant_id Tenant @relation("Branch_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_branch_tenant_id")
+  rel_scope_id Scope? @relation("Branch_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_branch_scope_id")
+  rel_party_id Party @relation("Branch_party_id", fields: [tenant_id,party_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_branch_party_id")
+  rel_address_id Address? @relation("Branch_address_id", fields: [tenant_id,address_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_branch_address_id")
+  back_warehouse_branch_id Warehouse[] @relation("Warehouse_branch_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,party_id,code])
+  @@map("branch")
+  @@schema("organizations")
+}
+
+model PartyMember {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  party_id String @db.Uuid
+  membership_id String @db.Uuid
+  job_role String
+  daily_limit BigInt?
+  delegation_expires DateTime? @db.Timestamptz(6)
+  rel_tenant_id Tenant @relation("PartyMember_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_party_member_tenant_id")
+  rel_scope_id Scope? @relation("PartyMember_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_party_member_scope_id")
+  rel_party_id Party @relation("PartyMember_party_id", fields: [tenant_id,party_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_party_member_party_id")
+  rel_membership_id Membership @relation("PartyMember_membership_id", fields: [tenant_id,membership_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_party_member_membership_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,party_id,membership_id])
+  @@map("party_member")
+  @@schema("organizations")
+}
+
+model Territory {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  code String
+  name String
+  zone_id String @db.Uuid
+  rel_tenant_id Tenant @relation("Territory_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_territory_tenant_id")
+  rel_scope_id Scope? @relation("Territory_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_territory_scope_id")
+  rel_zone_id Zone @relation("Territory_zone_id", fields: [tenant_id,zone_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_territory_zone_id")
+  back_field_assignment_territory_id FieldAssignment[] @relation("FieldAssignment_territory_id")
+  back_route_plan_territory_id RoutePlan[] @relation("RoutePlan_territory_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,code])
+  @@map("territory")
+  @@schema("organizations")
+}
+
+model FieldAssignment {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  membership_id String @db.Uuid
+  territory_id String @db.Uuid
+  collection_limit BigInt @default(0)
+  discount_bps Int @default(0)
+  valid_until DateTime? @db.Timestamptz(6)
+  rel_tenant_id Tenant @relation("FieldAssignment_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_field_assignment_tenant_id")
+  rel_scope_id Scope? @relation("FieldAssignment_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_field_assignment_scope_id")
+  rel_membership_id Membership @relation("FieldAssignment_membership_id", fields: [tenant_id,membership_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_field_assignment_membership_id")
+  rel_territory_id Territory @relation("FieldAssignment_territory_id", fields: [tenant_id,territory_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_field_assignment_territory_id")
+  back_field_visit_assignment_id FieldVisit[] @relation("FieldVisit_assignment_id")
+  @@unique([tenant_id, id])
+  @@map("field_assignment")
+  @@schema("organizations")
+}
+
+model RetailerProfile {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  party_id String @db.Uuid
+  vertical String
+  tier String @default("PREVIEW")
+  kyc_status String @default("PENDING")
+  address_id String? @db.Uuid
+  rel_tenant_id Tenant @relation("RetailerProfile_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_retailer_profile_tenant_id")
+  rel_scope_id Scope? @relation("RetailerProfile_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_retailer_profile_scope_id")
+  rel_party_id Party @relation("RetailerProfile_party_id", fields: [tenant_id,party_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_retailer_profile_party_id")
+  rel_address_id Address? @relation("RetailerProfile_address_id", fields: [tenant_id,address_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_retailer_profile_address_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,party_id])
+  @@map("retailer_profile")
+  @@schema("organizations")
+}
+
+model SupplierProfile {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  party_id String @db.Uuid
+  contract_ref String?
+  approved_categories Json?
+  status String @default("PENDING")
+  rel_tenant_id Tenant @relation("SupplierProfile_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_supplier_profile_tenant_id")
+  rel_scope_id Scope? @relation("SupplierProfile_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_supplier_profile_scope_id")
+  rel_party_id Party @relation("SupplierProfile_party_id", fields: [tenant_id,party_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_supplier_profile_party_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,party_id])
+  @@map("supplier_profile")
+  @@schema("organizations")
+}
+
+model KycCase {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  party_id String @db.Uuid
+  status String @default("DRAFT")
+  submitted_at DateTime? @db.Timestamptz(6)
+  risk_level String?
+  decision_reason String?
+  decided_by String? @db.Uuid
+  decided_at DateTime? @db.Timestamptz(6)
+  rel_tenant_id Tenant @relation("KycCase_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_kyc_case_tenant_id")
+  rel_scope_id Scope? @relation("KycCase_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_kyc_case_scope_id")
+  rel_party_id Party @relation("KycCase_party_id", fields: [tenant_id,party_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_kyc_case_party_id")
+  rel_decided_by Membership? @relation("KycCase_decided_by", fields: [tenant_id,decided_by], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_kyc_case_decided_by")
+  back_document_kyc_case_id Document[] @relation("Document_kyc_case_id")
+  back_kyc_decision_case_id KycDecision[] @relation("KycDecision_case_id")
+  @@unique([tenant_id, id])
+  @@map("kyc_case")
+  @@schema("compliance")
+}
+
+model Document {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  party_id String @db.Uuid
+  kyc_case_id String? @db.Uuid
+  kind String
+  object_key String
+  sha256 String
+  scan_status String @default("PENDING")
+  expires_at DateTime? @db.Timestamptz(6)
+  capture_evidence Json?
+  rel_tenant_id Tenant @relation("Document_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_document_tenant_id")
+  rel_scope_id Scope? @relation("Document_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_document_scope_id")
+  rel_party_id Party @relation("Document_party_id", fields: [tenant_id,party_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_document_party_id")
+  rel_kyc_case_id KycCase? @relation("Document_kyc_case_id", fields: [tenant_id,kyc_case_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_document_kyc_case_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,object_key])
+  @@map("document")
+  @@schema("compliance")
+}
+
+model KycDecision {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  case_id String @db.Uuid
+  reviewer_id String @db.Uuid
+  outcome String
+  reason String
+  evidence Json
+  rel_tenant_id Tenant @relation("KycDecision_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_kyc_decision_tenant_id")
+  rel_scope_id Scope? @relation("KycDecision_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_kyc_decision_scope_id")
+  rel_case_id KycCase @relation("KycDecision_case_id", fields: [tenant_id,case_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_kyc_decision_case_id")
+  rel_reviewer_id Membership @relation("KycDecision_reviewer_id", fields: [tenant_id,reviewer_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_kyc_decision_reviewer_id")
+  @@unique([tenant_id, id])
+  @@map("kyc_decision")
+  @@schema("compliance")
+}
+
+model RiskCase {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  party_id String? @db.Uuid
+  kind String
+  severity String
+  status String @default("OPEN")
+  evidence Json
+  rel_tenant_id Tenant @relation("RiskCase_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_risk_case_tenant_id")
+  rel_scope_id Scope? @relation("RiskCase_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_risk_case_scope_id")
+  rel_party_id Party? @relation("RiskCase_party_id", fields: [tenant_id,party_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_risk_case_party_id")
+  @@unique([tenant_id, id])
+  @@map("risk_case")
+  @@schema("compliance")
+}
+
+model Policy {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  code String
+  jurisdiction String
+  source_ref String
+  effective_from DateTime @db.Timestamptz(6)
+  effective_to DateTime? @db.Timestamptz(6)
+  configuration Json
+  status String @default("DRAFT")
+  rel_tenant_id Tenant @relation("Policy_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_policy_tenant_id")
+  rel_scope_id Scope? @relation("Policy_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_policy_scope_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,code,effective_from])
+  @@map("policy")
+  @@schema("compliance")
+}
+
+model Approval {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  resource_type String
+  resource_id String @db.Uuid
+  action String
+  payload_hash String
+  maker_id String @db.Uuid
+  checker_id String? @db.Uuid
+  status String @default("PENDING")
+  expires_at DateTime? @db.Timestamptz(6)
+  rel_tenant_id Tenant @relation("Approval_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_approval_tenant_id")
+  rel_scope_id Scope? @relation("Approval_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_approval_scope_id")
+  rel_maker_id Membership @relation("Approval_maker_id", fields: [tenant_id,maker_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_approval_maker_id")
+  rel_checker_id Membership? @relation("Approval_checker_id", fields: [tenant_id,checker_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_approval_checker_id")
+  @@unique([tenant_id, id])
+  @@map("approval")
+  @@schema("compliance")
+}
+
+model Brand {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  code String
+  name_en String
+  name_ar String?
+  name_ku String?
+  rel_tenant_id Tenant @relation("Brand_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_brand_tenant_id")
+  rel_scope_id Scope? @relation("Brand_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_brand_scope_id")
+  back_product_brand_id Product[] @relation("Product_brand_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,code])
+  @@map("brand")
+  @@schema("catalog")
+}
+
+model Category {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  code String
+  parent_id String? @db.Uuid
+  name_en String
+  name_ar String
+  name_ku String
+  regulated Boolean @default(false)
+  rel_tenant_id Tenant @relation("Category_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_category_tenant_id")
+  rel_scope_id Scope? @relation("Category_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_category_scope_id")
+  rel_parent_id Category? @relation("Category_parent_id", fields: [tenant_id,parent_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_category_parent_id")
+  back_category_parent_id Category[] @relation("Category_parent_id")
+  back_product_category_id Product[] @relation("Product_category_id")
+  back_tax_rule_category_id TaxRule[] @relation("TaxRule_category_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,code])
+  @@map("category")
+  @@schema("catalog")
+}
+
+model Product {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  sku String
+  brand_id String? @db.Uuid
+  category_id String @db.Uuid
+  name_en String
+  name_ar String
+  name_ku String
+  ingredients Json?
+  search_text String @default("")
+  status String @default("DRAFT")
+  cold_chain Boolean @default(false)
+  rel_tenant_id Tenant @relation("Product_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_product_tenant_id")
+  rel_scope_id Scope? @relation("Product_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_product_scope_id")
+  rel_brand_id Brand? @relation("Product_brand_id", fields: [tenant_id,brand_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_product_brand_id")
+  rel_category_id Category @relation("Product_category_id", fields: [tenant_id,category_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_product_category_id")
+  back_product_alias_product_id ProductAlias[] @relation("ProductAlias_product_id")
+  back_uom_product_id Uom[] @relation("Uom_product_id")
+  back_product_license_product_id ProductLicense[] @relation("ProductLicense_product_id")
+  back_offer_product_id Offer[] @relation("Offer_product_id")
+  back_lot_product_id Lot[] @relation("Lot_product_id")
+  back_purchase_line_product_id PurchaseLine[] @relation("PurchaseLine_product_id")
+  back_order_line_product_id OrderLine[] @relation("OrderLine_product_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,sku])
+  @@map("product")
+  @@schema("catalog")
+}
+
+model ProductAlias {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  product_id String @db.Uuid
+  locale String
+  alias String
+  normalized String
+  rel_tenant_id Tenant @relation("ProductAlias_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_product_alias_tenant_id")
+  rel_scope_id Scope? @relation("ProductAlias_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_product_alias_scope_id")
+  rel_product_id Product @relation("ProductAlias_product_id", fields: [tenant_id,product_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_product_alias_product_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,product_id,locale,normalized])
+  @@map("product_alias")
+  @@schema("catalog")
+}
+
+model Uom {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  product_id String @db.Uuid
+  code String
+  revision Int @default(1)
+  parent_id String? @db.Uuid
+  base_factor Decimal @db.Decimal(20,6)
+  barcode String?
+  weight_kg Decimal? @db.Decimal(20,6)
+  volume_m3 Decimal? @db.Decimal(20,6)
+  min_qty Decimal @db.Decimal(20,6) @default(1)
+  increment_qty Decimal @db.Decimal(20,6) @default(1)
+  rel_tenant_id Tenant @relation("Uom_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_uom_tenant_id")
+  rel_scope_id Scope? @relation("Uom_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_uom_scope_id")
+  rel_product_id Product @relation("Uom_product_id", fields: [tenant_id,product_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_uom_product_id")
+  rel_parent_id Uom? @relation("Uom_parent_id", fields: [tenant_id,parent_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_uom_parent_id")
+  back_uom_parent_id Uom[] @relation("Uom_parent_id")
+  back_offer_uom_id Offer[] @relation("Offer_uom_id")
+  back_purchase_line_uom_id PurchaseLine[] @relation("PurchaseLine_uom_id")
+  back_quote_line_uom_id QuoteLine[] @relation("QuoteLine_uom_id")
+  back_order_line_uom_id OrderLine[] @relation("OrderLine_uom_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,product_id,code,revision])
+  @@unique([tenant_id,barcode])
+  @@map("uom")
+  @@schema("catalog")
+}
+
+model ProductLicense {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  product_id String @db.Uuid
+  party_id String @db.Uuid
+  licence_ref String
+  expires_at DateTime @db.Timestamptz(6)
+  status String @default("PENDING")
+  rel_tenant_id Tenant @relation("ProductLicense_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_product_license_tenant_id")
+  rel_scope_id Scope? @relation("ProductLicense_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_product_license_scope_id")
+  rel_product_id Product @relation("ProductLicense_product_id", fields: [tenant_id,product_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_product_license_product_id")
+  rel_party_id Party @relation("ProductLicense_party_id", fields: [tenant_id,party_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_product_license_party_id")
+  @@unique([tenant_id, id])
+  @@map("product_license")
+  @@schema("catalog")
+}
+
+model Offer {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  seller_id String @db.Uuid
+  product_id String @db.Uuid
+  uom_id String @db.Uuid
+  status String @default("DRAFT")
+  rel_tenant_id Tenant @relation("Offer_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_offer_tenant_id")
+  rel_scope_id Scope? @relation("Offer_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_offer_scope_id")
+  rel_seller_id Party @relation("Offer_seller_id", fields: [tenant_id,seller_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_offer_seller_id")
+  rel_product_id Product @relation("Offer_product_id", fields: [tenant_id,product_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_offer_product_id")
+  rel_uom_id Uom @relation("Offer_uom_id", fields: [tenant_id,uom_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_offer_uom_id")
+  back_price_rule_offer_id PriceRule[] @relation("PriceRule_offer_id")
+  back_cart_line_offer_id CartLine[] @relation("CartLine_offer_id")
+  back_quote_line_offer_id QuoteLine[] @relation("QuoteLine_offer_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,seller_id,product_id,uom_id])
+  @@map("offer")
+  @@schema("pricing")
+}
+
+model PriceRule {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  offer_id String @db.Uuid
+  tier String
+  min_qty Decimal @db.Decimal(20,6)
+  amount Decimal @db.Decimal(24,8)
+  currency String
+  effective_from DateTime @db.Timestamptz(6)
+  effective_to DateTime? @db.Timestamptz(6)
+  status String @default("DRAFT")
+  rel_tenant_id Tenant @relation("PriceRule_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_price_rule_tenant_id")
+  rel_scope_id Scope? @relation("PriceRule_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_price_rule_scope_id")
+  rel_offer_id Offer @relation("PriceRule_offer_id", fields: [tenant_id,offer_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_price_rule_offer_id")
+  @@unique([tenant_id, id])
+  @@map("price_rule")
+  @@schema("pricing")
+}
+
+model Promotion {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  code String
+  seller_id String @db.Uuid
+  kind String
+  buy_qty Decimal? @db.Decimal(20,6)
+  bonus_qty Decimal? @db.Decimal(20,6)
+  rules Json
+  effective_from DateTime @db.Timestamptz(6)
+  effective_to DateTime? @db.Timestamptz(6)
+  status String @default("DRAFT")
+  rel_tenant_id Tenant @relation("Promotion_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_promotion_tenant_id")
+  rel_scope_id Scope? @relation("Promotion_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_promotion_scope_id")
+  rel_seller_id Party @relation("Promotion_seller_id", fields: [tenant_id,seller_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_promotion_seller_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,code])
+  @@map("promotion")
+  @@schema("pricing")
+}
+
+model TaxRule {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  category_id String? @db.Uuid
+  jurisdiction String
+  rate_bps Int
+  effective_from DateTime @db.Timestamptz(6)
+  effective_to DateTime? @db.Timestamptz(6)
+  source_ref String
+  status String @default("DRAFT")
+  rel_tenant_id Tenant @relation("TaxRule_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_tax_rule_tenant_id")
+  rel_scope_id Scope? @relation("TaxRule_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_tax_rule_scope_id")
+  rel_category_id Category? @relation("TaxRule_category_id", fields: [tenant_id,category_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_tax_rule_category_id")
+  @@unique([tenant_id, id])
+  @@map("tax_rule")
+  @@schema("pricing")
+}
+
+model Warehouse {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  owner_id String @db.Uuid
+  branch_id String? @db.Uuid
+  code String
+  name String
+  address_id String? @db.Uuid
+  cold_chain Boolean @default(false)
+  rel_tenant_id Tenant @relation("Warehouse_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_warehouse_tenant_id")
+  rel_scope_id Scope? @relation("Warehouse_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_warehouse_scope_id")
+  rel_owner_id Party @relation("Warehouse_owner_id", fields: [tenant_id,owner_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_warehouse_owner_id")
+  rel_branch_id Branch? @relation("Warehouse_branch_id", fields: [tenant_id,branch_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_warehouse_branch_id")
+  rel_address_id Address? @relation("Warehouse_address_id", fields: [tenant_id,address_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_warehouse_address_id")
+  back_bin_warehouse_id Bin[] @relation("Bin_warehouse_id")
+  back_stock_balance_warehouse_id StockBalance[] @relation("StockBalance_warehouse_id")
+  back_stock_transfer_from_warehouse_id StockTransfer[] @relation("StockTransfer_from_warehouse_id")
+  back_stock_transfer_to_warehouse_id StockTransfer[] @relation("StockTransfer_to_warehouse_id")
+  back_stocktake_warehouse_id Stocktake[] @relation("Stocktake_warehouse_id")
+  back_goods_receipt_warehouse_id GoodsReceipt[] @relation("GoodsReceipt_warehouse_id")
+  back_shipment_warehouse_id Shipment[] @relation("Shipment_warehouse_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,code])
+  @@map("warehouse")
+  @@schema("inventory")
+}
+
+model Bin {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  warehouse_id String @db.Uuid
+  code String
+  rel_tenant_id Tenant @relation("Bin_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_bin_tenant_id")
+  rel_scope_id Scope? @relation("Bin_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_bin_scope_id")
+  rel_warehouse_id Warehouse @relation("Bin_warehouse_id", fields: [tenant_id,warehouse_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_bin_warehouse_id")
+  back_stock_balance_bin_id StockBalance[] @relation("StockBalance_bin_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,warehouse_id,code])
+  @@map("bin")
+  @@schema("inventory")
+}
+
+model Lot {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  product_id String @db.Uuid
+  owner_id String @db.Uuid
+  batch_no String
+  expiry_date DateTime? @db.Date
+  manufactured_date DateTime? @db.Date
+  status String @default("QUARANTINE")
+  rel_tenant_id Tenant @relation("Lot_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_lot_tenant_id")
+  rel_scope_id Scope? @relation("Lot_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_lot_scope_id")
+  rel_product_id Product @relation("Lot_product_id", fields: [tenant_id,product_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_lot_product_id")
+  rel_owner_id Party @relation("Lot_owner_id", fields: [tenant_id,owner_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_lot_owner_id")
+  back_stock_balance_lot_id StockBalance[] @relation("StockBalance_lot_id")
+  back_transfer_line_lot_id TransferLine[] @relation("TransferLine_lot_id")
+  back_receipt_line_lot_id ReceiptLine[] @relation("ReceiptLine_lot_id")
+  back_shipment_line_lot_id ShipmentLine[] @relation("ShipmentLine_lot_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,owner_id,product_id,batch_no])
+  @@map("lot")
+  @@schema("inventory")
+}
+
+model StockBalance {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  warehouse_id String @db.Uuid
+  bin_id String @db.Uuid
+  lot_id String @db.Uuid
+  on_hand Decimal @db.Decimal(20,6) @default(0)
+  reserved Decimal @db.Decimal(20,6) @default(0)
+  rel_tenant_id Tenant @relation("StockBalance_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_stock_balance_tenant_id")
+  rel_scope_id Scope? @relation("StockBalance_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_stock_balance_scope_id")
+  rel_warehouse_id Warehouse @relation("StockBalance_warehouse_id", fields: [tenant_id,warehouse_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_stock_balance_warehouse_id")
+  rel_bin_id Bin @relation("StockBalance_bin_id", fields: [tenant_id,bin_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_stock_balance_bin_id")
+  rel_lot_id Lot @relation("StockBalance_lot_id", fields: [tenant_id,lot_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_stock_balance_lot_id")
+  back_stock_movement_balance_id StockMovement[] @relation("StockMovement_balance_id")
+  back_reservation_balance_id Reservation[] @relation("Reservation_balance_id")
+  back_stocktake_line_balance_id StocktakeLine[] @relation("StocktakeLine_balance_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,warehouse_id,bin_id,lot_id])
+  @@map("stock_balance")
+  @@schema("inventory")
+}
+
+model StockMovement {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  balance_id String @db.Uuid
+  quantity_delta Decimal @db.Decimal(20,6)
+  kind String
+  source_key String
+  reason String
+  rel_tenant_id Tenant @relation("StockMovement_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_stock_movement_tenant_id")
+  rel_scope_id Scope? @relation("StockMovement_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_stock_movement_scope_id")
+  rel_balance_id StockBalance @relation("StockMovement_balance_id", fields: [tenant_id,balance_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_stock_movement_balance_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,source_key])
+  @@map("stock_movement")
+  @@schema("inventory")
+}
+
+model Reservation {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  balance_id String @db.Uuid
+  order_line_id String @db.Uuid
+  quantity Decimal @db.Decimal(20,6)
+  status String @default("ACTIVE")
+  expires_at DateTime? @db.Timestamptz(6)
+  rel_tenant_id Tenant @relation("Reservation_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_reservation_tenant_id")
+  rel_scope_id Scope? @relation("Reservation_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_reservation_scope_id")
+  rel_balance_id StockBalance @relation("Reservation_balance_id", fields: [tenant_id,balance_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_reservation_balance_id")
+  rel_order_line_id OrderLine @relation("Reservation_order_line_id", fields: [tenant_id,order_line_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_reservation_order_line_id")
+  back_pick_task_reservation_id PickTask[] @relation("PickTask_reservation_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,balance_id,order_line_id])
+  @@map("reservation")
+  @@schema("inventory")
+}
+
+model StockTransfer {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  from_warehouse_id String @db.Uuid
+  to_warehouse_id String @db.Uuid
+  status String @default("DRAFT")
+  reference String
+  rel_tenant_id Tenant @relation("StockTransfer_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_stock_transfer_tenant_id")
+  rel_scope_id Scope? @relation("StockTransfer_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_stock_transfer_scope_id")
+  rel_from_warehouse_id Warehouse @relation("StockTransfer_from_warehouse_id", fields: [tenant_id,from_warehouse_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_stock_transfer_from_warehouse_id")
+  rel_to_warehouse_id Warehouse @relation("StockTransfer_to_warehouse_id", fields: [tenant_id,to_warehouse_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_stock_transfer_to_warehouse_id")
+  back_transfer_line_transfer_id TransferLine[] @relation("TransferLine_transfer_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,reference])
+  @@map("stock_transfer")
+  @@schema("inventory")
+}
+
+model TransferLine {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  transfer_id String @db.Uuid
+  lot_id String @db.Uuid
+  quantity Decimal @db.Decimal(20,6)
+  rel_tenant_id Tenant @relation("TransferLine_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_transfer_line_tenant_id")
+  rel_scope_id Scope? @relation("TransferLine_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_transfer_line_scope_id")
+  rel_transfer_id StockTransfer @relation("TransferLine_transfer_id", fields: [tenant_id,transfer_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_transfer_line_transfer_id")
+  rel_lot_id Lot @relation("TransferLine_lot_id", fields: [tenant_id,lot_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_transfer_line_lot_id")
+  @@unique([tenant_id, id])
+  @@map("transfer_line")
+  @@schema("inventory")
+}
+
+model Stocktake {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  warehouse_id String @db.Uuid
+  status String @default("DRAFT")
+  reference String
+  rel_tenant_id Tenant @relation("Stocktake_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_stocktake_tenant_id")
+  rel_scope_id Scope? @relation("Stocktake_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_stocktake_scope_id")
+  rel_warehouse_id Warehouse @relation("Stocktake_warehouse_id", fields: [tenant_id,warehouse_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_stocktake_warehouse_id")
+  back_stocktake_line_stocktake_id StocktakeLine[] @relation("StocktakeLine_stocktake_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,reference])
+  @@map("stocktake")
+  @@schema("inventory")
+}
+
+model StocktakeLine {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  stocktake_id String @db.Uuid
+  balance_id String @db.Uuid
+  counted_qty Decimal @db.Decimal(20,6)
+  expected_qty Decimal @db.Decimal(20,6)
+  rel_tenant_id Tenant @relation("StocktakeLine_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_stocktake_line_tenant_id")
+  rel_scope_id Scope? @relation("StocktakeLine_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_stocktake_line_scope_id")
+  rel_stocktake_id Stocktake @relation("StocktakeLine_stocktake_id", fields: [tenant_id,stocktake_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_stocktake_line_stocktake_id")
+  rel_balance_id StockBalance @relation("StocktakeLine_balance_id", fields: [tenant_id,balance_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_stocktake_line_balance_id")
+  @@unique([tenant_id, id])
+  @@map("stocktake_line")
+  @@schema("inventory")
+}
+
+model PurchaseOrder {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  supplier_id String @db.Uuid
+  buyer_id String @db.Uuid
+  reference String
+  status String @default("DRAFT")
+  currency String
+  rel_tenant_id Tenant @relation("PurchaseOrder_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_purchase_order_tenant_id")
+  rel_scope_id Scope? @relation("PurchaseOrder_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_purchase_order_scope_id")
+  rel_supplier_id Party @relation("PurchaseOrder_supplier_id", fields: [tenant_id,supplier_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_purchase_order_supplier_id")
+  rel_buyer_id Party @relation("PurchaseOrder_buyer_id", fields: [tenant_id,buyer_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_purchase_order_buyer_id")
+  back_purchase_line_purchase_order_id PurchaseLine[] @relation("PurchaseLine_purchase_order_id")
+  back_goods_receipt_purchase_order_id GoodsReceipt[] @relation("GoodsReceipt_purchase_order_id")
+  back_supplier_bill_purchase_order_id SupplierBill[] @relation("SupplierBill_purchase_order_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,reference])
+  @@map("purchase_order")
+  @@schema("procurement")
+}
+
+model PurchaseLine {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  purchase_order_id String @db.Uuid
+  product_id String @db.Uuid
+  uom_id String @db.Uuid
+  quantity Decimal @db.Decimal(20,6)
+  unit_cost Decimal @db.Decimal(24,8)
+  rel_tenant_id Tenant @relation("PurchaseLine_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_purchase_line_tenant_id")
+  rel_scope_id Scope? @relation("PurchaseLine_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_purchase_line_scope_id")
+  rel_purchase_order_id PurchaseOrder @relation("PurchaseLine_purchase_order_id", fields: [tenant_id,purchase_order_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_purchase_line_purchase_order_id")
+  rel_product_id Product @relation("PurchaseLine_product_id", fields: [tenant_id,product_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_purchase_line_product_id")
+  rel_uom_id Uom @relation("PurchaseLine_uom_id", fields: [tenant_id,uom_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_purchase_line_uom_id")
+  back_receipt_line_purchase_line_id ReceiptLine[] @relation("ReceiptLine_purchase_line_id")
+  @@unique([tenant_id, id])
+  @@map("purchase_line")
+  @@schema("procurement")
+}
+
+model GoodsReceipt {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  purchase_order_id String @db.Uuid
+  warehouse_id String @db.Uuid
+  reference String
+  status String @default("DRAFT")
+  rel_tenant_id Tenant @relation("GoodsReceipt_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_goods_receipt_tenant_id")
+  rel_scope_id Scope? @relation("GoodsReceipt_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_goods_receipt_scope_id")
+  rel_purchase_order_id PurchaseOrder @relation("GoodsReceipt_purchase_order_id", fields: [tenant_id,purchase_order_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_goods_receipt_purchase_order_id")
+  rel_warehouse_id Warehouse @relation("GoodsReceipt_warehouse_id", fields: [tenant_id,warehouse_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_goods_receipt_warehouse_id")
+  back_receipt_line_receipt_id ReceiptLine[] @relation("ReceiptLine_receipt_id")
+  back_landed_cost_receipt_id LandedCost[] @relation("LandedCost_receipt_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,reference])
+  @@map("goods_receipt")
+  @@schema("procurement")
+}
+
+model ReceiptLine {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  receipt_id String @db.Uuid
+  purchase_line_id String @db.Uuid
+  lot_id String @db.Uuid
+  quantity Decimal @db.Decimal(20,6)
+  quality_status String @default("PENDING")
+  rel_tenant_id Tenant @relation("ReceiptLine_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_receipt_line_tenant_id")
+  rel_scope_id Scope? @relation("ReceiptLine_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_receipt_line_scope_id")
+  rel_receipt_id GoodsReceipt @relation("ReceiptLine_receipt_id", fields: [tenant_id,receipt_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_receipt_line_receipt_id")
+  rel_purchase_line_id PurchaseLine @relation("ReceiptLine_purchase_line_id", fields: [tenant_id,purchase_line_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_receipt_line_purchase_line_id")
+  rel_lot_id Lot @relation("ReceiptLine_lot_id", fields: [tenant_id,lot_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_receipt_line_lot_id")
+  @@unique([tenant_id, id])
+  @@map("receipt_line")
+  @@schema("procurement")
+}
+
+model SupplierBill {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  purchase_order_id String @db.Uuid
+  supplier_id String @db.Uuid
+  reference String
+  currency String
+  total_minor BigInt
+  status String @default("DRAFT")
+  rel_tenant_id Tenant @relation("SupplierBill_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_supplier_bill_tenant_id")
+  rel_scope_id Scope? @relation("SupplierBill_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_supplier_bill_scope_id")
+  rel_purchase_order_id PurchaseOrder @relation("SupplierBill_purchase_order_id", fields: [tenant_id,purchase_order_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_supplier_bill_purchase_order_id")
+  rel_supplier_id Party @relation("SupplierBill_supplier_id", fields: [tenant_id,supplier_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_supplier_bill_supplier_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,supplier_id,reference])
+  @@map("supplier_bill")
+  @@schema("procurement")
+}
+
+model LandedCost {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  receipt_id String @db.Uuid
+  kind String
+  amount_minor BigInt
+  currency String
+  allocation Json
+  rel_tenant_id Tenant @relation("LandedCost_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_landed_cost_tenant_id")
+  rel_scope_id Scope? @relation("LandedCost_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_landed_cost_scope_id")
+  rel_receipt_id GoodsReceipt @relation("LandedCost_receipt_id", fields: [tenant_id,receipt_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_landed_cost_receipt_id")
+  @@unique([tenant_id, id])
+  @@map("landed_cost")
+  @@schema("procurement")
+}
+
+model FxRate {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  kind String
+  base_currency String
+  quote_currency String
+  rate Decimal @db.Decimal(20,8)
+  source_ref String
+  effective_from DateTime @db.Timestamptz(6)
+  effective_to DateTime? @db.Timestamptz(6)
+  status String @default("DRAFT")
+  rel_tenant_id Tenant @relation("FxRate_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_fx_rate_tenant_id")
+  rel_scope_id Scope? @relation("FxRate_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_fx_rate_scope_id")
+  back_quote_fx_rate_id Quote[] @relation("Quote_fx_rate_id")
+  back_invoice_fx_rate_id Invoice[] @relation("Invoice_fx_rate_id")
+  @@unique([tenant_id, id])
+  @@map("fx_rate")
+  @@schema("treasury")
+}
+
+model Cart {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  buyer_id String @db.Uuid
+  status String @default("DRAFT")
+  client_key String
+  rel_tenant_id Tenant @relation("Cart_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_cart_tenant_id")
+  rel_scope_id Scope? @relation("Cart_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_cart_scope_id")
+  rel_buyer_id Party @relation("Cart_buyer_id", fields: [tenant_id,buyer_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_cart_buyer_id")
+  back_cart_line_cart_id CartLine[] @relation("CartLine_cart_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,client_key])
+  @@map("cart")
+  @@schema("commerce")
+}
+
+model CartLine {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  cart_id String @db.Uuid
+  offer_id String @db.Uuid
+  quantity Decimal @db.Decimal(20,6)
+  rel_tenant_id Tenant @relation("CartLine_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_cart_line_tenant_id")
+  rel_scope_id Scope? @relation("CartLine_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_cart_line_scope_id")
+  rel_cart_id Cart @relation("CartLine_cart_id", fields: [tenant_id,cart_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_cart_line_cart_id")
+  rel_offer_id Offer @relation("CartLine_offer_id", fields: [tenant_id,offer_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_cart_line_offer_id")
+  @@unique([tenant_id, id])
+  @@map("cart_line")
+  @@schema("commerce")
+}
+
+model Quote {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  buyer_id String @db.Uuid
+  seller_id String @db.Uuid
+  reference String
+  status String @default("DRAFT")
+  currency String @default("IQD")
+  fx_rate_id String? @db.Uuid
+  expires_at DateTime @db.Timestamptz(6)
+  total_minor BigInt
+  policy_snapshot Json
+  rel_tenant_id Tenant @relation("Quote_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_quote_tenant_id")
+  rel_scope_id Scope? @relation("Quote_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_quote_scope_id")
+  rel_buyer_id Party @relation("Quote_buyer_id", fields: [tenant_id,buyer_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_quote_buyer_id")
+  rel_seller_id Party @relation("Quote_seller_id", fields: [tenant_id,seller_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_quote_seller_id")
+  rel_fx_rate_id FxRate? @relation("Quote_fx_rate_id", fields: [tenant_id,fx_rate_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_quote_fx_rate_id")
+  back_quote_line_quote_id QuoteLine[] @relation("QuoteLine_quote_id")
+  back_sales_order_quote_id SalesOrder[] @relation("SalesOrder_quote_id")
+  back_rfq_offer_quote_id RfqOffer[] @relation("RfqOffer_quote_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,reference])
+  @@map("quote")
+  @@schema("commerce")
+}
+
+model QuoteLine {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  quote_id String @db.Uuid
+  offer_id String @db.Uuid
+  uom_id String @db.Uuid
+  paid_qty Decimal @db.Decimal(20,6)
+  bonus_qty Decimal @db.Decimal(20,6) @default(0)
+  base_factor Decimal @db.Decimal(20,6)
+  unit_price Decimal @db.Decimal(24,8)
+  tax_minor BigInt @default(0)
+  total_minor BigInt
+  rel_tenant_id Tenant @relation("QuoteLine_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_quote_line_tenant_id")
+  rel_scope_id Scope? @relation("QuoteLine_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_quote_line_scope_id")
+  rel_quote_id Quote @relation("QuoteLine_quote_id", fields: [tenant_id,quote_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_quote_line_quote_id")
+  rel_offer_id Offer @relation("QuoteLine_offer_id", fields: [tenant_id,offer_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_quote_line_offer_id")
+  rel_uom_id Uom @relation("QuoteLine_uom_id", fields: [tenant_id,uom_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_quote_line_uom_id")
+  back_order_line_quote_line_id OrderLine[] @relation("OrderLine_quote_line_id")
+  @@unique([tenant_id, id])
+  @@map("quote_line")
+  @@schema("commerce")
+}
+
+model PurchaseGroup {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  buyer_id String @db.Uuid
+  reference String
+  status String @default("DRAFT")
+  rel_tenant_id Tenant @relation("PurchaseGroup_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_purchase_group_tenant_id")
+  rel_scope_id Scope? @relation("PurchaseGroup_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_purchase_group_scope_id")
+  rel_buyer_id Party @relation("PurchaseGroup_buyer_id", fields: [tenant_id,buyer_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_purchase_group_buyer_id")
+  back_sales_order_group_id SalesOrder[] @relation("SalesOrder_group_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,reference])
+  @@map("purchase_group")
+  @@schema("commerce")
+}
+
+model SalesOrder {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  group_id String? @db.Uuid
+  quote_id String @db.Uuid
+  buyer_id String @db.Uuid
+  seller_id String @db.Uuid
+  reference String
+  status String @default("DRAFT")
+  total_minor BigInt
+  currency String @default("IQD")
+  client_key String
+  rel_tenant_id Tenant @relation("SalesOrder_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_sales_order_tenant_id")
+  rel_scope_id Scope? @relation("SalesOrder_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_sales_order_scope_id")
+  rel_group_id PurchaseGroup? @relation("SalesOrder_group_id", fields: [tenant_id,group_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_sales_order_group_id")
+  rel_quote_id Quote @relation("SalesOrder_quote_id", fields: [tenant_id,quote_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_sales_order_quote_id")
+  rel_buyer_id Party @relation("SalesOrder_buyer_id", fields: [tenant_id,buyer_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_sales_order_buyer_id")
+  rel_seller_id Party @relation("SalesOrder_seller_id", fields: [tenant_id,seller_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_sales_order_seller_id")
+  back_order_line_order_id OrderLine[] @relation("OrderLine_order_id")
+  back_order_amendment_order_id OrderAmendment[] @relation("OrderAmendment_order_id")
+  back_invoice_order_id Invoice[] @relation("Invoice_order_id")
+  back_shipment_order_id Shipment[] @relation("Shipment_order_id")
+  back_return_case_order_id ReturnCase[] @relation("ReturnCase_order_id")
+  back_payment_intent_order_id PaymentIntent[] @relation("PaymentIntent_order_id")
+  back_commitment_order_id Commitment[] @relation("Commitment_order_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,reference])
+  @@unique([tenant_id,client_key])
+  @@unique([tenant_id,quote_id])
+  @@map("sales_order")
+  @@schema("commerce")
+}
+
+model OrderLine {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  order_id String @db.Uuid
+  quote_line_id String @db.Uuid
+  product_id String @db.Uuid
+  uom_id String @db.Uuid
+  paid_qty Decimal @db.Decimal(20,6)
+  bonus_qty Decimal @db.Decimal(20,6) @default(0)
+  base_factor Decimal @db.Decimal(20,6)
+  total_minor BigInt
+  back_reservation_order_line_id Reservation[] @relation("Reservation_order_line_id")
+  rel_tenant_id Tenant @relation("OrderLine_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_order_line_tenant_id")
+  rel_scope_id Scope? @relation("OrderLine_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_order_line_scope_id")
+  rel_order_id SalesOrder @relation("OrderLine_order_id", fields: [tenant_id,order_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_order_line_order_id")
+  rel_quote_line_id QuoteLine @relation("OrderLine_quote_line_id", fields: [tenant_id,quote_line_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_order_line_quote_line_id")
+  rel_product_id Product @relation("OrderLine_product_id", fields: [tenant_id,product_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_order_line_product_id")
+  rel_uom_id Uom @relation("OrderLine_uom_id", fields: [tenant_id,uom_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_order_line_uom_id")
+  back_invoice_line_order_line_id InvoiceLine[] @relation("InvoiceLine_order_line_id")
+  back_shipment_line_order_line_id ShipmentLine[] @relation("ShipmentLine_order_line_id")
+  @@unique([tenant_id, id])
+  @@map("order_line")
+  @@schema("commerce")
+}
+
+model OrderAmendment {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  order_id String @db.Uuid
+  reason String
+  proposed_changes Json
+  status String @default("PENDING")
+  rel_tenant_id Tenant @relation("OrderAmendment_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_order_amendment_tenant_id")
+  rel_scope_id Scope? @relation("OrderAmendment_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_order_amendment_scope_id")
+  rel_order_id SalesOrder @relation("OrderAmendment_order_id", fields: [tenant_id,order_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_order_amendment_order_id")
+  @@unique([tenant_id, id])
+  @@map("order_amendment")
+  @@schema("commerce")
+}
+
+model Rfq {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  buyer_id String @db.Uuid
+  seller_id String @db.Uuid
+  reference String
+  status String @default("OPEN")
+  request Json
+  rel_tenant_id Tenant @relation("Rfq_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_rfq_tenant_id")
+  rel_scope_id Scope? @relation("Rfq_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_rfq_scope_id")
+  rel_buyer_id Party @relation("Rfq_buyer_id", fields: [tenant_id,buyer_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_rfq_buyer_id")
+  rel_seller_id Party @relation("Rfq_seller_id", fields: [tenant_id,seller_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_rfq_seller_id")
+  back_rfq_offer_rfq_id RfqOffer[] @relation("RfqOffer_rfq_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,reference])
+  @@map("rfq")
+  @@schema("commerce")
+}
+
+model RfqOffer {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  rfq_id String @db.Uuid
+  quote_id String? @db.Uuid
+  terms Json
+  status String @default("PROPOSED")
+  rel_tenant_id Tenant @relation("RfqOffer_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_rfq_offer_tenant_id")
+  rel_scope_id Scope? @relation("RfqOffer_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_rfq_offer_scope_id")
+  rel_rfq_id Rfq @relation("RfqOffer_rfq_id", fields: [tenant_id,rfq_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_rfq_offer_rfq_id")
+  rel_quote_id Quote? @relation("RfqOffer_quote_id", fields: [tenant_id,quote_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_rfq_offer_quote_id")
+  @@unique([tenant_id, id])
+  @@map("rfq_offer")
+  @@schema("commerce")
+}
+
+model Invoice {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  order_id String @db.Uuid
+  seller_id String @db.Uuid
+  buyer_id String @db.Uuid
+  reference String
+  currency String @default("IQD")
+  total_minor BigInt
+  status String @default("DRAFT")
+  fx_rate_id String? @db.Uuid
+  issued_at DateTime? @db.Timestamptz(6)
+  rel_tenant_id Tenant @relation("Invoice_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_invoice_tenant_id")
+  rel_scope_id Scope? @relation("Invoice_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_invoice_scope_id")
+  rel_order_id SalesOrder @relation("Invoice_order_id", fields: [tenant_id,order_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_invoice_order_id")
+  rel_seller_id Party @relation("Invoice_seller_id", fields: [tenant_id,seller_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_invoice_seller_id")
+  rel_buyer_id Party @relation("Invoice_buyer_id", fields: [tenant_id,buyer_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_invoice_buyer_id")
+  rel_fx_rate_id FxRate? @relation("Invoice_fx_rate_id", fields: [tenant_id,fx_rate_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_invoice_fx_rate_id")
+  back_invoice_line_invoice_id InvoiceLine[] @relation("InvoiceLine_invoice_id")
+  back_credit_note_invoice_id CreditNote[] @relation("CreditNote_invoice_id")
+  back_payment_allocation_invoice_id PaymentAllocation[] @relation("PaymentAllocation_invoice_id")
+  back_receivable_invoice_id Receivable[] @relation("Receivable_invoice_id")
+  back_cod_receipt_invoice_id CodReceipt[] @relation("CodReceipt_invoice_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,seller_id,reference])
+  @@map("invoice")
+  @@schema("commerce")
+}
+
+model InvoiceLine {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  invoice_id String @db.Uuid
+  order_line_id String @db.Uuid
+  quantity Decimal @db.Decimal(20,6)
+  tax_minor BigInt
+  total_minor BigInt
+  rel_tenant_id Tenant @relation("InvoiceLine_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_invoice_line_tenant_id")
+  rel_scope_id Scope? @relation("InvoiceLine_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_invoice_line_scope_id")
+  rel_invoice_id Invoice @relation("InvoiceLine_invoice_id", fields: [tenant_id,invoice_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_invoice_line_invoice_id")
+  rel_order_line_id OrderLine @relation("InvoiceLine_order_line_id", fields: [tenant_id,order_line_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_invoice_line_order_line_id")
+  @@unique([tenant_id, id])
+  @@map("invoice_line")
+  @@schema("commerce")
+}
+
+model CreditNote {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  invoice_id String @db.Uuid
+  reference String
+  amount_minor BigInt
+  reason String
+  status String @default("DRAFT")
+  rel_tenant_id Tenant @relation("CreditNote_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_credit_note_tenant_id")
+  rel_scope_id Scope? @relation("CreditNote_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_credit_note_scope_id")
+  rel_invoice_id Invoice @relation("CreditNote_invoice_id", fields: [tenant_id,invoice_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_credit_note_invoice_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,reference])
+  @@map("credit_note")
+  @@schema("commerce")
+}
+
+model Shipment {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  order_id String @db.Uuid
+  warehouse_id String @db.Uuid
+  address_id String @db.Uuid
+  driver_id String? @db.Uuid
+  courier_id String? @db.Uuid
+  status String @default("PLANNED")
+  reference String
+  rel_tenant_id Tenant @relation("Shipment_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_shipment_tenant_id")
+  rel_scope_id Scope? @relation("Shipment_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_shipment_scope_id")
+  rel_order_id SalesOrder @relation("Shipment_order_id", fields: [tenant_id,order_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_shipment_order_id")
+  rel_warehouse_id Warehouse @relation("Shipment_warehouse_id", fields: [tenant_id,warehouse_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_shipment_warehouse_id")
+  rel_address_id Address @relation("Shipment_address_id", fields: [tenant_id,address_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_shipment_address_id")
+  rel_driver_id Membership? @relation("Shipment_driver_id", fields: [tenant_id,driver_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_shipment_driver_id")
+  rel_courier_id Party? @relation("Shipment_courier_id", fields: [tenant_id,courier_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_shipment_courier_id")
+  back_shipment_line_shipment_id ShipmentLine[] @relation("ShipmentLine_shipment_id")
+  back_pick_task_shipment_id PickTask[] @relation("PickTask_shipment_id")
+  back_delivery_proof_shipment_id DeliveryProof[] @relation("DeliveryProof_shipment_id")
+  back_route_stop_shipment_id RouteStop[] @relation("RouteStop_shipment_id")
+  back_temperature_reading_shipment_id TemperatureReading[] @relation("TemperatureReading_shipment_id")
+  back_cod_receipt_shipment_id CodReceipt[] @relation("CodReceipt_shipment_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,reference])
+  @@map("shipment")
+  @@schema("fulfillment")
+}
+
+model ShipmentLine {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  shipment_id String @db.Uuid
+  order_line_id String @db.Uuid
+  lot_id String @db.Uuid
+  quantity Decimal @db.Decimal(20,6)
+  accepted_qty Decimal @db.Decimal(20,6) @default(0)
+  rel_tenant_id Tenant @relation("ShipmentLine_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_shipment_line_tenant_id")
+  rel_scope_id Scope? @relation("ShipmentLine_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_shipment_line_scope_id")
+  rel_shipment_id Shipment @relation("ShipmentLine_shipment_id", fields: [tenant_id,shipment_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_shipment_line_shipment_id")
+  rel_order_line_id OrderLine @relation("ShipmentLine_order_line_id", fields: [tenant_id,order_line_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_shipment_line_order_line_id")
+  rel_lot_id Lot @relation("ShipmentLine_lot_id", fields: [tenant_id,lot_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_shipment_line_lot_id")
+  back_return_line_shipment_line_id ReturnLine[] @relation("ReturnLine_shipment_line_id")
+  @@unique([tenant_id, id])
+  @@map("shipment_line")
+  @@schema("fulfillment")
+}
+
+model PickTask {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  shipment_id String @db.Uuid
+  reservation_id String @db.Uuid
+  assignee_id String? @db.Uuid
+  status String @default("PENDING")
+  rel_tenant_id Tenant @relation("PickTask_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_pick_task_tenant_id")
+  rel_scope_id Scope? @relation("PickTask_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_pick_task_scope_id")
+  rel_shipment_id Shipment @relation("PickTask_shipment_id", fields: [tenant_id,shipment_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_pick_task_shipment_id")
+  rel_reservation_id Reservation @relation("PickTask_reservation_id", fields: [tenant_id,reservation_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_pick_task_reservation_id")
+  rel_assignee_id Membership? @relation("PickTask_assignee_id", fields: [tenant_id,assignee_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_pick_task_assignee_id")
+  @@unique([tenant_id, id])
+  @@map("pick_task")
+  @@schema("fulfillment")
+}
+
+model DeliveryProof {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  shipment_id String @db.Uuid
+  evidence_key String?
+  received_by String
+  delivered_at DateTime @db.Timestamptz(6)
+  point Unsupported("geography(Point,4326)")?
+  accepted Boolean
+  rel_tenant_id Tenant @relation("DeliveryProof_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_delivery_proof_tenant_id")
+  rel_scope_id Scope? @relation("DeliveryProof_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_delivery_proof_scope_id")
+  rel_shipment_id Shipment @relation("DeliveryProof_shipment_id", fields: [tenant_id,shipment_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_delivery_proof_shipment_id")
+  @@unique([tenant_id, id])
+  @@map("delivery_proof")
+  @@schema("fulfillment")
+}
+
+model Vehicle {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  code String
+  registration String
+  cold_chain Boolean @default(false)
+  status String @default("ACTIVE")
+  rel_tenant_id Tenant @relation("Vehicle_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_vehicle_tenant_id")
+  rel_scope_id Scope? @relation("Vehicle_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_vehicle_scope_id")
+  back_route_plan_vehicle_id RoutePlan[] @relation("RoutePlan_vehicle_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,code])
+  @@map("vehicle")
+  @@schema("logistics")
+}
+
+model RoutePlan {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  territory_id String? @db.Uuid
+  driver_id String? @db.Uuid
+  vehicle_id String? @db.Uuid
+  service_date DateTime @db.Date
+  status String @default("DRAFT")
+  rel_tenant_id Tenant @relation("RoutePlan_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_route_plan_tenant_id")
+  rel_scope_id Scope? @relation("RoutePlan_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_route_plan_scope_id")
+  rel_territory_id Territory? @relation("RoutePlan_territory_id", fields: [tenant_id,territory_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_route_plan_territory_id")
+  rel_driver_id Membership? @relation("RoutePlan_driver_id", fields: [tenant_id,driver_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_route_plan_driver_id")
+  rel_vehicle_id Vehicle? @relation("RoutePlan_vehicle_id", fields: [tenant_id,vehicle_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_route_plan_vehicle_id")
+  back_route_stop_route_id RouteStop[] @relation("RouteStop_route_id")
+  @@unique([tenant_id, id])
+  @@map("route_plan")
+  @@schema("logistics")
+}
+
+model RouteStop {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  route_id String @db.Uuid
+  address_id String @db.Uuid
+  shipment_id String? @db.Uuid
+  sequence Int
+  status String @default("PLANNED")
+  rel_tenant_id Tenant @relation("RouteStop_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_route_stop_tenant_id")
+  rel_scope_id Scope? @relation("RouteStop_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_route_stop_scope_id")
+  rel_route_id RoutePlan @relation("RouteStop_route_id", fields: [tenant_id,route_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_route_stop_route_id")
+  rel_address_id Address @relation("RouteStop_address_id", fields: [tenant_id,address_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_route_stop_address_id")
+  rel_shipment_id Shipment? @relation("RouteStop_shipment_id", fields: [tenant_id,shipment_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_route_stop_shipment_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,route_id,sequence])
+  @@map("route_stop")
+  @@schema("logistics")
+}
+
+model FieldVisit {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  assignment_id String @db.Uuid
+  party_id String @db.Uuid
+  occurred_at DateTime @db.Timestamptz(6)
+  point Unsupported("geography(Point,4326)")?
+  accuracy_m Decimal? @db.Decimal(24,8)
+  client_key String
+  rel_tenant_id Tenant @relation("FieldVisit_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_field_visit_tenant_id")
+  rel_scope_id Scope? @relation("FieldVisit_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_field_visit_scope_id")
+  rel_assignment_id FieldAssignment @relation("FieldVisit_assignment_id", fields: [tenant_id,assignment_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_field_visit_assignment_id")
+  rel_party_id Party @relation("FieldVisit_party_id", fields: [tenant_id,party_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_field_visit_party_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,client_key])
+  @@map("field_visit")
+  @@schema("logistics")
+}
+
+model TemperatureReading {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  shipment_id String @db.Uuid
+  sensor_ref String
+  observed_at DateTime @db.Timestamptz(6)
+  celsius Decimal @db.Decimal(24,8)
+  rel_tenant_id Tenant @relation("TemperatureReading_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_temperature_reading_tenant_id")
+  rel_scope_id Scope? @relation("TemperatureReading_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_temperature_reading_scope_id")
+  rel_shipment_id Shipment @relation("TemperatureReading_shipment_id", fields: [tenant_id,shipment_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_temperature_reading_shipment_id")
+  @@unique([tenant_id, id])
+  @@map("temperature_reading")
+  @@schema("logistics")
+}
+
+model ReturnCase {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  order_id String @db.Uuid
+  reference String
+  reason String
+  status String @default("REQUESTED")
+  rel_tenant_id Tenant @relation("ReturnCase_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_return_case_tenant_id")
+  rel_scope_id Scope? @relation("ReturnCase_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_return_case_scope_id")
+  rel_order_id SalesOrder @relation("ReturnCase_order_id", fields: [tenant_id,order_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_return_case_order_id")
+  back_return_line_case_id ReturnLine[] @relation("ReturnLine_case_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,reference])
+  @@map("return_case")
+  @@schema("returns")
+}
+
+model ReturnLine {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  case_id String @db.Uuid
+  shipment_line_id String @db.Uuid
+  quantity Decimal @db.Decimal(20,6)
+  disposition String @default("PENDING")
+  rel_tenant_id Tenant @relation("ReturnLine_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_return_line_tenant_id")
+  rel_scope_id Scope? @relation("ReturnLine_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_return_line_scope_id")
+  rel_case_id ReturnCase @relation("ReturnLine_case_id", fields: [tenant_id,case_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_return_line_case_id")
+  rel_shipment_line_id ShipmentLine @relation("ReturnLine_shipment_line_id", fields: [tenant_id,shipment_line_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_return_line_shipment_line_id")
+  @@unique([tenant_id, id])
+  @@map("return_line")
+  @@schema("returns")
+}
+
+model Provider {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  code String
+  status String @default("DISABLED")
+  capabilities Json
+  back_merchant_account_provider_id MerchantAccount[] @relation("MerchantAccount_provider_id")
+  @@unique([code])
+  @@map("provider")
+  @@schema("payments")
+}
+
+model MerchantAccount {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  seller_id String @db.Uuid
+  provider_id String @db.Uuid
+  merchant_ref String
+  secret_ref String
+  status String @default("DISABLED")
+  rel_tenant_id Tenant @relation("MerchantAccount_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_merchant_account_tenant_id")
+  rel_scope_id Scope? @relation("MerchantAccount_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_merchant_account_scope_id")
+  rel_seller_id Party @relation("MerchantAccount_seller_id", fields: [tenant_id,seller_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_merchant_account_seller_id")
+  rel_provider_id Provider @relation("MerchantAccount_provider_id", fields: [provider_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_merchant_account_provider_id")
+  back_payment_intent_merchant_id PaymentIntent[] @relation("PaymentIntent_merchant_id")
+  back_webhook_inbox_merchant_id WebhookInbox[] @relation("WebhookInbox_merchant_id")
+  back_payment_transaction_merchant_id PaymentTransaction[] @relation("PaymentTransaction_merchant_id")
+  back_payout_merchant_id Payout[] @relation("Payout_merchant_id")
+  back_provider_settlement_merchant_id ProviderSettlement[] @relation("ProviderSettlement_merchant_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,provider_id,merchant_ref])
+  @@map("merchant_account")
+  @@schema("payments")
+}
+
+model PaymentIntent {
+  verified_webhooks WebhookInbox[] @relation("VerifiedWebhookIntent")
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  order_id String @db.Uuid
+  merchant_id String? @db.Uuid
+  method String
+  amount_minor BigInt
+  currency String @default("IQD")
+  status String @default("PENDING")
+  client_key String
+  rel_tenant_id Tenant @relation("PaymentIntent_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_payment_intent_tenant_id")
+  rel_scope_id Scope? @relation("PaymentIntent_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_payment_intent_scope_id")
+  rel_order_id SalesOrder @relation("PaymentIntent_order_id", fields: [tenant_id,order_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_payment_intent_order_id")
+  rel_merchant_id MerchantAccount? @relation("PaymentIntent_merchant_id", fields: [tenant_id,merchant_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_payment_intent_merchant_id")
+  back_payment_transaction_intent_id PaymentTransaction[] @relation("PaymentTransaction_intent_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,client_key])
+  @@map("payment_intent")
+  @@schema("payments")
+}
+
+model WebhookInbox {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  merchant_id String @db.Uuid
+  provider_event_id String
+  verified_intent_id String? @db.Uuid
+  verified_provider_ref String?
+  verified_amount_minor BigInt?
+  verified_currency String?
+  rel_verified_intent PaymentIntent? @relation("VerifiedWebhookIntent", fields: [tenant_id, verified_intent_id], references: [tenant_id,id], onDelete: NoAction, onUpdate: NoAction, map: "fk_webhook_verified_intent")
+  payload_digest String
+  payload_key String
+  verified Boolean @default(false)
+  status String @default("RECEIVED")
+  rel_tenant_id Tenant @relation("WebhookInbox_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_webhook_inbox_tenant_id")
+  rel_scope_id Scope? @relation("WebhookInbox_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_webhook_inbox_scope_id")
+  rel_merchant_id MerchantAccount @relation("WebhookInbox_merchant_id", fields: [tenant_id,merchant_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_webhook_inbox_merchant_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,merchant_id,provider_event_id])
+  @@map("webhook_inbox")
+  @@schema("payments")
+}
+
+model PaymentTransaction {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  intent_id String @db.Uuid
+  merchant_id String? @db.Uuid
+  provider_ref String
+  amount_minor BigInt
+  currency String @default("IQD")
+  status String @default("CONFIRMED")
+  confirmed_at DateTime @db.Timestamptz(6)
+  rel_tenant_id Tenant @relation("PaymentTransaction_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_payment_transaction_tenant_id")
+  rel_scope_id Scope? @relation("PaymentTransaction_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_payment_transaction_scope_id")
+  rel_intent_id PaymentIntent @relation("PaymentTransaction_intent_id", fields: [tenant_id,intent_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_payment_transaction_intent_id")
+  rel_merchant_id MerchantAccount? @relation("PaymentTransaction_merchant_id", fields: [tenant_id,merchant_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_payment_transaction_merchant_id")
+  back_payment_allocation_transaction_id PaymentAllocation[] @relation("PaymentAllocation_transaction_id")
+  back_refund_transaction_id Refund[] @relation("Refund_transaction_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,merchant_id,provider_ref])
+  @@unique([tenant_id,intent_id,provider_ref])
+  @@map("payment_transaction")
+  @@schema("payments")
+}
+
+model PaymentAllocation {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  transaction_id String @db.Uuid
+  invoice_id String @db.Uuid
+  amount_minor BigInt
+  rel_tenant_id Tenant @relation("PaymentAllocation_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_payment_allocation_tenant_id")
+  rel_scope_id Scope? @relation("PaymentAllocation_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_payment_allocation_scope_id")
+  rel_transaction_id PaymentTransaction @relation("PaymentAllocation_transaction_id", fields: [tenant_id,transaction_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_payment_allocation_transaction_id")
+  rel_invoice_id Invoice @relation("PaymentAllocation_invoice_id", fields: [tenant_id,invoice_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_payment_allocation_invoice_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,transaction_id,invoice_id])
+  @@map("payment_allocation")
+  @@schema("payments")
+}
+
+model Refund {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  transaction_id String @db.Uuid
+  amount_minor BigInt
+  reason String
+  status String @default("PENDING")
+  reference String
+  rel_tenant_id Tenant @relation("Refund_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_refund_tenant_id")
+  rel_scope_id Scope? @relation("Refund_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_refund_scope_id")
+  rel_transaction_id PaymentTransaction @relation("Refund_transaction_id", fields: [tenant_id,transaction_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_refund_transaction_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,reference])
+  @@map("refund")
+  @@schema("payments")
+}
+
+model Payout {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  merchant_id String @db.Uuid
+  amount_minor BigInt
+  beneficiary_ref String
+  status String @default("PENDING")
+  reference String
+  rel_tenant_id Tenant @relation("Payout_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_payout_tenant_id")
+  rel_scope_id Scope? @relation("Payout_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_payout_scope_id")
+  rel_merchant_id MerchantAccount @relation("Payout_merchant_id", fields: [tenant_id,merchant_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_payout_merchant_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,reference])
+  @@map("payout")
+  @@schema("payments")
+}
+
+model ProviderSettlement {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  merchant_id String @db.Uuid
+  reference String
+  gross_minor BigInt
+  fee_minor BigInt
+  net_minor BigInt
+  status String @default("PENDING")
+  rel_tenant_id Tenant @relation("ProviderSettlement_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_provider_settlement_tenant_id")
+  rel_scope_id Scope? @relation("ProviderSettlement_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_provider_settlement_scope_id")
+  rel_merchant_id MerchantAccount @relation("ProviderSettlement_merchant_id", fields: [tenant_id,merchant_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_provider_settlement_merchant_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,merchant_id,reference])
+  @@map("provider_settlement")
+  @@schema("payments")
+}
+
+model Facility {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  buyer_id String @db.Uuid
+  creditor_id String @db.Uuid
+  limit_minor BigInt
+  terms_days Int
+  status String @default("PENDING")
+  expires_at DateTime? @db.Timestamptz(6)
+  overdue_block Boolean @default(true)
+  rel_tenant_id Tenant @relation("Facility_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_facility_tenant_id")
+  rel_scope_id Scope? @relation("Facility_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_facility_scope_id")
+  rel_buyer_id Party @relation("Facility_buyer_id", fields: [tenant_id,buyer_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_facility_buyer_id")
+  rel_creditor_id Party @relation("Facility_creditor_id", fields: [tenant_id,creditor_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_facility_creditor_id")
+  back_commitment_facility_id Commitment[] @relation("Commitment_facility_id")
+  back_receivable_facility_id Receivable[] @relation("Receivable_facility_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,buyer_id,creditor_id])
+  @@map("facility")
+  @@schema("credit")
+}
+
+model Commitment {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  facility_id String @db.Uuid
+  order_id String @db.Uuid
+  amount_minor BigInt
+  status String @default("ACTIVE")
+  rel_tenant_id Tenant @relation("Commitment_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_commitment_tenant_id")
+  rel_scope_id Scope? @relation("Commitment_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_commitment_scope_id")
+  rel_facility_id Facility @relation("Commitment_facility_id", fields: [tenant_id,facility_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_commitment_facility_id")
+  rel_order_id SalesOrder @relation("Commitment_order_id", fields: [tenant_id,order_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_commitment_order_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,order_id])
+  @@map("commitment")
+  @@schema("credit")
+}
+
+model Receivable {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  facility_id String? @db.Uuid
+  invoice_id String @db.Uuid
+  original_minor BigInt
+  outstanding_minor BigInt
+  due_at DateTime @db.Timestamptz(6)
+  status String @default("OPEN")
+  rel_tenant_id Tenant @relation("Receivable_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_receivable_tenant_id")
+  rel_scope_id Scope? @relation("Receivable_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_receivable_scope_id")
+  rel_facility_id Facility? @relation("Receivable_facility_id", fields: [tenant_id,facility_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_receivable_facility_id")
+  rel_invoice_id Invoice @relation("Receivable_invoice_id", fields: [tenant_id,invoice_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_receivable_invoice_id")
+  back_installment_plan_receivable_id InstallmentPlan[] @relation("InstallmentPlan_receivable_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,invoice_id])
+  @@map("receivable")
+  @@schema("credit")
+}
+
+model InstallmentPlan {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  receivable_id String @db.Uuid
+  due_at DateTime @db.Timestamptz(6)
+  amount_minor BigInt
+  status String @default("PENDING")
+  rel_tenant_id Tenant @relation("InstallmentPlan_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_installment_plan_tenant_id")
+  rel_scope_id Scope? @relation("InstallmentPlan_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_installment_plan_scope_id")
+  rel_receivable_id Receivable @relation("InstallmentPlan_receivable_id", fields: [tenant_id,receivable_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_installment_plan_receivable_id")
+  @@unique([tenant_id, id])
+  @@map("installment_plan")
+  @@schema("credit")
+}
+
+model CashSession {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  collector_id String @db.Uuid
+  reference String
+  status String @default("OPEN")
+  expected_minor BigInt @default(0)
+  received_minor BigInt @default(0)
+  variance_minor BigInt @default(0)
+  rel_tenant_id Tenant @relation("CashSession_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_cash_session_tenant_id")
+  rel_scope_id Scope? @relation("CashSession_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_cash_session_scope_id")
+  rel_collector_id Membership @relation("CashSession_collector_id", fields: [tenant_id,collector_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_cash_session_collector_id")
+  back_cod_receipt_cash_session_id CodReceipt[] @relation("CodReceipt_cash_session_id")
+  back_cash_handover_cash_session_id CashHandover[] @relation("CashHandover_cash_session_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,reference])
+  @@map("cash_session")
+  @@schema("treasury")
+}
+
+model CodReceipt {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  cash_session_id String @db.Uuid
+  shipment_id String @db.Uuid
+  invoice_id String @db.Uuid
+  amount_minor BigInt
+  reference String
+  collected_at DateTime @db.Timestamptz(6)
+  rel_tenant_id Tenant @relation("CodReceipt_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_cod_receipt_tenant_id")
+  rel_scope_id Scope? @relation("CodReceipt_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_cod_receipt_scope_id")
+  rel_cash_session_id CashSession @relation("CodReceipt_cash_session_id", fields: [tenant_id,cash_session_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_cod_receipt_cash_session_id")
+  rel_shipment_id Shipment @relation("CodReceipt_shipment_id", fields: [tenant_id,shipment_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_cod_receipt_shipment_id")
+  rel_invoice_id Invoice @relation("CodReceipt_invoice_id", fields: [tenant_id,invoice_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_cod_receipt_invoice_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,reference])
+  @@map("cod_receipt")
+  @@schema("treasury")
+}
+
+model CashHandover {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  cash_session_id String @db.Uuid
+  received_by String @db.Uuid
+  amount_minor BigInt
+  evidence_key String
+  received_at DateTime @db.Timestamptz(6)
+  rel_tenant_id Tenant @relation("CashHandover_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_cash_handover_tenant_id")
+  rel_scope_id Scope? @relation("CashHandover_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_cash_handover_scope_id")
+  rel_cash_session_id CashSession @relation("CashHandover_cash_session_id", fields: [tenant_id,cash_session_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_cash_handover_cash_session_id")
+  rel_received_by Membership @relation("CashHandover_received_by", fields: [tenant_id,received_by], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_cash_handover_received_by")
+  @@unique([tenant_id, id])
+  @@map("cash_handover")
+  @@schema("treasury")
+}
+
+model Ledger {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  legal_entity_id String @db.Uuid
+  code String
+  currency String @default("IQD")
+  rel_tenant_id Tenant @relation("Ledger_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_ledger_tenant_id")
+  rel_scope_id Scope? @relation("Ledger_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_ledger_scope_id")
+  rel_legal_entity_id Party @relation("Ledger_legal_entity_id", fields: [tenant_id,legal_entity_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_ledger_legal_entity_id")
+  back_account_ledger_id Account[] @relation("Account_ledger_id")
+  back_period_ledger_id Period[] @relation("Period_ledger_id")
+  back_journal_ledger_id Journal[] @relation("Journal_ledger_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,code])
+  @@map("ledger")
+  @@schema("accounting")
+}
+
+model Account {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  ledger_id String @db.Uuid
+  code String
+  name String
+  kind String
+  rel_tenant_id Tenant @relation("Account_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_account_tenant_id")
+  rel_scope_id Scope? @relation("Account_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_account_scope_id")
+  rel_ledger_id Ledger @relation("Account_ledger_id", fields: [tenant_id,ledger_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_account_ledger_id")
+  back_journal_line_account_id JournalLine[] @relation("JournalLine_account_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,ledger_id,code])
+  @@map("account")
+  @@schema("accounting")
+}
+
+model Period {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  ledger_id String @db.Uuid
+  starts_on DateTime @db.Date
+  ends_on DateTime @db.Date
+  status String @default("OPEN")
+  rel_tenant_id Tenant @relation("Period_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_period_tenant_id")
+  rel_scope_id Scope? @relation("Period_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_period_scope_id")
+  rel_ledger_id Ledger @relation("Period_ledger_id", fields: [tenant_id,ledger_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_period_ledger_id")
+  back_journal_period_id Journal[] @relation("Journal_period_id")
+  @@unique([tenant_id, id])
+  @@map("period")
+  @@schema("accounting")
+}
+
+model Journal {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  ledger_id String @db.Uuid
+  period_id String @db.Uuid
+  reference String
+  source_key String
+  status String @default("DRAFT")
+  entry_date DateTime @db.Date
+  maker_id String @db.Uuid
+  checker_id String? @db.Uuid
+  reversed_journal_id String? @db.Uuid
+  posted_at DateTime? @db.Timestamptz(6)
+  rel_tenant_id Tenant @relation("Journal_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_journal_tenant_id")
+  rel_scope_id Scope? @relation("Journal_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_journal_scope_id")
+  rel_ledger_id Ledger @relation("Journal_ledger_id", fields: [tenant_id,ledger_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_journal_ledger_id")
+  rel_period_id Period @relation("Journal_period_id", fields: [tenant_id,period_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_journal_period_id")
+  rel_maker_id Membership @relation("Journal_maker_id", fields: [tenant_id,maker_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_journal_maker_id")
+  rel_checker_id Membership? @relation("Journal_checker_id", fields: [tenant_id,checker_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_journal_checker_id")
+  rel_reversed_journal_id Journal? @relation("Journal_reversed_journal_id", fields: [tenant_id,reversed_journal_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_journal_reversed_journal_id")
+  back_journal_reversed_journal_id Journal[] @relation("Journal_reversed_journal_id")
+  back_journal_line_journal_id JournalLine[] @relation("JournalLine_journal_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,ledger_id,reference])
+  @@unique([tenant_id,ledger_id,source_key])
+  @@unique([tenant_id,reversed_journal_id])
+  @@map("journal")
+  @@schema("accounting")
+}
+
+model JournalLine {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  journal_id String @db.Uuid
+  account_id String @db.Uuid
+  debit_minor BigInt @default(0)
+  credit_minor BigInt @default(0)
+  memo String?
+  rel_tenant_id Tenant @relation("JournalLine_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_journal_line_tenant_id")
+  rel_scope_id Scope? @relation("JournalLine_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_journal_line_scope_id")
+  rel_journal_id Journal @relation("JournalLine_journal_id", fields: [tenant_id,journal_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_journal_line_journal_id")
+  rel_account_id Account @relation("JournalLine_account_id", fields: [tenant_id,account_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_journal_line_account_id")
+  @@unique([tenant_id, id])
+  @@map("journal_line")
+  @@schema("accounting")
+}
+
+model Consent {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  membership_id String @db.Uuid
+  channel String
+  purpose String
+  granted Boolean
+  recorded_at DateTime @db.Timestamptz(6)
+  rel_tenant_id Tenant @relation("Consent_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_consent_tenant_id")
+  rel_scope_id Scope? @relation("Consent_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_consent_scope_id")
+  rel_membership_id Membership @relation("Consent_membership_id", fields: [tenant_id,membership_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_consent_membership_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,membership_id,channel,purpose])
+  @@map("consent")
+  @@schema("notifications")
+}
+
+model Template {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  code String
+  locale String
+  channel String
+  body String
+  status String @default("DRAFT")
+  rel_tenant_id Tenant @relation("Template_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_template_tenant_id")
+  rel_scope_id Scope? @relation("Template_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_template_scope_id")
+  back_message_template_id Message[] @relation("Message_template_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,code,locale,channel])
+  @@map("template")
+  @@schema("notifications")
+}
+
+model Message {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  membership_id String @db.Uuid
+  template_id String? @db.Uuid
+  channel String
+  status String @default("QUEUED")
+  dedupe_key String
+  payload Json
+  rel_tenant_id Tenant @relation("Message_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_message_tenant_id")
+  rel_scope_id Scope? @relation("Message_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_message_scope_id")
+  rel_membership_id Membership @relation("Message_membership_id", fields: [tenant_id,membership_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_message_membership_id")
+  rel_template_id Template? @relation("Message_template_id", fields: [tenant_id,template_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_message_template_id")
+  back_delivery_attempt_message_id DeliveryAttempt[] @relation("DeliveryAttempt_message_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,dedupe_key])
+  @@map("message")
+  @@schema("notifications")
+}
+
+model DeliveryAttempt {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  message_id String @db.Uuid
+  provider_ref String?
+  status String
+  attempted_at DateTime @db.Timestamptz(6)
+  rel_tenant_id Tenant @relation("DeliveryAttempt_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_delivery_attempt_tenant_id")
+  rel_scope_id Scope? @relation("DeliveryAttempt_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_delivery_attempt_scope_id")
+  rel_message_id Message @relation("DeliveryAttempt_message_id", fields: [tenant_id,message_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_delivery_attempt_message_id")
+  @@unique([tenant_id, id])
+  @@map("delivery_attempt")
+  @@schema("notifications")
+}
+
+model Idempotency {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  membership_id String @db.Uuid
+  operation_key String
+  request_hash String
+  response_ref String? @db.Uuid
+  status String @default("PENDING")
+  rel_tenant_id Tenant @relation("Idempotency_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_idempotency_tenant_id")
+  rel_scope_id Scope? @relation("Idempotency_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_idempotency_scope_id")
+  rel_membership_id Membership @relation("Idempotency_membership_id", fields: [tenant_id,membership_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_idempotency_membership_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,membership_id,operation_key])
+  @@map("idempotency")
+  @@schema("integrations")
+}
+
+model Outbox {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  event_type String
+  aggregate_id String @db.Uuid
+  payload Json
+  dedupe_key String
+  published_at DateTime? @db.Timestamptz(6)
+  attempts Int @default(0)
+  rel_tenant_id Tenant @relation("Outbox_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_outbox_tenant_id")
+  rel_scope_id Scope? @relation("Outbox_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_outbox_scope_id")
+  back_consumer_receipt_event_id ConsumerReceipt[] @relation("ConsumerReceipt_event_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,dedupe_key])
+  @@map("outbox")
+  @@schema("integrations")
+}
+
+model ConsumerReceipt {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  consumer String
+  event_id String @db.Uuid
+  processed_at DateTime @db.Timestamptz(6)
+  rel_tenant_id Tenant @relation("ConsumerReceipt_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_consumer_receipt_tenant_id")
+  rel_scope_id Scope? @relation("ConsumerReceipt_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_consumer_receipt_scope_id")
+  rel_event_id Outbox @relation("ConsumerReceipt_event_id", fields: [tenant_id,event_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_consumer_receipt_event_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,consumer,event_id])
+  @@map("consumer_receipt")
+  @@schema("integrations")
+}
+
+model SyncOperation {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  membership_id String @db.Uuid
+  device_id String? @db.Uuid
+  client_key String
+  payload_hash String
+  payload Json?
+  status String @default("PENDING")
+  result_ref String? @db.Uuid
+  rel_tenant_id Tenant @relation("SyncOperation_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_sync_operation_tenant_id")
+  rel_scope_id Scope? @relation("SyncOperation_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_sync_operation_scope_id")
+  rel_membership_id Membership @relation("SyncOperation_membership_id", fields: [tenant_id,membership_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_sync_operation_membership_id")
+  rel_device_id Device? @relation("SyncOperation_device_id", fields: [tenant_id,device_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_sync_operation_device_id")
+  @@unique([tenant_id, id])
+  @@unique([tenant_id,membership_id,client_key])
+  @@map("sync_operation")
+  @@schema("integrations")
+}
+
+model BulkJob {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  kind String
+  object_key String
+  status String @default("DRAFT")
+  result_key String?
+  requested_by String @db.Uuid
+  rel_tenant_id Tenant @relation("BulkJob_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_bulk_job_tenant_id")
+  rel_scope_id Scope? @relation("BulkJob_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_bulk_job_scope_id")
+  rel_requested_by Membership @relation("BulkJob_requested_by", fields: [tenant_id,requested_by], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_bulk_job_requested_by")
+  @@unique([tenant_id, id])
+  @@map("bulk_job")
+  @@schema("integrations")
+}
+
+model MetricSnapshot {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  metric String
+  dimension Json
+  period_start DateTime @db.Timestamptz(6)
+  period_end DateTime @db.Timestamptz(6)
+  value Decimal @db.Decimal(24,8)
+  currency String?
+  refreshed_at DateTime @db.Timestamptz(6)
+  rel_tenant_id Tenant @relation("MetricSnapshot_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_metric_snapshot_tenant_id")
+  rel_scope_id Scope? @relation("MetricSnapshot_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_metric_snapshot_scope_id")
+  @@unique([tenant_id, id])
+  @@map("metric_snapshot")
+  @@schema("analytics")
+}
+
+model Event {
+  id String @db.Uuid @default(dbgenerated("gen_random_uuid()")) @id
+  tenant_id String @db.Uuid
+  scope_id String? @db.Uuid
+  version Int @default(1)
+  created_at DateTime @db.Timestamptz(6) @default(now())
+  updated_at DateTime @db.Timestamptz(6) @default(now())
+  archived_at DateTime? @db.Timestamptz(6)
+  actor_id String? @db.Uuid
+  resource String
+  resource_id String @db.Uuid
+  action String
+  before_data Json?
+  after_data Json?
+  correlation_id String?
+  event_hash String
+  rel_tenant_id Tenant @relation("Event_tenant_id", fields: [tenant_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_event_tenant_id")
+  rel_scope_id Scope? @relation("Event_scope_id", fields: [tenant_id,scope_id], references: [tenant_id,id], onDelete: Restrict, onUpdate: Restrict, map: "fk_event_scope_id")
+  @@unique([tenant_id, id])
+  @@map("event")
+  @@schema("audit")
+}

@@ -1,0 +1,40 @@
+{
+  "name": "iraq-wholesale-enterprise",
+  "version": "0.5.2-gate1.1",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test:core": "node --experimental-strip-types --test tests/core.test.ts",
+    "test:static": "python3 scripts/check.py && python3 packages/database/scripts/static_check.py",
+    "test:db": "npm run test:db -w iraq-wholesale-phase3",
+    "build": "npm run build --workspaces --if-present",
+    "test:auth": "node --experimental-strip-types --test tests/auth.test.ts",
+    "test:step-ab:smoke": "node --experimental-strip-types tests/step-ab-smoke.ts",
+    "test:step-ab:browser": "python3 tests/browser-auth.py",
+    "check:lock": "node scripts/check-lock.mjs",
+    "test:step-ab:runtime": "bash scripts/certify-step-ab.sh",
+    "test:certification": "node --test tests/certification.test.mjs",
+    "test:step-ab:fresh": "node scripts/isolated-certification.mjs",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "eslint apps packages --ext .ts,.tsx --max-warnings 0",
+    "test:gate1:env": "node --experimental-strip-types --test tests/gate1-env.test.ts",
+    "test:gate1": "npm run test:step-ab:fresh"
+  },
+  "devDependencies": {
+    "typescript": "~5.8.3",
+    "@types/node": "^22.0.0",
+    "eslint": "^9.39.0",
+    "typescript-eslint": "^8.48.0"
+  },
+  "overrides": {
+    "@prisma/config": {
+      "effect": ">3.22.0 <4"
+    }
+  }
+}
