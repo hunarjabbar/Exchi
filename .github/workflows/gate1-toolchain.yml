@@ -1,0 +1,95 @@
+name: Gate 1 audited toolchain preflight
+on:
+  push:
+    branches: [release/gate-1-toolchain]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  toolchain:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.23.5'
+      - uses: actions/download-artifact@v4
+        with:
+          name: gate1-lockfile-candidate
+          run-id: '46049571494'
+          github-token: ${{ github.token }}
+          path: recovered
+      - name: Verify exact audited dependency graph
+        run: |
+          sha256sum -c recovered/manifest-sha256.txt
+          (cd recovered && sha256sum -c lockfile-sha256.txt)
+          echo '9e0c522593f7ec10a8ddd93ff851bbc5f8766f826de956805c68ea825ab42bfc  recovered/package-lock.json' | sha256sum -c -
+          cp recovered/package-lock.json package-lock.json
+          npm ci --no-audit --no-fund
+          npm audit --audit-level=high
+      - name: Package audited Linux dependency installation for isolated local compilation
+        run: |
+          mkdir -p transfer
+          tar -czf transfer/linux-x64-node-modules.tar.gz node_modules apps/*/node_modules packages/*/node_modules --ignore-failed-read
+          (cd transfer && sha256sum linux-x64-node-modules.tar.gz > sha256.txt)
+          ls -lh transfer
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gate1-linux-dependencies
+          path: transfer
+          retention-days: 2
+          if-no-files-found: error
+      - name: Start disposable PostgreSQL 16 and verify native extensions
+        run: |
+          docker run -d --name gate1-toolchain-db -e POSTGRES_PASSWORD=disposable_toolchain_only -e POSTGRES_DB=toolchain -p 127.0.0.1:55432:5432 postgis/postgis:16-3.4
+          for i in $(seq 1 60); do
+            if docker exec gate1-toolchain-db pg_isready -U postgres -d toolchain; then break; fi
+            sleep 2
+          done
+          docker exec gate1-toolchain-db psql -U postgres -d toolchain -v ON_ERROR_STOP=1 -c "CREATE EXTENSION IF NOT EXISTS postgis; CREATE EXTENSION IF NOT EXISTS pg_trgm; SELECT version(), PostGIS_Version();"
+      - name: Prisma 7 CLI and migration toolchain smoke
+        working-directory: packages/database
+        env:
+          DATABASE_URL: postgresql://postgres:disposable_toolchain_only@127.0.0.1:55432/toolchain?schema=public
+        run: |
+          mkdir -p prisma/migrations/202611270001_toolchain
+          cat > prisma.config.ts <<'EOF'
+          import { defineConfig, env } from 'prisma/config';
+          export default defineConfig({schema:'prisma/schema.prisma',migrations:{path:'prisma/migrations'},datasource:{url:env('DATABASE_URL')}});
+          EOF
+          cat > prisma/schema.prisma <<'EOF'
+          generator client {
+            provider = "prisma-client"
+            output = "../generated/client"
+          }
+          datasource db {
+            provider = "postgresql"
+            schemas = ["public"]
+          }
+          model ToolchainProbe {
+            id Int @id
+            @@schema("public")
+          }
+          EOF
+          printf 'CREATE TABLE public."ToolchainProbe" (id integer PRIMARY KEY);\n' > prisma/migrations/202611270001_toolchain/migration.sql
+          printf 'provider = "postgresql"\n' > prisma/migrations/migration_lock.toml
+          npx --no-install prisma validate
+          npx --no-install prisma generate
+          npx --no-install prisma migrate deploy
+          npx --no-install prisma migrate status
+          npx --no-install prisma migrate diff --from-config-datasource --to-schema prisma/schema.prisma --exit-code
+      - name: Next 16 toolchain build
+        working-directory: apps/public-web
+        env:
+          NEXT_TELEMETRY_DISABLED: '1'
+        run: |
+          mkdir -p app
+          printf 'export default function Layout({children}:{children:React.ReactNode}) { return <html lang="en"><body>{children}</body></html> }\n' > app/layout.tsx
+          printf 'export default function Page() { return <main>Toolchain acceptance probe</main> }\n' > app/page.tsx
+          npm run build
+      - name: Stop owned test database
+        if: always()
+        run: docker rm -f gate1-toolchain-db || true
